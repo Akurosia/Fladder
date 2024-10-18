@@ -3,7 +3,7 @@
   "about": "Über",
   "accept": "Akzeptieren",
   "active": "Aktiv",
-  "actor": "{Zahl, Plural, andere{Schauspieler} ein{Schauspieler}}",
+  "actor": "{count, plural, other{Actores} one{Actor}}",
   "@actor": {
     "description": "Schauspieler",
     "placeholders": {
@@ -40,7 +40,7 @@
   "bold": "Fettdruck",
   "cancel": "Abbrechen",
   "change": "Ändern",
-  "chapter": "{Zahl, Plural, andere{Kapitel} ein{Kapitel}}",
+  "chapter": "{count, plural, other{Capítulos} one{Capítulo}}",
   "@chapter": {
     "description": "Kapitel",
     "placeholders": {
@@ -110,7 +110,7 @@
     }
   },
   "descending": "Absteigend",
-  "director": "{Anzahl, Plural, andere{Direktor} zwei{Direktoren}}",
+  "director": "{count, plural, other{Directores} one{Director}}",
   "@director": {
     "description": "Direktor",
     "placeholders": {
