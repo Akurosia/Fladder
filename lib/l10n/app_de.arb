@@ -1,11 +1,11 @@
 {
-  "@@locale": "de",
-  "about": "Über",
-  "accept": "Akzeptieren",
-  "active": "Aktiv",
-  "actor": "{count, plural, other{Actores} one{Actor}}",
+  "@@locale": "en",
+  "about": "About",
+  "accept": "Accept",
+  "active": "Active",
+  "actor": "{count, plural, other{Actors} one{Actor}}",
   "@actor": {
-    "description": "Schauspieler",
+    "description": "actor",
     "placeholders": {
       "count": {
         "type": "int",
@@ -13,36 +13,36 @@
       }
     }
   },
-  "addAsFavorite": "Als Favorit hinzufügen",
-  "addToCollection": "Zur Sammlung hinzufügen",
-  "addToPlaylist": "Zur Wiedergabeliste hinzufügen",
-  "advanced": "Fortgeschritten",
-  "all": "Alle",
-  "amoledBlack": "Amoled Schwarz",
-  "appLockAutoLogin": "Automatische Anmeldung",
-  "appLockBiometrics": "Biometrische Daten",
-  "appLockPasscode": "Kennwort",
-  "appLockTitle": "Anmeldemethode für {userName} einstellen",
+  "addAsFavorite": "Add as favorite",
+  "addToCollection": "Add to collection",
+  "addToPlaylist": "Add to playlist",
+  "advanced": "Advanced",
+  "all": "All",
+  "amoledBlack": "Amoled black",
+  "appLockAutoLogin": "Auto login",
+  "appLockBiometrics": "Biometrics",
+  "appLockPasscode": "Passcode",
+  "appLockTitle": "Set the log-in method for {userName}",
   "@appLockTitle": {
-    "description": "Pop-up zur Auswahl einer Anmeldemethode",
+    "description": "Pop-up to pick a login method",
     "placeholders": {
       "userName": {
         "type": "String"
       }
     }
   },
-  "ascending": "Aufsteigend",
+  "ascending": "Ascending",
   "audio": "Audio",
-  "autoPlay": "Automatische Wiedergabe",
-  "backgroundBlur": "Hintergrund Unschärfe",
-  "backgroundOpacity": "Deckkraft des Hintergrunds",
-  "biometricsFailedCheckAgain": "Biometrie fehlgeschlagen, Einstellungen überprüfen und erneut versuchen",
-  "bold": "Fettdruck",
-  "cancel": "Abbrechen",
-  "change": "Ändern",
-  "chapter": "{count, plural, other{Capítulos} one{Capítulo}}",
+  "autoPlay": "Auto-play",
+  "backgroundBlur": "Background blur",
+  "backgroundOpacity": "Background opacity",
+  "biometricsFailedCheckAgain": "Biometrics failed check settings and try again",
+  "bold": "Bold",
+  "cancel": "Cancel",
+  "change": "Change",
+  "chapter": "{count, plural, other{Chapters}  one{Chapter}}",
   "@chapter": {
-    "description": "Kapitel",
+    "description": "chapter",
     "placeholders": {
       "count": {
         "type": "int",
@@ -50,69 +50,69 @@
       }
     }
   },
-  "clear": "Löschen",
-  "clearAllSettings": "Alle Einstellungen löschen",
-  "clearAllSettingsQuestion": "Alle Einstellungen löschen?",
-  "clearChanges": "Änderungen löschen",
-  "clearSelection": "Auswahl löschen",
-  "close": "Schließen",
+  "clear": "Clear",
+  "clearAllSettings": "Clear all settings",
+  "clearAllSettingsQuestion": "Clear all settings?",
+  "clearChanges": "Clear changes",
+  "clearSelection": "Clear selection",
+  "close": "Close",
   "code": "Code",
-  "collectionFolder": "Ordner der Kollektion",
-  "color": "Farbe",
-  "combined": "Kombiniert",
-  "communityRating": "Gemeinschaftliche Bewertung",
-  "continuePage": "Weiter - Seite {page}",
+  "collectionFolder": "Collection folder",
+  "color": "Color",
+  "combined": "Combined",
+  "communityRating": "Community Rating",
+  "continuePage": "Continue - page {page}",
   "@continuePage": {
-    "description": "Weiter - Seite 1",
+    "description": "Continue - page 1",
     "placeholders": {
       "page": {
         "type": "int"
       }
     }
   },
-  "controls": "Steuerelemente",
+  "controls": "Controls",
   "dashboard": "Dashboard",
-  "dashboardContinue": "Fortfahren",
-  "dashboardContinueListening": "Weiterhören",
-  "dashboardContinueReading": "Lesen fortsetzen",
-  "dashboardContinueWatching": "Weiterschauen",
-  "dashboardNextUp": "Als Nächstes",
-  "dashboardRecentlyAdded": "Kürzlich hinzugefügt in {name}",
+  "dashboardContinue": "Continue",
+  "dashboardContinueListening": "Continue Listening",
+  "dashboardContinueReading": "Continue Reading",
+  "dashboardContinueWatching": "Continue Watching",
+  "dashboardNextUp": "Next-up",
+  "dashboardRecentlyAdded": "Recently added in {name}",
   "@dashboardRecentlyAdded": {
-    "description": "Kürzlich auf dem Startbildschirm hinzugefügt",
+    "description": "Recently added on home screen",
     "placeholders": {
       "name": {
         "type": "String"
       }
     }
   },
-  "dateAdded": "Datum hinzugefügt",
-  "dateLastContentAdded": "Datum des zuletzt hinzugefügten Inhalts",
-  "datePlayed": "Datum der Wiedergabe",
-  "days": "Tage",
-  "delete": "Löschen",
-  "deleteFileFromSystem": "Wenn Sie dieses Element {item} löschen, wird es sowohl aus dem Dateisystem als auch aus Ihrer Mediathek gelöscht.\nSind Sie sicher, dass Sie fortfahren möchten?",
+  "dateAdded": "Date added",
+  "dateLastContentAdded": "Date last content added",
+  "datePlayed": "Date played",
+  "days": "Days",
+  "delete": "Delete",
+  "deleteFileFromSystem": "Deleting this item {item} will delete it from both the file system and your media library.\nAre you sure you wish to continue?",
   "@deleteFileFromSystem": {
-    "description": "Datei aus dem System löschen",
+    "description": "Delete file from system",
     "placeholders": {
       "item": {
         "type": "String"
       }
     }
   },
-  "deleteItem": "{item} löschen?",
+  "deleteItem": "Delete {item}?",
   "@deleteItem": {
-    "description": "Element löschen",
+    "description": "deleteItem",
     "placeholders": {
       "item": {
         "type": "String"
       }
     }
   },
-  "descending": "Absteigend",
-  "director": "{count, plural, other{Directores} one{Director}}",
+  "descending": "Descending",
+  "director": "{count, plural, other{Director}  two{Directors}}",
   "@director": {
-    "description": "Direktor",
+    "description": "director",
     "placeholders": {
       "count": {
         "type": "int",
@@ -120,22 +120,22 @@
       }
     }
   },
-  "disableFilters": "Deaktivierte Filter",
-  "disabled": "Deaktiviert",
-  "discovered": "Entdeckt",
-  "displayLanguage": "Sprache anzeigen",
-  "downloadsClearDesc": "Sind Sie sicher, dass Sie alle synchronisierten Daten entfernen möchten? Damit werden alle Daten für jeden synchronisierten Benutzer gelöscht!",
-  "downloadsClearTitle": "Synchrone Daten löschen",
-  "downloadsPath": "Pfad",
-  "downloadsSyncedData": "Synchronisierte Daten",
-  "downloadsTitle": "Heruntergeladene Daten",
-  "dynamicText": "Dynamisch",
-  "editMetadata": "Metadaten bearbeiten",
-  "empty": "Leer",
-  "enabled": "Aktiviert",
-  "endsAt": "endet am {Datum}",
+  "disableFilters": "Disable filters",
+  "disabled": "Disabled",
+  "discovered": "Discovered",
+  "displayLanguage": "Display language",
+  "downloadsClearDesc": "Are you sure you want to remove all synced data?\nThis will clear all data for every synced user!",
+  "downloadsClearTitle": "Clear synced data",
+  "downloadsPath": "Path",
+  "downloadsSyncedData": "Synced data",
+  "downloadsTitle": "Downloads",
+  "dynamicText": "Dynamic",
+  "editMetadata": "Edit metadata",
+  "empty": "Empty",
+  "enabled": "Enabled",
+  "endsAt": "ends at {date}",
   "@endsAt": {
-    "description": "endetUm",
+    "description": "endsAt",
     "placeholders": {
       "date": {
         "type": "DateTime",
