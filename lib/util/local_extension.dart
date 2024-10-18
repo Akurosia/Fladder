@@ -8,6 +8,7 @@ extension LocalExtensions on Locale {
       "es" => "Español",
       "fr" => "Français",
       "ja" => "日本語 (にほんご)",
+      "de" => "German",
       "en" || _ => "English",
     };
   }
