@@ -1,9 +1,9 @@
 {
   "@@locale": "de",
-  "about": "About",
-  "accept": "Accept",
-  "active": "Active",
-  "actor": "{count, plural, other{Actors} one{Actor}}",
+  "about": "Über",
+  "accept": "Akzeptieren",
+  "active": "Aktiv",
+  "actor": "{count, plural, other{Besetzung & Mitwirkende} one{Actor}}",
   "@actor": {
     "description": "actor",
     "placeholders": {
@@ -13,15 +13,15 @@
       }
     }
   },
-  "addAsFavorite": "Add as favorite",
-  "addToCollection": "Add to collection",
-  "addToPlaylist": "Add to playlist",
-  "advanced": "Advanced",
-  "all": "All",
-  "amoledBlack": "Amoled black",
-  "appLockAutoLogin": "Auto login",
-  "appLockBiometrics": "Biometrics",
-  "appLockPasscode": "Passcode",
+  "addAsFavorite": "Als Favorit hinzufügen",
+  "addToCollection": "Zur Sammlung hinzufügen",
+  "addToPlaylist": "Zur Wiedergabeliste hinzufügen",
+  "advanced": "Erweitert",
+  "all": "Alle",
+  "amoledBlack": "Amoled-Schwarz",
+  "appLockAutoLogin": "Automatische Anmeldung",
+  "appLockBiometrics": "Biometrische Daten",
+  "appLockPasscode": "Kennwort",
   "appLockTitle": "Set the log-in method for {userName}",
   "@appLockTitle": {
     "description": "Pop-up to pick a login method",
