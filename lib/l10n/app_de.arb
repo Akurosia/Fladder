@@ -190,7 +190,7 @@
         }
     },
     "@playFrom": {
-        "description": "playFrom",
+        "description": "spielenVon",
         "placeholders": {
             "name": {
                 "type": "String"
@@ -371,7 +371,7 @@
     "about": "Über",
     "accept": "Akzeptieren",
     "active": "Aktiv",
-    "actor": "{count, plural, other{Besetzung & Mitwirkende} one{Actor}}",
+    "actor": "{count, plural, other{Besetzung & Mitwirkende} one{Darsteller(in)}}",
     "addAsFavorite": "Als Favorit hinzufügen",
     "addToCollection": "Zur Sammlung hinzufügen",
     "addToPlaylist": "Zur Wiedergabeliste hinzufügen",
@@ -397,7 +397,7 @@
     "clearAllSettingsQuestion": "Clear all settings?",
     "clearChanges": "Clear changes",
     "clearSelection": "Clear selection",
-    "close": "Close",
+    "close": "Schließen",
     "code": "Code",
     "collectionFolder": "Collection folder",
     "color": "Color",
