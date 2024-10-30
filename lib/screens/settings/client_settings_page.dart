@@ -21,7 +21,6 @@ import 'package:fladder/screens/shared/default_alert_dialog.dart';
 import 'package:fladder/screens/shared/input_fields.dart';
 import 'package:fladder/util/adaptive_layout.dart';
 import 'package:fladder/util/custom_color_themes.dart';
-import 'package:fladder/util/local_extension.dart';
 import 'package:fladder/util/localization_helper.dart';
 import 'package:fladder/util/option_dialogue.dart';
 import 'package:fladder/util/simple_duration_picker.dart';
@@ -165,27 +164,48 @@ class _ClientSettingsPageState extends ConsumerState<ClientSettingsPage> {
           const Divider(),
           SettingsLabelDivider(label: context.localized.dashboard),
           SettingsListTile(
-            label: Text(context.localized.settingsHomeCarouselTitle),
-            subLabel: Text(context.localized.settingsHomeCarouselDesc),
+            label: Text(context.localized.settingsHomeBannerTitle),
+            subLabel: Text(context.localized.settingsHomeBannerDescription),
             trailing: EnumBox(
               current: ref.watch(
                 homeSettingsProvider.select(
-                  (value) => value.carouselSettings.label(context),
+                  (value) => value.homeBanner.label(context),
                 ),
               ),
-              itemBuilder: (context) => HomeCarouselSettings.values
+              itemBuilder: (context) => HomeBanner.values
                   .map(
                     (entry) => PopupMenuItem(
                       value: entry,
                       child: Text(entry.label(context)),
                       onTap: () => ref
                           .read(homeSettingsProvider.notifier)
-                          .update((context) => context.copyWith(carouselSettings: entry)),
+                          .update((context) => context.copyWith(homeBanner: entry)),
                     ),
                   )
                   .toList(),
             ),
           ),
+          if (ref.watch(homeSettingsProvider.select((value) => value.homeBanner)) != HomeBanner.hide)
+            SettingsListTile(
+              label: Text(context.localized.settingsHomeBannerInformationTitle),
+              subLabel: Text(context.localized.settingsHomeBannerInformationDesc),
+              trailing: EnumBox(
+                current: ref.watch(
+                  homeSettingsProvider.select((value) => value.carouselSettings.label(context)),
+                ),
+                itemBuilder: (context) => HomeCarouselSettings.values
+                    .map(
+                      (entry) => PopupMenuItem(
+                        value: entry,
+                        child: Text(entry.label(context)),
+                        onTap: () => ref
+                            .read(homeSettingsProvider.notifier)
+                            .update((context) => context.copyWith(carouselSettings: entry)),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
           SettingsListTile(
             label: Text(context.localized.settingsHomeNextUpTitle),
             subLabel: Text(context.localized.settingsHomeNextUpDesc),
@@ -211,30 +231,39 @@ class _ClientSettingsPageState extends ConsumerState<ClientSettingsPage> {
           SettingsLabelDivider(label: context.localized.settingsVisual),
           SettingsListTile(
             label: Text(context.localized.displayLanguage),
-            trailing: EnumBox(
-              current: ref.watch(
+            trailing: Localizations.override(
+              context: context,
+              locale: ref.watch(
                 clientSettingsProvider.select(
-                  (value) => (value.selectedLocale ?? currentLocale).label(),
+                  (value) => (value.selectedLocale ?? currentLocale),
                 ),
               ),
-              itemBuilder: (context) {
-                return [
-                  ...AppLocalizations.supportedLocales.map(
-                    (entry) => PopupMenuItem(
-                      value: entry,
-                      child: Text(
-                        entry.label(),
-                        style: TextStyle(
-                          fontWeight: currentLocale.languageCode == entry.languageCode ? FontWeight.bold : null,
+              child: Builder(builder: (context) {
+                return EnumBox(
+                  current: context.localized.nativeName,
+                  itemBuilder: (context) {
+                    return [
+                      ...AppLocalizations.supportedLocales.map(
+                        (entry) => PopupMenuItem(
+                          value: entry,
+                          child: Localizations.override(
+                            context: context,
+                            locale: entry,
+                            child: Builder(builder: (context) {
+                              return Text(
+                                context.localized.nativeName,
+                              );
+                            }),
+                          ),
+                          onTap: () => ref
+                              .read(clientSettingsProvider.notifier)
+                              .update((state) => state.copyWith(selectedLocale: entry)),
                         ),
-                      ),
-                      onTap: () => ref
-                          .read(clientSettingsProvider.notifier)
-                          .update((state) => state.copyWith(selectedLocale: entry)),
-                    ),
-                  )
-                ];
-              },
+                      )
+                    ];
+                  },
+                );
+              }),
             ),
           ),
           SettingsListTile(

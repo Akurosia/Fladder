@@ -38,8 +38,12 @@ mixin _$ClientSettingsModel {
   bool get mouseDragSupport => throw _privateConstructorUsedError;
   int? get libraryPageSize => throw _privateConstructorUsedError;
 
+  /// Serializes this ClientSettingsModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ClientSettingsModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ClientSettingsModelCopyWith<ClientSettingsModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -79,6 +83,8 @@ class _$ClientSettingsModelCopyWithImpl<$Res, $Val extends ClientSettingsModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ClientSettingsModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -203,6 +209,8 @@ class __$$ClientSettingsModelImplCopyWithImpl<$Res>
       $Res Function(_$ClientSettingsModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ClientSettingsModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -428,7 +436,7 @@ class _$ClientSettingsModelImpl extends _ClientSettingsModel
                 other.libraryPageSize == libraryPageSize));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -449,7 +457,9 @@ class _$ClientSettingsModelImpl extends _ClientSettingsModel
       mouseDragSupport,
       libraryPageSize);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ClientSettingsModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ClientSettingsModelImplCopyWith<_$ClientSettingsModelImpl> get copyWith =>
@@ -520,8 +530,11 @@ abstract class _ClientSettingsModel extends ClientSettingsModel {
   bool get mouseDragSupport;
   @override
   int? get libraryPageSize;
+
+  /// Create a copy of ClientSettingsModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ClientSettingsModelImplCopyWith<_$ClientSettingsModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

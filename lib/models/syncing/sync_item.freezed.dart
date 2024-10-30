@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SyncedItem {
   String get id => throw _privateConstructorUsedError;
+  bool get syncing => throw _privateConstructorUsedError;
   String? get parentId => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   String? get path => throw _privateConstructorUsedError;
@@ -33,7 +34,9 @@ mixin _$SyncedItem {
   @UserDataJsonSerializer()
   UserData? get userData => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SyncedItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SyncedItemCopyWith<SyncedItem> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -46,6 +49,7 @@ abstract class $SyncedItemCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      bool syncing,
       String? parentId,
       String userId,
       String? path,
@@ -74,10 +78,13 @@ class _$SyncedItemCopyWithImpl<$Res, $Val extends SyncedItem>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SyncedItem
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
+    Object? syncing = null,
     Object? parentId = freezed,
     Object? userId = null,
     Object? path = freezed,
@@ -97,6 +104,10 @@ class _$SyncedItemCopyWithImpl<$Res, $Val extends SyncedItem>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      syncing: null == syncing
+          ? _value.syncing
+          : syncing // ignore: cast_nullable_to_non_nullable
+              as bool,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
@@ -152,6 +163,8 @@ class _$SyncedItemCopyWithImpl<$Res, $Val extends SyncedItem>
     ) as $Val);
   }
 
+  /// Create a copy of SyncedItem
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $IntroOutSkipModelCopyWith<$Res>? get introOutSkipModel {
@@ -164,6 +177,8 @@ class _$SyncedItemCopyWithImpl<$Res, $Val extends SyncedItem>
     });
   }
 
+  /// Create a copy of SyncedItem
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $TrickPlayModelCopyWith<$Res>? get fTrickPlayModel {
@@ -187,6 +202,7 @@ abstract class _$$SyncItemImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      bool syncing,
       String? parentId,
       String userId,
       String? path,
@@ -215,10 +231,13 @@ class __$$SyncItemImplCopyWithImpl<$Res>
       _$SyncItemImpl _value, $Res Function(_$SyncItemImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SyncedItem
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
+    Object? syncing = null,
     Object? parentId = freezed,
     Object? userId = null,
     Object? path = freezed,
@@ -238,6 +257,10 @@ class __$$SyncItemImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      syncing: null == syncing
+          ? _value.syncing
+          : syncing // ignore: cast_nullable_to_non_nullable
+              as bool,
       parentId: freezed == parentId
           ? _value.parentId
           : parentId // ignore: cast_nullable_to_non_nullable
@@ -299,6 +322,7 @@ class __$$SyncItemImplCopyWithImpl<$Res>
 class _$SyncItemImpl extends _SyncItem {
   _$SyncItemImpl(
       {required this.id,
+      this.syncing = false,
       this.parentId,
       required this.userId,
       this.path,
@@ -318,6 +342,9 @@ class _$SyncItemImpl extends _SyncItem {
 
   @override
   final String id;
+  @override
+  @JsonKey()
+  final bool syncing;
   @override
   final String? parentId;
   @override
@@ -363,7 +390,7 @@ class _$SyncItemImpl extends _SyncItem {
 
   @override
   String toString() {
-    return 'SyncedItem(id: $id, parentId: $parentId, userId: $userId, path: $path, markedForDelete: $markedForDelete, sortName: $sortName, fileSize: $fileSize, videoFileName: $videoFileName, introOutSkipModel: $introOutSkipModel, fTrickPlayModel: $fTrickPlayModel, fImages: $fImages, fChapters: $fChapters, subtitles: $subtitles, userData: $userData)';
+    return 'SyncedItem(id: $id, syncing: $syncing, parentId: $parentId, userId: $userId, path: $path, markedForDelete: $markedForDelete, sortName: $sortName, fileSize: $fileSize, videoFileName: $videoFileName, introOutSkipModel: $introOutSkipModel, fTrickPlayModel: $fTrickPlayModel, fImages: $fImages, fChapters: $fChapters, subtitles: $subtitles, userData: $userData)';
   }
 
   @override
@@ -372,6 +399,7 @@ class _$SyncItemImpl extends _SyncItem {
         (other.runtimeType == runtimeType &&
             other is _$SyncItemImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.syncing, syncing) || other.syncing == syncing) &&
             (identical(other.parentId, parentId) ||
                 other.parentId == parentId) &&
             (identical(other.userId, userId) || other.userId == userId) &&
@@ -401,6 +429,7 @@ class _$SyncItemImpl extends _SyncItem {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      syncing,
       parentId,
       userId,
       path,
@@ -415,7 +444,9 @@ class _$SyncItemImpl extends _SyncItem {
       const DeepCollectionEquality().hash(_subtitles),
       userData);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SyncedItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SyncItemImplCopyWith<_$SyncItemImpl> get copyWith =>
@@ -425,6 +456,7 @@ class _$SyncItemImpl extends _SyncItem {
 abstract class _SyncItem extends SyncedItem {
   factory _SyncItem(
       {required final String id,
+      final bool syncing,
       final String? parentId,
       required final String userId,
       final String? path,
@@ -442,6 +474,8 @@ abstract class _SyncItem extends SyncedItem {
 
   @override
   String get id;
+  @override
+  bool get syncing;
   @override
   String? get parentId;
   @override
@@ -469,8 +503,11 @@ abstract class _SyncItem extends SyncedItem {
   @override
   @UserDataJsonSerializer()
   UserData? get userData;
+
+  /// Create a copy of SyncedItem
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SyncItemImplCopyWith<_$SyncItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
