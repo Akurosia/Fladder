@@ -49,7 +49,7 @@ jobs:
           flutter build web --release --build-number=${{github.run_number}}
 
       - name: Build Github pages web
-        run: flutter build web --base-href /${{ github.event.repository.name }}/ --release --build-number=$GITHUB_RUN_NUMBER
+        run: flutter build web --base-href "/" --release --build-number=$GITHUB_RUN_NUMBER
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
