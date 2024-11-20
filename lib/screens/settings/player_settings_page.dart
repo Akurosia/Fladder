@@ -1,4 +1,12 @@
+import 'dart:io' show Platform;
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:fladder/models/settings/video_player_settings.dart';
 import 'package:fladder/providers/settings/video_player_settings_provider.dart';
 import 'package:fladder/screens/settings/settings_list_tile.dart';
 import 'package:fladder/screens/settings/settings_scaffold.dart';
@@ -6,14 +14,12 @@ import 'package:fladder/screens/settings/widgets/settings_label_divider.dart';
 import 'package:fladder/screens/settings/widgets/settings_message_box.dart';
 import 'package:fladder/screens/settings/widgets/subtitle_editor.dart';
 import 'package:fladder/screens/shared/animated_fade_size.dart';
+import 'package:fladder/screens/video_player/components/video_player_options_sheet.dart';
 import 'package:fladder/util/adaptive_layout.dart';
 import 'package:fladder/util/box_fit_extension.dart';
 import 'package:fladder/util/localization_helper.dart';
 import 'package:fladder/util/option_dialogue.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'dart:io' show Platform;
+import 'package:fladder/widgets/shared/enum_selection.dart';
 
 @RoutePage()
 class PlayerSettingsPage extends ConsumerStatefulWidget {
@@ -105,6 +111,34 @@ class _PlayerSettingsPageState extends ConsumerState<PlayerSettingsPage> {
             ),
           ],
           SettingsListTile(
+            label: Text(context.localized.settingsAutoNextTitle),
+            subLabel: Text(context.localized.settingsAutoNextDesc),
+            trailing: EnumBox(
+              current: ref.watch(
+                videoPlayerSettingsProvider.select(
+                  (value) => value.nextVideoType.label(context),
+                ),
+              ),
+              itemBuilder: (context) => AutoNextType.values
+                  .map(
+                    (entry) => PopupMenuItem(
+                      value: entry,
+                      child: Text(entry.label(context)),
+                      onTap: () => ref.read(videoPlayerSettingsProvider.notifier).state =
+                          ref.read(videoPlayerSettingsProvider).copyWith(nextVideoType: entry),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+          AnimatedFadeSize(
+            child: switch (ref.watch(videoPlayerSettingsProvider.select((value) => value.nextVideoType))) {
+              AutoNextType.smart => SettingsMessageBox(AutoNextType.smart.desc(context)),
+              AutoNextType.static => SettingsMessageBox(AutoNextType.static.desc(context)),
+              _ => const SizedBox.shrink(),
+            },
+          ),
+          SettingsListTile(
             label: Text(context.localized.settingsPlayerCustomSubtitlesTitle),
             subLabel: Text(context.localized.settingsPlayerCustomSubtitlesDesc),
             onTap: videoSettings.useLibass
@@ -118,6 +152,12 @@ class _PlayerSettingsPageState extends ConsumerState<PlayerSettingsPage> {
                     );
                   },
           ),
+          if (!AdaptiveLayout.of(context).isDesktop && !kIsWeb)
+            SettingsListTile(
+              label: Text(context.localized.playerSettingsOrientationTitle),
+              subLabel: Text(context.localized.playerSettingsOrientationDesc),
+              onTap: () => showOrientationOptions(context, ref),
+            ),
         ],
       ),
     );

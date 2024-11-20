@@ -106,7 +106,7 @@ extension ItemBaseModelExtensions on ItemBaseModel {
         )
       else if (!exclude.contains(ItemActions.showAlbum) && galleryItem)
         ItemActionButton(
-          icon: Icon(FladderItemType.photoalbum.icon),
+          icon: Icon(FladderItemType.photoAlbum.icon),
           action: () => (this as PhotoModel).navigateToAlbum(context),
           label: Text(context.localized.showAlbum),
         ),
@@ -122,7 +122,7 @@ extension ItemBaseModelExtensions on ItemBaseModel {
                 : context.localized.playFromStart(subTextShort(context) ?? name)),
           ),
       ItemActionDivider(),
-      if (!exclude.contains(ItemActions.addCollection))
+      if (!exclude.contains(ItemActions.addCollection) && isAdmin)
         if (type != FladderItemType.boxset)
           ItemActionButton(
             icon: const Icon(IconsaxOutline.archive_add),

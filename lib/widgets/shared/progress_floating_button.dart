@@ -1,19 +1,20 @@
 import 'dart:async';
 
-import 'package:async/async.dart';
-import 'package:ficonsax/ficonsax.dart';
-import 'package:fladder/providers/settings/photo_view_settings_provider.dart';
-import 'package:fladder/util/simple_duration_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:async/async.dart';
+import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:square_progress_indicator/square_progress_indicator.dart';
 
-class RestarableTimerController {
+import 'package:fladder/util/simple_duration_picker.dart';
+
+class RestartableTimerController {
   late Duration _steps = const Duration(milliseconds: 32);
   RestartableTimer? _timer;
   late Duration _duration = const Duration(seconds: 1);
-  late Function() _onTimeout;
+  late Function()? _onTimeout;
 
   late Duration _timeLeft = _duration;
   set setTimeLeft(Duration value) {
@@ -24,7 +25,7 @@ class RestarableTimerController {
   final StreamController<Duration> _timeLeftController = StreamController<Duration>.broadcast();
   final StreamController<bool> _isActiveController = StreamController<bool>.broadcast();
 
-  RestarableTimerController(Duration duration, Duration steps, Function() onTimeout) {
+  RestartableTimerController(Duration duration, Duration steps, {Function()? onTimeout}) {
     _steps = steps;
     _duration = duration;
     _onTimeout = onTimeout;
@@ -50,7 +51,7 @@ class RestarableTimerController {
       () {
         if (_timeLeft < _steps) {
           setTimeLeft = _duration;
-          _onTimeout.call();
+          _onTimeout?.call();
         } else {
           setTimeLeft = _timeLeft - _steps;
         }
@@ -84,16 +85,17 @@ class RestarableTimerController {
 }
 
 class ProgressFloatingButton extends ConsumerStatefulWidget {
-  final RestarableTimerController? controller;
+  final RestartableTimerController? controller;
   final Function()? onTimeOut;
-  const ProgressFloatingButton({this.controller, this.onTimeOut, super.key});
+  final Function(Duration? newDuration)? onLongPress;
+  const ProgressFloatingButton({this.controller, this.onTimeOut, this.onLongPress, super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ProgressFloatingButtonState();
 }
 
 class _ProgressFloatingButtonState extends ConsumerState<ProgressFloatingButton> {
-  late RestarableTimerController timer;
+  late RestartableTimerController timer;
   late Duration timeLeft = timer._duration;
   late bool isActive = false;
 
@@ -103,10 +105,10 @@ class _ProgressFloatingButtonState extends ConsumerState<ProgressFloatingButton>
   void initState() {
     super.initState();
     timer = widget.controller ??
-        RestarableTimerController(
+        RestartableTimerController(
           const Duration(seconds: 1),
           const Duration(milliseconds: 32),
-          widget.onTimeOut ?? () {},
+          onTimeout: widget.onTimeOut ?? () {},
         );
     subscriptions.addAll([
       timer.timeLeft.listen((event) => setState(() => timeLeft = event)),
@@ -132,18 +134,21 @@ class _ProgressFloatingButtonState extends ConsumerState<ProgressFloatingButton>
           timer.reset();
         });
       },
-      onLongPress: () async {
-        HapticFeedback.vibrate();
-        final newTimer =
-            await showSimpleDurationPicker(context: context, initialValue: timer._duration, showNever: false);
-        if (newTimer != null) {
-          setState(() {
-            ref.read(photoViewSettingsProvider.notifier).update((state) => state.copyWith(timer: newTimer));
-            timer.setDuration(newTimer);
-          });
-        }
-      },
+      onLongPress: widget.onLongPress != null
+          ? () async {
+              HapticFeedback.vibrate();
+              final newTimer =
+                  await showSimpleDurationPicker(context: context, initialValue: timer._duration, showNever: false);
+              widget.onLongPress?.call(newTimer);
+              if (newTimer != null) {
+                setState(() {
+                  timer.setDuration(newTimer);
+                });
+              }
+            }
+          : null,
       child: FloatingActionButton(
+        heroTag: null,
         onPressed: isActive ? timer.cancel : timer.play,
         child: Stack(
           fit: StackFit.expand,

@@ -23,13 +23,16 @@ class ClientSettingsModel with _$ClientSettingsModel {
     @Default(ThemeMode.system) ThemeMode themeMode,
     ColorThemes? themeColor,
     @Default(false) bool amoledBlack,
-    @Default(false) bool blurPlaceHolders,
+    @Default(true) bool blurPlaceHolders,
     @Default(false) bool blurUpcomingEpisodes,
     @LocaleConvert() Locale? selectedLocale,
     @Default(true) bool enableMediaKeys,
     @Default(1.0) double posterSize,
     @Default(false) bool pinchPosterZoom,
     @Default(false) bool mouseDragSupport,
+    @Default(true) bool requireWifi,
+    @Default(false) bool showAllCollectionTypes,
+    @Default(DynamicSchemeVariant.tonalSpot) DynamicSchemeVariant schemeVariant,
     int? libraryPageSize,
   }) = _ClientSettingsModel;
 

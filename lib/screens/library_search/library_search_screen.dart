@@ -18,6 +18,8 @@ import 'package:fladder/providers/settings/client_settings_provider.dart';
 import 'package:fladder/providers/video_player_provider.dart';
 import 'package:fladder/screens/collections/add_to_collection.dart';
 import 'package:fladder/screens/library_search/widgets/library_filter_chips.dart';
+import 'package:fladder/screens/library_search/widgets/library_play_options_.dart';
+import 'package:fladder/screens/library_search/widgets/library_saved_filters.dart';
 import 'package:fladder/screens/library_search/widgets/library_sort_dialogue.dart';
 import 'package:fladder/screens/library_search/widgets/library_views.dart';
 import 'package:fladder/screens/library_search/widgets/suggestion_search_bar.dart';
@@ -31,6 +33,7 @@ import 'package:fladder/util/fab_extended_anim.dart';
 import 'package:fladder/util/item_base_model/item_base_model_extensions.dart';
 import 'package:fladder/util/list_padding.dart';
 import 'package:fladder/util/localization_helper.dart';
+import 'package:fladder/util/map_bool_helper.dart';
 import 'package:fladder/util/refresh_state.dart';
 import 'package:fladder/util/router_extension.dart';
 import 'package:fladder/util/sliver_list_padding.dart';
@@ -105,14 +108,12 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
 
     Future.microtask(
       () async {
-        if (libraryProvider.mounted) {
-          libraryProvider.setDefaultOptions(widget.sortOrder, widget.sortingOptions);
-        }
         await refreshKey.currentState?.show();
         SystemChrome.setEnabledSystemUIMode(
           SystemUiMode.edgeToEdge,
           overlays: [],
         );
+
         if (context.mounted && widget.photoToView != null) {
           libraryProvider.viewGallery(context, selected: widget.photoToView);
         }
@@ -133,7 +134,7 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
   Widget build(BuildContext context) {
     final isEmptySearchScreen = widget.viewModelId == null && widget.favourites == null && widget.folderId == null;
     final librarySearchResults = ref.watch(providerKey);
-    final postersList = librarySearchResults.posters.hideEmptyChildren(librarySearchResults.hideEmtpyShows);
+    final postersList = librarySearchResults.posters.hideEmptyChildren(librarySearchResults.hideEmptyShows);
     final playerState = ref.watch(mediaPlaybackProvider.select((value) => value.state));
     final libraryViewType = ref.watch(libraryViewTypeProvider);
 
@@ -171,25 +172,34 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (librarySearchResults.showPlayButtons)
+                  if (librarySearchResults.activePosters.isNotEmpty)
                     FloatingActionButtonAnimated(
                       key: Key(context.localized.playLabel),
                       isExtended: visible,
                       tooltip: context.localized.playVideos,
-                      onPressed: () async => await libraryProvider.playLibraryItems(context, ref),
+                      onPressed: () async {
+                        if (librarySearchResults.showGalleryButtons && !librarySearchResults.showPlayButtons) {
+                          libraryProvider.viewGallery(context);
+                          return;
+                        } else if (!librarySearchResults.showGalleryButtons && librarySearchResults.showPlayButtons) {
+                          libraryProvider.playLibraryItems(context, ref);
+                          return;
+                        }
+
+                        await showLibraryPlayOptions(
+                          context,
+                          context.localized.libraryPlayItems,
+                          playVideos: librarySearchResults.showPlayButtons
+                              ? () => libraryProvider.playLibraryItems(context, ref)
+                              : null,
+                          viewGallery: librarySearchResults.showGalleryButtons
+                              ? () => libraryProvider.viewGallery(context)
+                              : null,
+                        );
+                      },
                       label: Text(context.localized.playLabel),
                       icon: const Icon(IconsaxBold.play),
                     ),
-                  if (librarySearchResults.showGalleryButtons)
-                    FloatingActionButtonAnimated(
-                      key: Key(context.localized.viewPhotos),
-                      isExtended: visible,
-                      alternate: true,
-                      tooltip: context.localized.viewPhotos,
-                      onPressed: () async => await libraryProvider.viewGallery(context),
-                      label: Text(context.localized.viewPhotos),
-                      icon: const Icon(IconsaxBold.gallery),
-                    )
                 ].addInBetween(const SizedBox(height: 10)),
               ),
             ),
@@ -230,7 +240,12 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
                           onRefresh: () async {
                             if (libraryProvider.mounted) {
                               return libraryProvider.initRefresh(
-                                  widget.folderId, widget.viewModelId, widget.favourites);
+                                widget.folderId,
+                                widget.viewModelId,
+                                widget.favourites,
+                                widget.sortOrder,
+                                widget.sortingOptions,
+                              );
                             }
                           },
                           refreshOnStart: false,
@@ -280,6 +295,11 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
                                     final refreshAction = ItemActionButton(
                                       label: Text(context.localized.forceRefresh),
                                       action: () => refreshKey.currentState?.show(),
+                                      icon: const Icon(IconsaxOutline.refresh),
+                                    );
+                                    final showSavedFiltersDialogue = ItemActionButton(
+                                      label: Text(context.localized.filter(2)),
+                                      action: () => showSavedFilters(context, librarySearchResults, libraryProvider),
                                       icon: const Icon(IconsaxOutline.refresh),
                                     );
                                     final itemViewAction = ItemActionButton(
@@ -359,6 +379,8 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
                                                   itemCountWidget.toPopupMenuItem(useIcons: true),
                                                   refreshAction.toPopupMenuItem(useIcons: true),
                                                   itemViewAction.toPopupMenuItem(useIcons: true),
+                                                  if (librarySearchResults.views.hasEnabled == true)
+                                                    showSavedFiltersDialogue.toPopupMenuItem(useIcons: true),
                                                   if (itemActions.isNotEmpty) ItemActionDivider().toPopupMenuItem(),
                                                   ...itemActions.popupMenuItems(useIcons: true),
                                                 ],
@@ -374,6 +396,8 @@ class _LibrarySearchScreenState extends ConsumerState<LibrarySearchScreen> {
                                                     itemCountWidget.toListItem(context, useIcons: true),
                                                     refreshAction.toListItem(context, useIcons: true),
                                                     itemViewAction.toListItem(context, useIcons: true),
+                                                    if (librarySearchResults.views.hasEnabled == true)
+                                                      showSavedFiltersDialogue.toPopupMenuItem(useIcons: true),
                                                     if (itemActions.isNotEmpty) ItemActionDivider().toListItem(context),
                                                     ...itemActions.listTileItems(context, useIcons: true),
                                                   ],
@@ -758,43 +782,44 @@ class _LibrarySearchBottomBar extends ConsumerWidget {
                     : const SizedBox(),
               ),
               const Spacer(),
-              IconButton(
-                tooltip: context.localized.random,
-                onPressed: () => libraryProvider.openRandom(context),
-                icon: Card(
-                  color: Theme.of(context).colorScheme.secondary,
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Icon(
-                      IconsaxBold.arrow_up_1,
-                      color: Theme.of(context).colorScheme.onSecondary,
-                    ),
-                  ),
-                ),
-              ),
-              if (librarySearchResults.showGalleryButtons)
+              if (librarySearchResults.activePosters.isNotEmpty)
                 IconButton(
-                  tooltip: context.localized.shuffleGallery,
-                  onPressed: () => libraryProvider.viewGallery(context, shuffle: true),
+                  tooltip: context.localized.random,
+                  onPressed: () => libraryProvider.openRandom(context),
                   icon: Card(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.secondary,
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: Icon(
-                        IconsaxBold.shuffle,
-                        color: Theme.of(context).colorScheme.onPrimary,
+                        IconsaxBold.arrow_up_1,
+                        color: Theme.of(context).colorScheme.onSecondary,
                       ),
                     ),
                   ),
                 ),
-              if (librarySearchResults.showPlayButtons)
+              if (librarySearchResults.activePosters.isNotEmpty)
                 IconButton(
                   tooltip: context.localized.shuffleVideos,
-                  onPressed: librarySearchResults.activePosters.isNotEmpty
-                      ? () async {
-                          await libraryProvider.playLibraryItems(context, ref, shuffle: true);
-                        }
-                      : null,
+                  onPressed: () async {
+                    if (librarySearchResults.showGalleryButtons && !librarySearchResults.showPlayButtons) {
+                      libraryProvider.viewGallery(context, shuffle: true);
+                      return;
+                    } else if (!librarySearchResults.showGalleryButtons && librarySearchResults.showPlayButtons) {
+                      libraryProvider.playLibraryItems(context, ref, shuffle: true);
+                      return;
+                    }
+
+                    await showLibraryPlayOptions(
+                      context,
+                      context.localized.libraryShuffleAndPlayItems,
+                      playVideos: librarySearchResults.showPlayButtons
+                          ? () => libraryProvider.playLibraryItems(context, ref, shuffle: true)
+                          : null,
+                      viewGallery: librarySearchResults.showGalleryButtons
+                          ? () => libraryProvider.viewGallery(context, shuffle: true)
+                          : null,
+                    );
+                  },
                   icon: const Icon(IconsaxOutline.shuffle),
                 ),
             ],

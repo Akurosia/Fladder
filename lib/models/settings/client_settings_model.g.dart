@@ -26,7 +26,7 @@ _$ClientSettingsModelImpl _$$ClientSettingsModelImplFromJson(
           ThemeMode.system,
       themeColor: $enumDecodeNullable(_$ColorThemesEnumMap, json['themeColor']),
       amoledBlack: json['amoledBlack'] as bool? ?? false,
-      blurPlaceHolders: json['blurPlaceHolders'] as bool? ?? false,
+      blurPlaceHolders: json['blurPlaceHolders'] as bool? ?? true,
       blurUpcomingEpisodes: json['blurUpcomingEpisodes'] as bool? ?? false,
       selectedLocale:
           const LocaleConvert().fromJson(json['selectedLocale'] as String?),
@@ -34,6 +34,11 @@ _$ClientSettingsModelImpl _$$ClientSettingsModelImplFromJson(
       posterSize: (json['posterSize'] as num?)?.toDouble() ?? 1.0,
       pinchPosterZoom: json['pinchPosterZoom'] as bool? ?? false,
       mouseDragSupport: json['mouseDragSupport'] as bool? ?? false,
+      requireWifi: json['requireWifi'] as bool? ?? true,
+      showAllCollectionTypes: json['showAllCollectionTypes'] as bool? ?? false,
+      schemeVariant: $enumDecodeNullable(
+              _$DynamicSchemeVariantEnumMap, json['schemeVariant']) ??
+          DynamicSchemeVariant.tonalSpot,
       libraryPageSize: (json['libraryPageSize'] as num?)?.toInt(),
     );
 
@@ -55,6 +60,9 @@ Map<String, dynamic> _$$ClientSettingsModelImplToJson(
       'posterSize': instance.posterSize,
       'pinchPosterZoom': instance.pinchPosterZoom,
       'mouseDragSupport': instance.mouseDragSupport,
+      'requireWifi': instance.requireWifi,
+      'showAllCollectionTypes': instance.showAllCollectionTypes,
+      'schemeVariant': _$DynamicSchemeVariantEnumMap[instance.schemeVariant]!,
       'libraryPageSize': instance.libraryPageSize,
     };
 
@@ -80,4 +88,16 @@ const _$ColorThemesEnumMap = {
   ColorThemes.purple: 'purple',
   ColorThemes.deepPurple: 'deepPurple',
   ColorThemes.blueGrey: 'blueGrey',
+};
+
+const _$DynamicSchemeVariantEnumMap = {
+  DynamicSchemeVariant.tonalSpot: 'tonalSpot',
+  DynamicSchemeVariant.fidelity: 'fidelity',
+  DynamicSchemeVariant.monochrome: 'monochrome',
+  DynamicSchemeVariant.neutral: 'neutral',
+  DynamicSchemeVariant.vibrant: 'vibrant',
+  DynamicSchemeVariant.expressive: 'expressive',
+  DynamicSchemeVariant.content: 'content',
+  DynamicSchemeVariant.rainbow: 'rainbow',
+  DynamicSchemeVariant.fruitSalad: 'fruitSalad',
 };
