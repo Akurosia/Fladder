@@ -9,8 +9,24 @@ on:
   workflow_dispatch:
 
 jobs:
+  fetch-info:
+    runs-on: ubuntu-latest
+    outputs:
+      version_name: ${{ steps.fetch.outputs.version_name }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.1
+
+      - name: Fetch version name
+        id: fetch
+        run: |
+          VERSION_NAME=$(grep '^version:' pubspec.yaml | cut -d ':' -f2 | cut -d '+' -f1 | tr -d ' ')
+          echo "version_name=${VERSION_NAME}" >> "$GITHUB_OUTPUT"
+        shell: bash
+
   build-web:
     runs-on: ubuntu-latest
+    needs: [fetch-info]
 
     steps:
       - name: Checkout repository
@@ -30,11 +46,7 @@ jobs:
 
       - name: Build web app
         run: |
-          APP_NAME=$(grep '^name:' pubspec.yaml | cut -d ':' -f2 | tr -d ' ')
-          VERSION_NAME=$(grep '^version:' pubspec.yaml | cut -d ':' -f2 | cut -d '+' -f1 | tr -d ' ')
-          echo "PACKAGE_NAME=$APP_NAME-Web-$VERSION_NAME" >> $GITHUB_ENV
-
-          flutter build web --release --build-number=$GITHUB_RUN_NUMBER
+          flutter build web --release --build-number=${{github.run_number}}
 
       - name: Build Github pages web
         run: flutter build web --base-href /${{ github.event.repository.name }}/ --release --build-number=$GITHUB_RUN_NUMBER
@@ -44,5 +56,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }} # Automatically provided by GitHub Actions
           publish_dir: ./build/web
-
-
