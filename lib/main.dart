@@ -8,12 +8,9 @@ import 'package:flutter/services.dart';
 
 import 'package:collection/collection.dart';
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
-import 'package:logging/logging.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
@@ -23,6 +20,7 @@ import 'package:window_manager/window_manager.dart';
 
 import 'package:fladder/models/account_model.dart';
 import 'package:fladder/models/syncing/i_synced_item.dart';
+import 'package:fladder/providers/crash_log_provider.dart';
 import 'package:fladder/providers/settings/client_settings_provider.dart';
 import 'package:fladder/providers/shared_provider.dart';
 import 'package:fladder/providers/sync_provider.dart';
@@ -46,28 +44,14 @@ bool get _isDesktop {
   ].contains(defaultTargetPlatform);
 }
 
-class CustomCacheManager {
-  static const key = 'customCacheKey';
-  static CacheManager instance = CacheManager(
-    Config(
-      key,
-      stalePeriod: const Duration(days: 3),
-      maxNrOfCacheObjects: 500,
-      repo: JsonCacheInfoRepository(databaseName: key),
-      fileService: HttpFileService(),
-    ),
-  );
-}
-
 Future<Map<String, dynamic>> loadConfig() async {
   final configString = await rootBundle.loadString('config/config.json');
   return jsonDecode(configString);
 }
 
 void main() async {
-  _setupLogging();
+  final crashProvider = CrashLogNotifier();
   WidgetsFlutterBinding.ensureInitialized();
-  MediaKit.ensureInitialized();
 
   if (kIsWeb) {
     html.document.onContextMenu.listen((event) => event.preventDefault());
@@ -104,6 +88,7 @@ void main() async {
       overrides: [
         sharedPreferencesProvider.overrideWith((ref) => sharedPreferences),
         applicationInfoProvider.overrideWith((ref) => applicationInfo),
+        crashLogProvider.overrideWith((ref) => crashProvider),
         syncProvider.overrideWith((ref) => SyncNotifier(
               ref,
               !kIsWeb
@@ -126,15 +111,6 @@ void main() async {
       ),
     ),
   );
-}
-
-void _setupLogging() {
-  Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((rec) {
-    if (kDebugMode) {
-      print('${rec.level.name}: ${rec.time}: ${rec.message}');
-    }
-  });
 }
 
 class Main extends ConsumerStatefulWidget with WindowListener {
@@ -312,6 +288,7 @@ class _MainState extends ConsumerState<Main> with WindowListener, WidgetsBinding
               ),
               child: ScaffoldMessenger(child: child ?? Container()),
             ),
+            debugShowCheckedModeBanner: false,
             darkTheme: darkTheme.copyWith(
               scaffoldBackgroundColor: amoledOverwrite,
               cardColor: amoledOverwrite,

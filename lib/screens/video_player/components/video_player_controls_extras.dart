@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:media_kit/media_kit.dart';
 
+import 'package:fladder/models/items/media_segments_model.dart';
 import 'package:fladder/providers/video_player_provider.dart';
+import 'package:fladder/screens/shared/animated_fade_size.dart';
 import 'package:fladder/screens/video_player/components/video_player_chapters.dart';
 import 'package:fladder/screens/video_player/components/video_player_queue.dart';
+import 'package:fladder/util/localization_helper.dart';
 
 class ChapterButton extends ConsumerWidget {
   final Duration position;
-  final Player player;
-  const ChapterButton({super.key, required this.position, required this.player});
+  const ChapterButton({super.key, required this.position});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,9 +23,9 @@ class ChapterButton extends ConsumerWidget {
             context,
             chapters: currentChapters,
             currentPosition: position,
-            onChapterTapped: (chapter) => player.seek(
-              chapter.startPosition,
-            ),
+            onChapterTapped: (chapter) => ref.read(videoPlayerProvider).seek(
+                  chapter.startPosition,
+                ),
           );
         },
         icon: const Icon(
@@ -62,50 +63,37 @@ class OpenQueueButton extends ConsumerWidget {
   }
 }
 
-class IntroSkipButton extends ConsumerWidget {
+class SkipSegmentButton extends ConsumerWidget {
+  final MediaSegment? segment;
   final bool isOverlayVisible;
 
-  final Function()? skipIntro;
-  const IntroSkipButton({this.skipIntro, required this.isOverlayVisible, super.key});
+  final Function() pressedSkip;
+  const SkipSegmentButton(
+      {required this.segment, required this.isOverlayVisible, required this.pressedSkip, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ElevatedButton(
-      onPressed: () => skipIntro?.call(),
-      style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
-      child: const Padding(
-        padding: EdgeInsets.all(8),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [Text("(S)kip Intro"), Icon(Icons.skip_next_rounded)],
-        ),
-      ),
-    );
-  }
-}
-
-class OutroSkipButton extends ConsumerWidget {
-  final bool isOverlayVisible;
-  final Function()? skipOutro;
-  const OutroSkipButton({this.skipOutro, required this.isOverlayVisible, super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // final semiHideSkip = skipCredits.
-    return AnimatedOpacity(
-      opacity: 1,
-      duration: const Duration(milliseconds: 250),
-      child: ElevatedButton(
-        onPressed: () => skipOutro?.call(),
-        style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
-        child: const Padding(
-          padding: EdgeInsets.all(8),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [Text("(S)kip Credits"), Icon(Icons.skip_next_rounded)],
-          ),
-        ),
-      ),
+    return AnimatedFadeSize(
+      child: segment != null
+          ? AnimatedOpacity(
+              opacity: isOverlayVisible ? 1 : 0.15,
+              duration: const Duration(milliseconds: 500),
+              child: ElevatedButton(
+                onPressed: pressedSkip,
+                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(context.localized.skipButtonLabel(segment!.type.label(context))),
+                      const Icon(Icons.skip_next_rounded)
+                    ],
+                  ),
+                ),
+              ),
+            )
+          : const SizedBox.shrink(key: Key("Other")),
     );
   }
 }
