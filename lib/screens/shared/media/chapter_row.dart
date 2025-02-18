@@ -1,4 +1,8 @@
+import 'package:flutter/material.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:fladder/models/items/chapters_model.dart';
 import 'package:fladder/screens/shared/flat_button.dart';
 import 'package:fladder/util/adaptive_layout.dart';
@@ -8,8 +12,6 @@ import 'package:fladder/util/localization_helper.dart';
 import 'package:fladder/widgets/shared/horizontal_list.dart';
 import 'package:fladder/widgets/shared/item_actions.dart';
 import 'package:fladder/widgets/shared/modal_bottom_sheet.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ChapterRow extends ConsumerWidget {
   final List<Chapter> chapters;
@@ -50,7 +52,7 @@ class ChapterRow extends ConsumerWidget {
                     child: Card(
                       elevation: 0,
                       shadowColor: Colors.transparent,
-                      color: Theme.of(context).cardColor.withOpacity(0.4),
+                      color: Theme.of(context).cardColor.withValues(alpha: 0.4),
                       child: Padding(
                         padding: const EdgeInsets.all(5),
                         child: Text(

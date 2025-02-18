@@ -1,5 +1,3 @@
-import 'package:collection/collection.dart';
-
 import 'package:fladder/models/items/item_shared_models.dart';
 
 extension StringExtensions on String {
@@ -14,6 +12,7 @@ extension StringExtensions on String {
   }
 
   String maxLength({int limitTo = 75}) {
+    if (isEmpty) return this;
     if (length > limitTo) {
       return "${substring(0, limitTo.clamp(0, length))}...";
     } else {
@@ -63,6 +62,6 @@ extension GenreExtensions on List<GenreItems> {
 
 extension StringListExtension on List<String?> {
   String get detailsTitle {
-    return whereNotNull().join(" ● ");
+    return nonNulls.join(" ● ");
   }
 }

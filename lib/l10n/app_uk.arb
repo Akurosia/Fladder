@@ -266,7 +266,7 @@
       }
     }
   },
-  "moreFrom": "Більше від {info}",
+  "moreFrom": "Більше з {info}",
   "@moreFrom": {
     "description": "More from",
     "placeholders": {
@@ -1213,5 +1213,9 @@
   "mediaSegmentUnknown": "Невідомо",
   "@mediaSegmentUnknown": {},
   "mediaSegmentCommercial": "Реклама",
-  "@mediaSegmentCommercial": {}
+  "@mediaSegmentCommercial": {},
+  "errorLogs": "Журнал помилок",
+  "@errorLogs": {},
+  "external": "Зовнішнє",
+  "@external": {}
 }

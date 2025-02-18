@@ -61,9 +61,11 @@ class _DetailScaffoldState extends ConsumerState<DetailScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    final padding = EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 25);
-    final backGroundColor = Theme.of(context).colorScheme.surface.withOpacity(0.8);
+    final padding = EdgeInsets.symmetric(horizontal: MediaQuery.sizeOf(context).width / 25);
+    final backGroundColor = Theme.of(context).colorScheme.surface.withValues(alpha: 0.8);
     final playerState = ref.watch(mediaPlaybackProvider.select((value) => value.state));
+    final minHeight = 450.0.clamp(0, MediaQuery.sizeOf(context).height).toDouble();
+    final maxHeight = MediaQuery.sizeOf(context).height - 10;
     return PullToRefresh(
       onRefresh: () async {
         await widget.onRefresh?.call();
@@ -90,46 +92,83 @@ class _DetailScaffoldState extends ConsumerState<DetailScaffold> {
             SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               child: Stack(
-                alignment: Alignment.topCenter,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height - 10,
-                    width: MediaQuery.of(context).size.width,
+                    height: maxHeight,
+                    width: MediaQuery.sizeOf(context).width,
                     child: FladderImage(
                       image: backgroundImage,
+                      blurOnly: true,
                     ),
                   ),
+                  if (backgroundImage != null)
+                    Align(
+                      alignment: Alignment.topCenter,
+                      child: ShaderMask(
+                        shaderCallback: (bounds) => LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Colors.white,
+                            Colors.white.withValues(alpha: 0),
+                          ],
+                        ).createShader(bounds),
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minWidth: double.infinity,
+                            minHeight: minHeight - 20,
+                            maxHeight: maxHeight.clamp(minHeight, 2500) - 20,
+                          ),
+                          child: FadeInImage(
+                            placeholder: backgroundImage!.imageProvider,
+                            placeholderColor: Colors.transparent,
+                            fit: BoxFit.cover,
+                            alignment: Alignment.topCenter,
+                            placeholderFit: BoxFit.cover,
+                            excludeFromSemantics: true,
+                            filterQuality: FilterQuality.high,
+                            placeholderFilterQuality: FilterQuality.low,
+                            image: backgroundImage!.imageProvider,
+                          ),
+                        ),
+                      ),
+                    ),
                   Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
+                    width: double.infinity,
+                    height: maxHeight + 10,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Theme.of(context).colorScheme.surface.withOpacity(0),
-                          Theme.of(context).colorScheme.surface.withOpacity(0.10),
-                          Theme.of(context).colorScheme.surface.withOpacity(0.35),
-                          Theme.of(context).colorScheme.surface.withOpacity(0.85),
+                          Theme.of(context).colorScheme.surface.withValues(alpha: 0),
+                          Theme.of(context).colorScheme.surface.withValues(alpha: 0.10),
+                          Theme.of(context).colorScheme.surface.withValues(alpha: 0.35),
+                          Theme.of(context).colorScheme.surface.withValues(alpha: 0.85),
                           Theme.of(context).colorScheme.surface,
                         ],
                       ),
                     ),
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.sizeOf(context).height,
+                    width: MediaQuery.sizeOf(context).width,
                     color: widget.backgroundColor,
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        bottom: 0,
-                        left: MediaQuery.of(context).padding.left,
-                        top: MediaQuery.of(context).padding.top + 50),
+                      bottom: 0,
+                      left: MediaQuery.of(context).padding.left,
+                      top: MediaQuery.of(context).padding.top,
+                    ),
                     child: ConstrainedBox(
                       constraints: BoxConstraints(
-                        minHeight: MediaQuery.of(context).size.height,
-                        maxWidth: MediaQuery.of(context).size.width,
+                        minHeight: MediaQuery.sizeOf(context).height,
+                        maxWidth: MediaQuery.sizeOf(context).width,
                       ),
                       child: widget.content(padding),
                     ),

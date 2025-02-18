@@ -13,6 +13,7 @@ class FlatButton extends ConsumerWidget {
   final BorderRadius? borderRadiusGeometry;
   final Color? splashColor;
   final double elevation;
+  final bool showFeedback;
   final Clip clipBehavior;
   const FlatButton({
     this.child,
@@ -23,6 +24,7 @@ class FlatButton extends ConsumerWidget {
     this.borderRadiusGeometry,
     this.splashColor,
     this.elevation = 0,
+    this.showFeedback = true,
     this.clipBehavior = Clip.none,
     super.key,
   });
@@ -45,7 +47,8 @@ class FlatButton extends ConsumerWidget {
               onDoubleTap: onDoubleTap,
               onSecondaryTapDown: onSecondaryTapDown,
               borderRadius: borderRadiusGeometry ?? BorderRadius.circular(10),
-              splashColor: splashColor ?? Theme.of(context).colorScheme.primary.withOpacity(0.5),
+              splashColor: splashColor ?? Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+              hoverColor: showFeedback ? null : Colors.transparent,
               splashFactory: InkSparkle.splashFactory,
             ),
           ),

@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:fladder/models/items/chapters_model.dart';
@@ -163,8 +162,8 @@ class _ChapterProgressSliderState extends ConsumerState<VideoProgressBar> {
                             .clamp(1, constraints.maxWidth),
                         height: sliderHeight,
                         child: GappedContainerShape(
-                          activeColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-                          inActiveColor: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+                          activeColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
+                          inActiveColor: Theme.of(context).colorScheme.primary.withValues(alpha: 0.5),
                           thumbPosition: bufferFraction,
                         ),
                       ),
@@ -196,7 +195,7 @@ class _ChapterProgressSliderState extends ConsumerState<VideoProgressBar> {
                                 shape: BoxShape.circle,
                                 color: activePosition
                                     ? Theme.of(context).colorScheme.onPrimary
-                                    : Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                                    : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
                               ),
                               height: constraints.maxHeight,
                               width: sliderHeight - (activePosition ? 2 : 4),
@@ -204,7 +203,7 @@ class _ChapterProgressSliderState extends ConsumerState<VideoProgressBar> {
                           ),
                         );
                       },
-                    ).whereNotNull(),
+                    ).nonNulls,
                   },
                 ],
               ),
@@ -268,10 +267,10 @@ class _ChapterProgressSliderState extends ConsumerState<VideoProgressBar> {
     final chapter = (currentStream?.chapters ?? []).getChapterFromDuration(currentDuration);
     final trickPlay = currentStream?.trickPlay;
     final screenWidth = MediaQuery.of(context).size.width;
-    final calculatedPosition = _chapterPosition.clamp(-50, screenWidth - (chapterCardWidth + 45)).toDouble();
+    final calculatedPosition = _chapterPosition;
     final offsetDifference = _chapterPosition - calculatedPosition;
     return Positioned(
-      left: calculatedPosition,
+      left: calculatedPosition.clamp(-10, screenWidth - (chapterCardWidth + 45)),
       child: IgnorePointer(
         child: AnimatedOpacity(
           opacity: visible ? 1 : 0,
