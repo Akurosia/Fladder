@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:chopper/chopper.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path/path.dart';
 
 import 'package:fladder/jellyfin/jellyfin_open_api.swagger.dart';
 import 'package:fladder/models/item_base_model.dart';
@@ -204,6 +205,8 @@ class PlaybackModelHelper {
       final trickPlay = (await api.getTrickPlay(item: fullItem.body, ref: ref))?.body;
       final chapters = fullItem.body?.overview.chapters ?? [];
 
+      final mediaPath = isValidVideoUrl(mediaSource?.path ?? "");
+
       if (mediaSource == null) return null;
 
       if ((mediaSource.supportsDirectStream ?? false) || (mediaSource.supportsDirectPlay ?? false)) {
@@ -222,6 +225,7 @@ class PlaybackModelHelper {
         }
 
         final params = Uri(queryParameters: directOptions).query;
+        final playbackUrl = joinAll([ref.read(userProvider)!.server, "Videos", mediaSource.id!, "stream?$params"]);
 
         return DirectPlaybackModel(
           item: fullItem.body ?? item,
@@ -230,7 +234,9 @@ class PlaybackModelHelper {
           chapters: chapters,
           playbackInfo: playbackInfo,
           trickPlay: trickPlay,
-          media: Media(url: '${ref.read(userProvider)?.server ?? ""}/Videos/${mediaSource.id}/stream?$params'),
+          media: Media(
+            url: mediaPath ?? playbackUrl,
+          ),
           mediaStreams: mediaStreamsWithUrls,
         );
       } else if ((mediaSource.supportsTranscoding ?? false) && mediaSource.transcodingUrl != null) {
@@ -250,6 +256,11 @@ class PlaybackModelHelper {
       log(e.toString());
       return null;
     }
+  }
+
+  String? isValidVideoUrl(String path) {
+    Uri? uri = Uri.tryParse(path);
+    return (uri != null && uri.hasScheme && uri.hasAuthority) ? path : null;
   }
 
   Future<List<ItemBaseModel>> collectQueue(ItemBaseModel model) async {
