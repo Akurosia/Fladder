@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:ficonsax/ficonsax.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:fladder/models/item_base_model.dart';
@@ -38,32 +38,29 @@ class _AddToPlaylistState extends ConsumerState<AddToPlaylist> {
   Widget build(BuildContext context) {
     final collectonOptions = ref.watch(provider);
     return ActionContent(
-      title: Container(
-        color: Theme.of(context).colorScheme.surface,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                if (widget.items.length == 1)
-                  Text(
-                    context.localized.addToPlaylist,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  )
-                else
-                  Text(
-                    context.localized.addItemsToPlaylist(widget.items.length),
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                IconButton(
-                  onPressed: () => ref.read(provider.notifier).setItems(widget.items),
-                  icon: const Icon(IconsaxOutline.refresh),
+      title: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              if (widget.items.length == 1)
+                Text(
+                  context.localized.addToPlaylist,
+                  style: Theme.of(context).textTheme.titleLarge,
                 )
-              ],
-            ),
-            if (widget.items.length == 1) ItemBottomSheetPreview(item: widget.items.first),
-          ],
-        ),
+              else
+                Text(
+                  context.localized.addItemsToPlaylist(widget.items.length),
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              IconButton(
+                onPressed: () => ref.read(provider.notifier).setItems(widget.items),
+                icon: const Icon(IconsaxPlusLinear.refresh),
+              )
+            ],
+          ),
+          if (widget.items.length == 1) ItemBottomSheetPreview(item: widget.items.first),
+        ],
       ),
       child: Column(
         children: [

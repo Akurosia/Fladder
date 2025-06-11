@@ -7,7 +7,7 @@ import 'package:fladder/models/items/episode_model.dart';
 import 'package:fladder/providers/sync_provider.dart';
 import 'package:fladder/screens/details_screens/components/media_stream_information.dart';
 import 'package:fladder/screens/shared/media/episode_posters.dart';
-import 'package:fladder/util/adaptive_layout.dart';
+import 'package:fladder/util/adaptive_layout/adaptive_layout.dart';
 import 'package:fladder/util/localization_helper.dart';
 import 'package:fladder/util/sticky_header_text.dart';
 import 'package:fladder/util/string_extensions.dart';
@@ -86,6 +86,9 @@ class NextUpEpisode extends ConsumerWidget {
                       children: [
                         MediaStreamInformation(
                           mediaStream: nextEpisode.mediaStreams,
+                          onVersionIndexChanged: (index) => onChanged?.call(nextEpisode.copyWith(
+                            mediaStreams: nextEpisode.mediaStreams.copyWith(versionStreamIndex: index),
+                          )),
                           onAudioIndexChanged: (index) => onChanged?.call(nextEpisode.copyWith(
                               mediaStreams: nextEpisode.mediaStreams.copyWith(defaultAudioStreamIndex: index))),
                           onSubIndexChanged: (index) => onChanged?.call(nextEpisode.copyWith(

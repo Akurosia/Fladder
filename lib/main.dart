@@ -14,12 +14,14 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smtc_windows/smtc_windows.dart' if (dart.library.html) 'package:fladder/stubs/web/smtc_web.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:window_manager/window_manager.dart';
 
 import 'package:fladder/models/account_model.dart';
-import 'package:fladder/models/settings/home_settings_model.dart';
+import 'package:fladder/models/settings/arguments_model.dart';
 import 'package:fladder/models/syncing/i_synced_item.dart';
+import 'package:fladder/providers/arguments_provider.dart';
 import 'package:fladder/providers/crash_log_provider.dart';
 import 'package:fladder/providers/settings/client_settings_provider.dart';
 import 'package:fladder/providers/shared_provider.dart';
@@ -30,9 +32,10 @@ import 'package:fladder/routes/auto_router.dart';
 import 'package:fladder/routes/auto_router.gr.dart';
 import 'package:fladder/screens/login/lock_screen.dart';
 import 'package:fladder/theme.dart';
-import 'package:fladder/util/adaptive_layout.dart';
+import 'package:fladder/util/adaptive_layout/adaptive_layout.dart';
 import 'package:fladder/util/application_info.dart';
 import 'package:fladder/util/fladder_config.dart';
+import 'package:fladder/util/localization_helper.dart';
 import 'package:fladder/util/string_extensions.dart';
 import 'package:fladder/util/themes_data.dart';
 
@@ -50,9 +53,13 @@ Future<Map<String, dynamic>> loadConfig() async {
   return jsonDecode(configString);
 }
 
-void main() async {
+void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   final crashProvider = CrashLogNotifier();
+
+  if (defaultTargetPlatform == TargetPlatform.windows) {
+    await SMTCWindows.initialize();
+  }
 
   if (kIsWeb) {
     html.document.onContextMenu.listen((event) => event.preventDefault());
@@ -90,6 +97,7 @@ void main() async {
         sharedPreferencesProvider.overrideWith((ref) => sharedPreferences),
         applicationInfoProvider.overrideWith((ref) => applicationInfo),
         crashLogProvider.overrideWith((ref) => crashProvider),
+        argumentsStateProvider.overrideWith((ref) => ArgumentsModel.fromArguments(args)),
         syncProvider.overrideWith((ref) => SyncNotifier(
               ref,
               !kIsWeb
@@ -102,13 +110,7 @@ void main() async {
             ))
       ],
       child: AdaptiveLayoutBuilder(
-        fallBack: ViewSize.tablet,
-        layoutPoints: [
-          LayoutPoints(start: 0, end: 599, type: ViewSize.phone),
-          LayoutPoints(start: 600, end: 1919, type: ViewSize.tablet),
-          LayoutPoints(start: 1920, end: 3180, type: ViewSize.desktop),
-        ],
-        child: const Main(),
+        child: (context) => const Main(),
       ),
     ),
   );
@@ -235,6 +237,10 @@ class _MainState extends ConsumerState<Main> with WindowListener, WidgetsBinding
       windowManager.waitUntilReadyToShow(windowOptions, () async {
         await windowManager.show();
         await windowManager.focus();
+        final startupArguments = ref.read(argumentsStateProvider);
+        if (startupArguments.htpcMode && !(await windowManager.isFullScreen())) {
+          await windowManager.setFullScreen(true);
+        }
       });
     } else {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: []);
@@ -288,7 +294,7 @@ class _MainState extends ConsumerState<Main> with WindowListener, WidgetsBinding
                 (element) => element.languageCode == language.languageCode,
                 orElse: () => const Locale('en', "GB"),
               ),
-              child: ScaffoldMessenger(child: child ?? Container()),
+              child: LocalizationContextWrapper(child: ScaffoldMessenger(child: child ?? Container())),
             ),
             debugShowCheckedModeBanner: false,
             darkTheme: darkTheme.copyWith(
@@ -298,11 +304,11 @@ class _MainState extends ConsumerState<Main> with WindowListener, WidgetsBinding
               colorScheme: darkTheme.colorScheme.copyWith(
                 surface: amoledOverwrite,
                 surfaceContainerHighest: amoledOverwrite,
+                surfaceContainerLow: amoledOverwrite,
               ),
             ),
             themeMode: themeMode,
             routerConfig: autoRouter.config(),
-            // routerConfig: AdaptiveLayout.routerOf(context).config(),
           ),
         );
       }),
@@ -310,6 +316,4 @@ class _MainState extends ConsumerState<Main> with WindowListener, WidgetsBinding
   }
 }
 
-final currentTitleProvider = StateProvider<String>((ref) {
-  return "Fladder";
-});
+final currentTitleProvider = StateProvider<String>((ref) => "Fladder");

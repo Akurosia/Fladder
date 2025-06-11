@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:collection/collection.dart';
-import 'package:ficonsax/ficonsax.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:fladder/models/item_base_model.dart';
@@ -19,12 +19,14 @@ import 'package:fladder/providers/video_player_provider.dart';
 import 'package:fladder/screens/collections/add_to_collection.dart';
 import 'package:fladder/screens/metadata/info_screen.dart';
 import 'package:fladder/screens/playlists/add_to_playlists.dart';
+import 'package:fladder/screens/video_player/components/video_player_quality_controls.dart';
 import 'package:fladder/screens/video_player/components/video_player_queue.dart';
 import 'package:fladder/screens/video_player/components/video_subtitle_controls.dart';
-import 'package:fladder/util/adaptive_layout.dart';
+import 'package:fladder/util/adaptive_layout/adaptive_layout.dart';
 import 'package:fladder/util/device_orientation_extension.dart';
 import 'package:fladder/util/list_padding.dart';
 import 'package:fladder/util/localization_helper.dart';
+import 'package:fladder/util/map_bool_helper.dart';
 import 'package:fladder/util/refresh_state.dart';
 import 'package:fladder/util/string_extensions.dart';
 import 'package:fladder/widgets/shared/enum_selection.dart';
@@ -63,6 +65,7 @@ class _VideoOptionsMobileState extends ConsumerState<VideoOptions> {
     final currentItem = ref.watch(playBackModel.select((value) => value?.item));
     final videoSettings = ref.watch(videoPlayerSettingsProvider);
     final currentMediaStreams = ref.watch(playBackModel.select((value) => value?.mediaStreams));
+    final bitRateOptions = ref.watch(playBackModel.select((value) => value?.bitRateOptions));
 
     Widget mainPage() {
       return ListView(
@@ -121,7 +124,7 @@ class _VideoOptionsMobileState extends ConsumerState<VideoOptions> {
                           icon: Opacity(
                             opacity: videoSettings.screenBrightness != null ? 0.5 : 1,
                             child: Icon(
-                              IconsaxBold.autobrightness,
+                              IconsaxPlusBold.autobrightness,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
@@ -202,6 +205,24 @@ class _VideoOptionsMobileState extends ConsumerState<VideoOptions> {
               ],
             ),
           ),
+          if (bitRateOptions?.isNotEmpty == true)
+            ListTile(
+              title: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Text(context.localized.qualityOptionsTitle),
+                  ),
+                  const Spacer(),
+                  Text(bitRateOptions?.enabledFirst.keys.firstOrNull?.label(context) ?? "")
+                ],
+              ),
+              onTap: () {
+                Navigator.of(context).pop();
+                openQualityOptions(context);
+              },
+            )
         ],
       );
     }
@@ -481,9 +502,9 @@ Future<void> showPlaybackSpeed(BuildContext context) {
                           width: 250,
                           child: FladderSlider(
                             min: 0.25,
-                            max: 10,
+                            max: 3,
                             value: lastSpeed,
-                            divisions: 39,
+                            divisions: 55,
                             onChanged: (value) {
                               ref.read(playbackRateProvider.notifier).state = value;
                               player.setSpeed(value);

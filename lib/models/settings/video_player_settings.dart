@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'package:fladder/models/items/media_segments_model.dart';
+import 'package:fladder/util/bitrate_helper.dart';
 import 'package:fladder/util/localization_helper.dart';
 
 part 'video_player_settings.freezed.dart';
@@ -20,11 +22,15 @@ class VideoPlayerSettingsModel with _$VideoPlayerSettingsModel {
     @Default(false) bool fillScreen,
     @Default(true) bool hardwareAccel,
     @Default(false) bool useLibass,
+    @Default(32) int bufferSize,
     PlayerOptions? playerOptions,
     @Default(100) double internalVolume,
     Set<DeviceOrientation>? allowedOrientations,
     @Default(AutoNextType.smart) AutoNextType nextVideoType,
+    @Default(Bitrate.original) Bitrate maxHomeBitrate,
+    @Default(Bitrate.original) Bitrate maxInternetBitrate,
     String? audioDevice,
+    @Default(defaultSegmentSkipValues) Map<MediaSegmentType, SegmentSkip> segmentSkipSettings,
   }) = _VideoPlayerSettingsModel;
 
   double get volume => switch (defaultTargetPlatform) {
@@ -37,7 +43,7 @@ class VideoPlayerSettingsModel with _$VideoPlayerSettingsModel {
   PlayerOptions get wantedPlayer => playerOptions ?? PlayerOptions.platformDefaults;
 
   bool playerSame(VideoPlayerSettingsModel other) {
-    return other.hardwareAccel == hardwareAccel && other.useLibass == useLibass && other.wantedPlayer == wantedPlayer;
+    return other.hardwareAccel == hardwareAccel && other.useLibass == useLibass && other.bufferSize == bufferSize && other.wantedPlayer == wantedPlayer;
   }
 
   @override
@@ -50,6 +56,7 @@ class VideoPlayerSettingsModel with _$VideoPlayerSettingsModel {
         other.fillScreen == fillScreen &&
         other.hardwareAccel == hardwareAccel &&
         other.useLibass == useLibass &&
+        other.bufferSize == bufferSize &&
         other.internalVolume == internalVolume &&
         other.playerOptions == playerOptions &&
         other.audioDevice == audioDevice;
@@ -62,6 +69,7 @@ class VideoPlayerSettingsModel with _$VideoPlayerSettingsModel {
         fillScreen.hashCode ^
         hardwareAccel.hashCode ^
         useLibass.hashCode ^
+        bufferSize.hashCode ^
         internalVolume.hashCode ^
         audioDevice.hashCode;
   }

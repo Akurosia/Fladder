@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:collection/collection.dart';
-import 'package:ficonsax/ficonsax.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 
 import 'package:fladder/jellyfin/jellyfin_open_api.swagger.dart';
 import 'package:fladder/models/items/chapters_model.dart';
@@ -12,6 +12,7 @@ import 'package:fladder/models/items/media_segments_model.dart';
 import 'package:fladder/models/items/media_streams_model.dart';
 import 'package:fladder/models/syncing/sync_item.dart';
 import 'package:fladder/providers/user_provider.dart';
+import 'package:fladder/util/localization_helper.dart';
 
 enum PlaybackType {
   directStream,
@@ -19,21 +20,16 @@ enum PlaybackType {
   transcode;
 
   IconData get icon => switch (this) {
-        PlaybackType.offline => IconsaxOutline.cloud,
-        PlaybackType.directStream => IconsaxOutline.arrow_right_1,
-        PlaybackType.transcode => IconsaxOutline.convert,
+        PlaybackType.offline => IconsaxPlusLinear.cloud,
+        PlaybackType.directStream => IconsaxPlusLinear.arrow_right_1,
+        PlaybackType.transcode => IconsaxPlusLinear.convert,
       };
 
-  String get name {
-    switch (this) {
-      case PlaybackType.directStream:
-        return "Direct";
-      case PlaybackType.offline:
-        return "Offline";
-      case PlaybackType.transcode:
-        return "Transcoding";
-    }
-  }
+  String name(BuildContext context) => switch (this) {
+        PlaybackType.directStream => context.localized.playbackTypeDirect,
+        PlaybackType.offline => context.localized.playbackTypeOffline,
+        PlaybackType.transcode => context.localized.playbackTypeTranscode
+      };
 }
 
 class VideoPlayback {
@@ -199,8 +195,7 @@ class VideoStream {
       playbackUrl: playbackUrl,
       playbackType: playType,
       playSessionId: info.playSessionId ?? "",
-      mediaStreamsModel: MediaStreamsModel.fromMediaStreamsList(
-          info.mediaSources?.firstOrNull, info.mediaSources?.firstOrNull?.mediaStreams ?? [], ref),
+      mediaStreamsModel: MediaStreamsModel.fromMediaStreamsList(info.mediaSources, ref),
     );
   }
 }

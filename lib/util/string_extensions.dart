@@ -25,19 +25,22 @@ extension StringExtensions on String {
     var buffer = StringBuffer();
     var split = this.split(' ');
     for (var i = 0; i < (limitTo.clamp(0, split.length)); i++) {
+      if (split[i].isEmpty) continue;
       buffer.write(split[i][0]);
     }
 
     return buffer.toString();
   }
 
-  String toUpperCaseSplit() {
+  String toUpperCaseSplit({RegExp? regExp}) {
     String result = '';
+
+    RegExp defaultRegex = regExp ?? RegExp(r'^[a-zA-Z]+$');
 
     for (int i = 0; i < length; i++) {
       if (i == 0) {
         result += this[i].toUpperCase();
-      } else if ((i > 0 && this[i].toUpperCase() == this[i])) {
+      } else if ((i > 0 && this[i].toUpperCase() == this[i]) && defaultRegex.hasMatch(this[i]) == true) {
         result += ' ${this[i].toUpperCase()}';
       } else {
         result += this[i];
