@@ -99,7 +99,7 @@
     "delete": "Удалить",
     "dateAdded": "Добавлено",
     "dateLastContentAdded": "Дата добавления",
-    "days": "Дни",
+    "days": "{считать, plural, один{Day} несколько{Days}}",
     "deleteItem": "Удалить {item}?",
     "@deleteItem": {
         "description": "deleteItem",
