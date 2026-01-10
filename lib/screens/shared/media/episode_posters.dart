@@ -154,7 +154,7 @@ class EpisodePoster extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Widget placeHolder = Container(
-      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+      height: double.infinity,
       child: const Icon(Icons.local_movies_outlined),
     );
     bool episodeAvailable = episode.status == EpisodeStatus.available;
@@ -192,7 +192,6 @@ class EpisodePoster extends ConsumerWidget {
                         : ref.watch(clientSettingsProvider.select((value) => value.blurUpcomingEpisodes))
                             ? blur
                             : false,
-                    decodeHeight: 250,
                   ),
                 ),
               ),

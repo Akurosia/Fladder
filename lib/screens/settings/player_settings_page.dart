@@ -53,7 +53,7 @@ class _PlayerSettingsPageState extends ConsumerState<PlayerSettingsPage> {
       items: [
         ...settingsListGroup(
           context,
-          SettingsLabelDivider(label: context.localized.video),
+          SettingsLabelDivider(label: context.localized.video(1)),
           [
             if (!AdaptiveLayout.of(context).isDesktop && !kIsWeb)
               Column(
@@ -177,33 +177,29 @@ class _PlayerSettingsPageState extends ConsumerState<PlayerSettingsPage> {
             if (userSettings != null)
               SettingsListTile(
                 label: Text(context.localized.skipBackLength),
-                trailing: SizedBox(
-                    width: 125,
-                    child: IntInputField(
-                      suffix: context.localized.seconds(10),
-                      controller: TextEditingController(text: userSettings.skipBackDuration.inSeconds.toString()),
-                      onSubmitted: (value) {
-                        if (value != null) {
-                          ref.read(userProvider.notifier).setBackwardSpeed(value);
-                        }
-                      },
-                    )),
+                trailing: IntInputField(
+                  suffix: context.localized.seconds(10),
+                  controller: TextEditingController(text: userSettings.skipBackDuration.inSeconds.toString()),
+                  onSubmitted: (value) {
+                    if (value != null) {
+                      ref.read(userProvider.notifier).setBackwardSpeed(value);
+                    }
+                  },
+                ),
               ),
             SettingsListTile(
               label: Text(context.localized.skipForwardLength),
-              trailing: SizedBox(
-                  width: 125,
-                  child: IntInputField(
-                    suffix: context.localized.seconds(10),
-                    controller: TextEditingController(text: userSettings!.skipForwardDuration.inSeconds.toString()),
-                    onSubmitted: (value) {
-                      if (value != null) {
-                        ref.read(userProvider.notifier).setForwardSpeed(value);
-                      }
-                    },
-                  )),
+              trailing: IntInputField(
+                suffix: context.localized.seconds(10),
+                controller: TextEditingController(text: userSettings!.skipForwardDuration.inSeconds.toString()),
+                onSubmitted: (value) {
+                  if (value != null) {
+                    ref.read(userProvider.notifier).setForwardSpeed(value);
+                  }
+                },
+              ),
             ),
-            if (AdaptiveLayout.inputDeviceOf(context) == InputDevice.pointer)
+            if (AdaptiveLayout.inputDeviceOf(context) != InputDevice.touch)
               ExpansionTile(
                 title: Text(
                   context.localized.keyboardShortCuts,
@@ -238,30 +234,34 @@ class _PlayerSettingsPageState extends ConsumerState<PlayerSettingsPage> {
           ],
         ),
         const SizedBox(height: 12),
-        ...settingsListGroup(context, SettingsLabelDivider(label: context.localized.playbackTrackSelection), [
-          SettingsListTile(
-            label: Text(context.localized.rememberAudioSelections),
-            subLabel: Text(context.localized.rememberAudioSelectionsDesc),
-            onTap: () => ref.read(userProvider.notifier).setRememberAudioSelections(),
-            trailing: Switch(
-              value: ref.watch(userProvider.select(
-                (value) => value?.userConfiguration?.rememberAudioSelections ?? true,
-              )),
-              onChanged: (_) => ref.read(userProvider.notifier).setRememberAudioSelections(),
+        ...settingsListGroup(
+          context,
+          SettingsLabelDivider(label: context.localized.playbackTrackSelection),
+          [
+            SettingsListTile(
+              label: Text(context.localized.rememberAudioSelections),
+              subLabel: Text(context.localized.rememberAudioSelectionsDesc),
+              onTap: () => ref.read(userProvider.notifier).setRememberAudioSelections(),
+              trailing: Switch(
+                value: ref.watch(userProvider.select(
+                  (value) => value?.userConfiguration?.rememberAudioSelections ?? true,
+                )),
+                onChanged: (_) => ref.read(userProvider.notifier).setRememberAudioSelections(),
+              ),
             ),
-          ),
-          SettingsListTile(
-            label: Text(context.localized.rememberSubtitleSelections),
-            subLabel: Text(context.localized.rememberSubtitleSelectionsDesc),
-            onTap: () => ref.read(userProvider.notifier).setRememberSubtitleSelections(),
-            trailing: Switch(
-              value: ref.watch(userProvider.select(
-                (value) => value?.userConfiguration?.rememberSubtitleSelections ?? true,
-              )),
-              onChanged: (_) => ref.read(userProvider.notifier).setRememberSubtitleSelections(),
+            SettingsListTile(
+              label: Text(context.localized.rememberSubtitleSelections),
+              subLabel: Text(context.localized.rememberSubtitleSelectionsDesc),
+              onTap: () => ref.read(userProvider.notifier).setRememberSubtitleSelections(),
+              trailing: Switch(
+                value: ref.watch(userProvider.select(
+                  (value) => value?.userConfiguration?.rememberSubtitleSelections ?? true,
+                )),
+                onChanged: (_) => ref.read(userProvider.notifier).setRememberSubtitleSelections(),
+              ),
             ),
-          ),
-        ]),
+          ],
+        ),
         const SizedBox(height: 12),
         ...settingsListGroup(
           context,
@@ -345,17 +345,15 @@ class _PlayerSettingsPageState extends ConsumerState<PlayerSettingsPage> {
                       SettingsListTile(
                         label: Text(context.localized.settingsPlayerBufferSizeTitle),
                         subLabel: Text(context.localized.settingsPlayerBufferSizeDesc),
-                        trailing: SizedBox(
-                            width: 70,
-                            child: IntInputField(
-                              suffix: 'MB',
-                              controller: TextEditingController(text: videoSettings.bufferSize.toString()),
-                              onSubmitted: (value) {
-                                if (value != null) {
-                                  provider.setBufferSize(value);
-                                }
-                              },
-                            )),
+                        trailing: IntInputField(
+                          suffix: 'MB',
+                          controller: TextEditingController(text: videoSettings.bufferSize.toString()),
+                          onSubmitted: (value) {
+                            if (value != null) {
+                              provider.setBufferSize(value);
+                            }
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -370,6 +368,22 @@ class _PlayerSettingsPageState extends ConsumerState<PlayerSettingsPage> {
                           onChanged: (value) => provider.setMediaTunneling(value),
                         ),
                       ),
+                      if (ref.read(argumentsStateProvider).leanBackMode)
+                        SettingsListTile(
+                          label: Text(context.localized.playerSettingsScreensaverTitle),
+                          subLabel: Text(context.localized.playerSettingsScreensaverDesc),
+                          trailing: EnumBox(
+                            current: videoSettings.screensaver.label(context),
+                            itemBuilder: (context) => Screensaver.values
+                                .map(
+                                  (entry) => ItemActionButton(
+                                    label: Text(entry.label(context)),
+                                    action: () => provider.setScreensaver(entry),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
                     ],
                   ),
                 PlayerOptions.libMDK => SettingsMessageBox(

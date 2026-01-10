@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:fladder/jellyfin/jellyfin_open_api.swagger.dart';
-import 'package:fladder/providers/auth_provider.dart';
-import 'package:fladder/providers/user_provider.dart';
+import 'package:fladder/providers/api_provider.dart';
 
 const _defaultHeight = 576;
 const _defaultWidth = 384;
@@ -19,11 +18,12 @@ class ImageNotifier {
   });
 
   String get currentServerUrl {
-    return ref.read(userProvider)?.server ?? ref.read(authProvider).serverLoginModel?.tempCredentials.server ?? "";
+    return ref.read(serverUrlProvider) ?? "";
   }
 
   String getUserImageUrl(String id) {
-    return Uri.decodeFull("$currentServerUrl/Users/$id/Images/${ImageType.primary.value}");
+    final typeValue = ImageType.primary.value ?? 'Primary';
+    return buildServerUrl(ref, pathSegments: ['Users', id, 'Images', typeValue]);
   }
 
   String getItemsImageUrl(String? itemId,
@@ -33,9 +33,17 @@ class ImageNotifier {
       int quality = _defaultQuality}) {
     try {
       if (itemId == null) return "";
+      final typeValue = type.value ?? 'Primary';
 
-      return Uri.decodeFull(
-          "$currentServerUrl/Items/$itemId/Images/${type.value}?fillHeight=$maxHeight&fillWidth=$maxWidth&quality=$quality");
+      return buildServerUrl(
+        ref,
+        pathSegments: ['Items', itemId, 'Images', typeValue],
+        queryParameters: {
+          'fillHeight': maxHeight.toString(),
+          'fillWidth': maxWidth.toString(),
+          'quality': quality.toString(),
+        },
+      );
     } catch (e) {
       return "";
     }
@@ -44,7 +52,8 @@ class ImageNotifier {
   String getItemsOrigImageUrl(String? itemId, {ImageType type = ImageType.primary}) {
     try {
       if (itemId == null) return "";
-      return Uri.decodeFull("$currentServerUrl/Items/$itemId/Images/${type.value}");
+      final typeValue = type.value ?? 'Primary';
+      return buildServerUrl(ref, pathSegments: ['Items', itemId, 'Images', typeValue]);
     } catch (e) {
       return "";
     }
@@ -56,7 +65,13 @@ class ImageNotifier {
     String hash,
   ) {
     try {
-      return Uri.decodeFull("$currentServerUrl/Items/$itemId/Images/Backdrop/$index?tag=$hash");
+      return buildServerUrl(
+        ref,
+        pathSegments: ['Items', itemId, 'Images', 'Backdrop', index.toString()],
+        queryParameters: {
+          'tag': hash,
+        },
+      );
     } catch (e) {
       return "";
     }
@@ -71,8 +86,16 @@ class ImageNotifier {
     int quality = _defaultQuality,
   }) {
     try {
-      return Uri.decodeFull(
-          "$currentServerUrl/Items/$itemId/Images/Backdrop/$index?tag=$hash&fillHeight=$maxHeight&fillWidth=$maxWidth&quality=$quality");
+      return buildServerUrl(
+        ref,
+        pathSegments: ['Items', itemId, 'Images', 'Backdrop', index.toString()],
+        queryParameters: {
+          'tag': hash,
+          'fillHeight': maxHeight.toString(),
+          'fillWidth': maxWidth.toString(),
+          'quality': quality.toString(),
+        },
+      );
     } catch (e) {
       return "";
     }
@@ -84,8 +107,15 @@ class ImageNotifier {
       int maxWidth = _defaultWidth,
       int quality = _defaultQuality}) {
     try {
-      return Uri.decodeFull(
-          "$currentServerUrl/Items/$itemId/Images/Chapter/$index?fillHeight=$maxHeight&fillWidth=$maxWidth&quality=$quality");
+      return buildServerUrl(
+        ref,
+        pathSegments: ['Items', itemId, 'Images', 'Chapter', index.toString()],
+        queryParameters: {
+          'fillHeight': maxHeight.toString(),
+          'fillWidth': maxWidth.toString(),
+          'quality': quality.toString(),
+        },
+      );
     } catch (e) {
       return "";
     }

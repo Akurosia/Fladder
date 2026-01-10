@@ -10,6 +10,7 @@ import 'package:fladder/models/item_base_model.dart';
 import 'package:fladder/models/items/images_models.dart';
 import 'package:fladder/models/items/item_shared_models.dart';
 import 'package:fladder/models/items/overview_model.dart';
+import 'package:fladder/providers/api_provider.dart';
 import 'package:fladder/providers/user_provider.dart';
 import 'package:fladder/screens/shared/fladder_snackbar.dart';
 import 'package:fladder/util/localization_helper.dart';
@@ -140,7 +141,14 @@ class PhotoModel extends ItemBaseModel with PhotoModelMappable {
   }
 
   String downloadPath(WidgetRef ref) {
-    return "${ref.read(userProvider)?.server}/Items/$id/Download?api_key=${ref.read(userProvider)?.credentials.token}";
+    final baseUrl = ref.read(serverUrlProvider);
+    if (baseUrl == null || baseUrl.isEmpty) return '';
+    return buildServerUriFromBase(
+          baseUrl,
+          pathSegments: ['Items', id, 'Download'],
+          queryParameters: {'api_key': ref.read(userProvider)?.credentials.token},
+        )?.toString() ??
+        '';
   }
 
   Future<void> navigateToAlbum(BuildContext context) async {

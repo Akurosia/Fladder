@@ -7,7 +7,7 @@
   <br>
 </h1>
 
-<h4 align="center">A Simple Jellyfin Frontend built on top of <a href="https://flutter.dev/" target="_blank">Flutter</a>.</h4>
+<h4 align="center">A cross-platform Jellyfin Frontend built on top of <a href="https://flutter.dev/" target="_blank">Flutter</a>.</h4>
 
 <p align="center">
   <a href="#key-features">Key Features</a> •
@@ -32,18 +32,24 @@
 
 ## Key Features
 
-* Play media – Stream or sync content locally to your device.
-* Manage your library – Refresh content and edit metadata.
-* Multiple profiles – Lock profiles and connect to different servers.
-* Direct/Transcode playback
-* Intro/Credits skipping
+* Play media – Stream or sync content locally to your device
+* Manage your library – Refresh content and edit metadata
+* Multiple profiles – add multiple users or different servers easily switching between
+* Direct, Transcode and Offline playback
+* Media segments skipping (Intro/Credits etc.)
 * Trickplay support (timeline scrubbing)
-* Dark/Light mode
-* Simple comic book format reading support (.cbz, .crb)
-* Sync supported on Mobile/Desktop
+* Dark/Light mode and multiple color styles to pick
+* Simple comic book format reading support (.cbz, .cbr)
+* Sync items for all platforms
+* Download items and keep progress in sync
+* Keyboard shortcuts
+* Adaptive layout for all platforms
+* Next-up overview when watching a queue
+* Server management
+* Seerr/Jellyseerr integration
 * Platforms
-  - Android
-  - Web
+  - Android + TV
+  - Web + Docker
   - macOS
   - Windows 
   - iOS 
@@ -78,35 +84,42 @@
    <img src="https://github.com/DonutWare/Fladder/blob/develop/assets/marketing/screenshots/Tablet/Player.png?raw=true" alt="Fladder" width="1280">   
 </details>
 
+<details close>
+  <summary>Television</summary>
+   <img src="https://github.com/DonutWare/Fladder/blob/develop/assets/marketing/screenshots/Television/Dashboard.png?raw=true" alt="Fladder" width="1280">  
+   <img src="https://github.com/DonutWare/Fladder/blob/develop/assets/marketing/screenshots/Television/Details.png?raw=true" alt="Fladder" width="1280">  
+   <img src="https://github.com/DonutWare/Fladder/blob/develop/assets/marketing/screenshots/Television/Favourites.png?raw=true" alt="Fladder" width="1280">  
+   <img src="https://github.com/DonutWare/Fladder/blob/develop/assets/marketing/screenshots/Television/Library.png?raw=true" alt="Fladder" width="1280">  
+   <img src="https://github.com/DonutWare/Fladder/blob/develop/assets/marketing/screenshots/Television/Library_Search.png?raw=true" alt="Fladder" width="1280">  
+   <img src="https://github.com/DonutWare/Fladder/blob/develop/assets/marketing/screenshots/Television/Sync.png?raw=true" alt="Fladder" width="1280">  
+   <img src="https://github.com/DonutWare/Fladder/blob/develop/assets/marketing/screenshots/Television/Settings.png?raw=true" alt="Fladder" width="1280">  
+   <img src="https://github.com/DonutWare/Fladder/blob/develop/assets/marketing/screenshots/Television/Player.png?raw=true" alt="Fladder" width="1280">   
+</details>
+
 Web/Desktop [try out the web build!](https://DonutWare.github.io/Fladder)
 > [!NOTE]
 > The GitHub hosted web build only allows `https` connections. This is a limitation on GitHub's end, for self-hosted versions `http` works fine.
 
-## In progress
-
-* [Android TV](https://github.com/DonutWare/Fladder/issues/510)
-
 ## Planned Features
 
-* Music playback* 
-* Server management
-* And more???
+* Music playback
+* [And more???](https://github.com/DonutWare/Fladder/discussions/categories/ideas)
 
 ## Download
 
 The latest executables for Windows, macOS, Linux, iOS, Android and Web can be found on the [releases page](https://github.com/DonutWare/Fladder/releases).
 
-You can pull the Docker version using the following tag: ```ghcr.io/donutware/fladder:latest```.
+You can pull the Docker version using the following tags: ```ghcr.io/donutware/fladder:latest```. or ```ghcr.io/donutware/fladder-rootless:latest```
 
 *Platform-specific installation and usage instructions can be found [here](https://github.com/DonutWare/Fladder/blob/develop/INSTALL.md).*
 
 <a href='https://play.google.com/store/apps/details?id=nl.jknaapen.fladder&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' width=250/></a>
 
 > [!WARNING]
-> For windows users, sometimes flutter applications are marked as false positives by windows defender for more info see [this issue](https://github.com/DonutWare/Fladder/issues/197#issuecomment-2568906874).
+> (Windows) Some flutter applications are marked as false positives by windows defender for more info see [this issue](https://github.com/DonutWare/Fladder/issues/197#issuecomment-2568906874).
 
 ## How to Contribute
-Interest in contributing? Here are a couple of ways you can help:
+Interested in contributing? Here are a couple of ways you can help:
 
 ### 🐛 Reporting Bugs
 - Before reporting a bug, **please ensure** that the issue hasn't been reported already.

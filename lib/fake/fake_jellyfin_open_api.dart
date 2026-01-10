@@ -225,7 +225,7 @@ class FakeJellyfinOpenApi extends JellyfinOpenApi {
   }
 
   @override
-  Future<chopper.Response<List<BaseItemDto>>> itemsLatestGet({
+  Future<chopper.Response<List<BaseItemDto>>> usersUserIdItemsLatestGet({
     String? userId,
     String? parentId,
     List<enums.ItemFields>? fields,
@@ -289,7 +289,7 @@ class FakeJellyfinOpenApi extends JellyfinOpenApi {
   }
 
   @override
-  Future<chopper.Response<BaseItemDtoQueryResult>> itemsGet({
+  Future<chopper.Response<BaseItemDtoQueryResult>> usersUserIdItemsGet({
     String? userId,
     String? maxOfficialRating,
     bool? hasThemeSong,
@@ -681,9 +681,11 @@ class FakeJellyfinOpenApi extends JellyfinOpenApi {
   }
 
   @override
-  Future<chopper.Response<BrandingOptions>> brandingConfigurationGet() async => chopper.Response(
+  Future<chopper.Response<BrandingOptionsDto>> brandingConfigurationGet() async => chopper.Response(
         FakeHelper.fakeCorrectResponse,
-        const BrandingOptions(loginDisclaimer: "Test server"),
+        const BrandingOptionsDto(
+            loginDisclaimer:
+                "This is a local test server, meant for evaluation purposes only.\nTo login, use the following user+password \nuser: User 1\npassword: Txnw6RWYb8yEtD"),
       );
 }
 
@@ -736,7 +738,7 @@ class FakeHelper {
 
   static List<UserDto> fakeUsers = [
     fakeCorrectUser,
-    const UserDto(id: '2', name: 'User 2'),
+    const UserDto(id: '2', name: 'Incorrect User 2'),
   ];
 
   static AuthenticationResult fakeAuthResult = AuthenticationResult(

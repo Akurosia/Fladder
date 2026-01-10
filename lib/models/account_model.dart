@@ -10,6 +10,7 @@ import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:fladder/jellyfin/jellyfin_open_api.swagger.dart';
 import 'package:fladder/models/credentials_model.dart';
 import 'package:fladder/models/library_filters_model.dart';
+import 'package:fladder/models/seerr_credentials_model.dart';
 import 'package:fladder/util/adaptive_layout/adaptive_layout.dart';
 import 'package:fladder/util/localization_helper.dart';
 
@@ -27,20 +28,22 @@ abstract class AccountModel with _$AccountModel {
     required DateTime lastUsed,
     @Default(Authentication.autoLogin) Authentication authMethod,
     @Default("") String localPin,
-    required CredentialsModel credentials,
+    @CredentialsConverter() required CredentialsModel credentials,
+    SeerrCredentialsModel? seerrCredentials,
     @Default([]) List<String> latestItemsExcludes,
     @Default([]) List<String> searchQueryHistory,
     @Default(false) bool quickConnectState,
     @Default([]) List<LibraryFiltersModel> libraryFilters,
+    //Server values not stored in the database
     @JsonKey(includeFromJson: false, includeToJson: false) UserPolicy? policy,
     @JsonKey(includeFromJson: false, includeToJson: false) ServerConfiguration? serverConfiguration,
     @JsonKey(includeFromJson: false, includeToJson: false) UserConfiguration? userConfiguration,
+    @JsonKey(includeFromJson: false, includeToJson: false) bool? hasPassword,
+    @JsonKey(includeFromJson: false, includeToJson: false) bool? hasConfiguredPassword,
     UserSettings? userSettings,
   }) = _AccountModel;
 
   factory AccountModel.fromJson(Map<String, dynamic> json) => _$AccountModelFromJson(json);
-
-  String get server => credentials.server;
 
   bool get canDownload => (policy?.enableContentDownloading ?? false);
 
@@ -48,6 +51,27 @@ abstract class AccountModel with _$AccountModel {
   bool sameIdentity(AccountModel other) {
     if (identical(this, other)) return true;
     return other.id == id && other.credentials.serverId == credentials.serverId;
+  }
+}
+
+//Converter to convert old json to new json formats
+class CredentialsConverter implements JsonConverter<CredentialsModel, Object?> {
+  const CredentialsConverter();
+
+  @override
+  CredentialsModel fromJson(Object? json) {
+    if (json is String) {
+      return CredentialsModel.fromJsonString(json);
+    }
+    if (json is Map<String, dynamic>) {
+      return CredentialsModel.fromJson(json);
+    }
+    throw ArgumentError('Invalid credentials JSON: $json');
+  }
+
+  @override
+  Object? toJson(CredentialsModel object) {
+    return object.toJson();
   }
 }
 
@@ -69,6 +93,15 @@ enum Authentication {
 
   const Authentication(this.value);
   final int value;
+
+  static Set<Authentication> get secureOptions => Authentication.values.where((element) => element.shouldLock).toSet();
+
+  bool get shouldLock => switch (this) {
+        Authentication.autoLogin => false,
+        Authentication.biometrics => true,
+        Authentication.passcode => true,
+        Authentication.none => false,
+      };
 
   bool available(BuildContext context) {
     switch (this) {

@@ -125,6 +125,7 @@ class _PhotoViewerScreenState extends ConsumerState<PhotoViewerScreen> with Widg
     setState(() {
       showInterface = show ?? !showInterface;
     });
+
     SystemChrome.setEnabledSystemUIMode(
       !showInterface ? SystemUiMode.leanBack : SystemUiMode.edgeToEdge,
       overlays: [],
@@ -455,7 +456,7 @@ class _PhotoViewerScreenState extends ConsumerState<PhotoViewerScreen> with Widg
                               : IconsaxPlusLinear.repeate_one,
                         ),
                         ElevatedIconButtonLabel(
-                          label: context.localized.audio,
+                          label: context.localized.audio(1),
                           onPressed: () => ref
                               .read(photoViewSettingsProvider.notifier)
                               .update((state) => state.copyWith(mute: !state.mute)),

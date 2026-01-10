@@ -8,9 +8,11 @@ import 'package:window_manager/window_manager.dart';
 
 import 'package:fladder/models/settings/client_settings_model.dart';
 import 'package:fladder/providers/settings/client_settings_provider.dart';
+import 'package:fladder/providers/sync_provider.dart';
 import 'package:fladder/providers/user_provider.dart';
 import 'package:fladder/routes/auto_router.gr.dart';
 import 'package:fladder/screens/shared/fladder_snackbar.dart';
+import 'package:fladder/seerr/seerr_models.dart';
 import 'package:fladder/util/input_handler.dart';
 import 'package:fladder/util/localization_helper.dart';
 import 'package:fladder/util/string_extensions.dart';
@@ -23,6 +25,7 @@ enum HomeTabs {
   dashboard,
   library,
   favorites,
+  seerr,
   sync;
 
   const HomeTabs();
@@ -31,6 +34,7 @@ enum HomeTabs {
         HomeTabs.dashboard => IconsaxPlusLinear.home_1,
         HomeTabs.library => IconsaxPlusLinear.book,
         HomeTabs.favorites => IconsaxPlusLinear.heart,
+        HomeTabs.seerr => IconsaxPlusLinear.discover_1,
         HomeTabs.sync => IconsaxPlusLinear.cloud,
       };
 
@@ -38,6 +42,7 @@ enum HomeTabs {
         HomeTabs.dashboard => IconsaxPlusBold.home_1,
         HomeTabs.library => IconsaxPlusBold.book,
         HomeTabs.favorites => IconsaxPlusBold.heart,
+        HomeTabs.seerr => IconsaxPlusBold.discover,
         HomeTabs.sync => IconsaxPlusBold.cloud,
       };
 
@@ -45,6 +50,7 @@ enum HomeTabs {
         HomeTabs.dashboard => context.router.navigate(const DashboardRoute()),
         HomeTabs.library => context.router.navigate(const LibraryRoute()),
         HomeTabs.favorites => context.router.navigate(const FavouritesRoute()),
+        HomeTabs.seerr => context.router.navigate(const SeerrRoute()),
         HomeTabs.sync => context.router.navigate(const SyncedRoute()),
       };
 
@@ -52,6 +58,7 @@ enum HomeTabs {
         HomeTabs.dashboard => context.localized.dashboard,
         HomeTabs.library => context.localized.library(0),
         HomeTabs.favorites => context.localized.favorites,
+        HomeTabs.seerr => 'Seerr',
         HomeTabs.sync => context.localized.sync,
       };
 }
@@ -63,6 +70,9 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final canDownload = ref.watch(showSyncButtonProviderProvider);
+    final seerrAuthenticated = ref.watch(
+      userProvider.select((user) => user?.seerrCredentials?.isConfigured ?? false),
+    );
     final destinations = HomeTabs.values
         .map((e) {
           switch (e) {
@@ -96,11 +106,43 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 action: () => e.navigate(context),
               );
+            case HomeTabs.seerr:
+              if (seerrAuthenticated) {
+                return DestinationModel(
+                  label: context.localized.discover,
+                  icon: Icon(e.icon),
+                  selectedIcon: Icon(e.selectedIcon),
+                  route: const SeerrRoute(),
+                  floatingActionButton: AdaptiveFab(
+                    context: context,
+                    title: context.localized.search,
+                    key: Key(e.name.capitalize()),
+                    onPressed: () => context.router.navigate(SeerrSearchRoute(
+                      mode: SeerrSearchMode.search,
+                    )),
+                    child: const Icon(IconsaxPlusLinear.search_status),
+                  ),
+                  action: () => e.navigate(context),
+                );
+              }
             case HomeTabs.sync:
               if (canDownload && !kIsWeb) {
                 return DestinationModel(
                   label: context.localized.navigationSync,
                   icon: Icon(e.icon),
+                  badge: Consumer(
+                    builder: (context, ref, child) {
+                      final length = ref.watch(activeDownloadTasksProvider.select((value) => value.length));
+                      return length != 0
+                          ? CircleAvatar(
+                              radius: 10,
+                              child: FittedBox(
+                                child: Text(length.toString()),
+                              ),
+                            )
+                          : const SizedBox.shrink();
+                    },
+                  ),
                   selectedIcon: Icon(e.selectedIcon),
                   route: const SyncedRoute(),
                   action: () => e.navigate(context),

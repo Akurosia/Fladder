@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:auto_route/auto_route.dart';
 
 import 'package:fladder/util/adaptive_layout/adaptive_layout.dart';
+import 'package:fladder/util/focus_helper.dart';
 
 class BackIntentDpad extends StatelessWidget {
   final Widget child;
@@ -14,25 +15,25 @@ class BackIntentDpad extends StatelessWidget {
     if (AdaptiveLayout.inputDeviceOf(context) == InputDevice.touch) {
       return child;
     }
-    return Shortcuts(
-      shortcuts: <LogicalKeySet, Intent>{
-        LogicalKeySet(LogicalKeyboardKey.backspace): const BackIntent(),
+    return Focus(
+      canRequestFocus: false,
+      onKeyEvent: (FocusNode node, KeyEvent event) {
+        if (event is! KeyDownEvent) {
+          return KeyEventResult.ignored;
+        }
+
+        if (event.logicalKey == LogicalKeyboardKey.backspace) {
+          if (isEditableTextFocused()) {
+            return KeyEventResult.ignored;
+          } else {
+            context.maybePop();
+            return KeyEventResult.handled;
+          }
+        }
+
+        return KeyEventResult.ignored;
       },
-      child: Actions(
-        actions: <Type, Action<Intent>>{
-          BackIntent: CallbackAction<BackIntent>(
-            onInvoke: (intent) async {
-              final navigator = await context.maybePop();
-              if (navigator) {
-                return true;
-              } else {
-                return false;
-              }
-            },
-          ),
-        },
-        child: child,
-      ),
+      child: child,
     );
   }
 }

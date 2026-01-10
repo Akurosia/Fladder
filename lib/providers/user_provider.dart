@@ -4,11 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:fladder/jellyfin/enum_models.dart';
+import 'package:fladder/jellyfin/jellyfin_open_api.swagger.dart';
+import 'package:fladder/jellyfin/jellyfin_open_api.enums.swagger.dart' as enums;
 import 'package:fladder/models/account_model.dart';
 import 'package:fladder/models/item_base_model.dart';
 import 'package:fladder/models/items/item_shared_models.dart';
 import 'package:fladder/models/library_filters_model.dart';
+import 'package:fladder/models/seerr_credentials_model.dart';
 import 'package:fladder/providers/api_provider.dart';
+import 'package:fladder/providers/image_provider.dart';
 import 'package:fladder/providers/service_provider.dart';
 import 'package:fladder/providers/shared_provider.dart';
 import 'package:fladder/providers/sync_provider.dart';
@@ -44,15 +48,23 @@ class User extends _$User {
 
     final customConfig = await api.getCustomConfig();
 
+    var imageUrl = ref.read(imageUtilityProvider).getUserImageUrl(response.body?.id ?? "");
+
+    final user = response.body;
+    if (user == null) return null;
+
     if (response.isSuccessful && response.body != null) {
       userState = state?.copyWith(
-        name: response.body?.name ?? state?.name ?? "",
-        policy: response.body?.policy,
+        name: user.name ?? state?.name ?? "",
+        policy: user.policy,
+        avatar: imageUrl,
         serverConfiguration: systemConfiguration.body,
-        userConfiguration: response.body?.configuration,
+        userConfiguration: user.configuration,
         quickConnectState: quickConnectStatus.body ?? false,
-        latestItemsExcludes: response.body?.configuration?.latestItemsExcludes ?? [],
+        latestItemsExcludes: user.configuration?.latestItemsExcludes ?? [],
         userSettings: customConfig.body,
+        hasConfiguredPassword: user.hasConfiguredPassword ?? false,
+        hasPassword: user.hasPassword ?? false,
       );
       return response.copyWith(body: state);
     }
@@ -68,6 +80,30 @@ class User extends _$User {
 
   void setRememberSubtitleSelections() async {
     final newUserConfiguration = await api.updateRememberSubtitleSelections();
+    if (newUserConfiguration != null) {
+      userState = state?.copyWith(userConfiguration: newUserConfiguration);
+    }
+  }
+
+  void updateSubtitleLanguagePreference(String? language) async {
+    final currentUserConfiguration = state?.userConfiguration;
+    if (currentUserConfiguration == null) return;
+
+    final updated = currentUserConfiguration.copyWith(
+      subtitleLanguagePreference: language?.isEmpty ?? true ? null : language,
+    );
+    final newUserConfiguration = await api.updateUserConfiguration(updated);
+    if (newUserConfiguration != null) {
+      userState = state?.copyWith(userConfiguration: newUserConfiguration);
+    }
+  }
+
+  void updateSubtitleMode(enums.SubtitlePlaybackMode? mode) async {
+    final currentUserConfiguration = state?.userConfiguration;
+    if (currentUserConfiguration == null) return;
+
+    final updated = currentUserConfiguration.copyWith(subtitleMode: mode);
+    final newUserConfiguration = await api.updateUserConfiguration(updated);
     if (newUserConfiguration != null) {
       userState = state?.copyWith(userConfiguration: newUserConfiguration);
     }
@@ -96,19 +132,30 @@ class User extends _$User {
     String itemId, {
     MetadataRefresh? metadataRefreshMode,
     bool? replaceAllMetadata,
+    bool? replaceTrickplayImages,
   }) async {
     return api.itemsItemIdRefreshPost(
       itemId: itemId,
-      metadataRefreshMode: metadataRefreshMode,
-      imageRefreshMode: metadataRefreshMode,
+      metadataRefreshMode: switch (metadataRefreshMode) {
+        MetadataRefresh.defaultRefresh => MetadataRefresh.defaultRefresh,
+        _ => MetadataRefresh.fullRefresh,
+      },
+      imageRefreshMode: switch (metadataRefreshMode) {
+        MetadataRefresh.defaultRefresh => MetadataRefresh.defaultRefresh,
+        _ => MetadataRefresh.fullRefresh,
+      },
       replaceAllMetadata: switch (metadataRefreshMode) {
-        MetadataRefresh.fullRefresh => false,
-        MetadataRefresh.validation => true,
+        MetadataRefresh.fullRefresh => true,
         _ => false,
       },
       replaceAllImages: switch (metadataRefreshMode) {
-        MetadataRefresh.fullRefresh => true,
-        MetadataRefresh.validation => true,
+        MetadataRefresh.fullRefresh => replaceAllMetadata,
+        MetadataRefresh.validation => replaceAllMetadata,
+        _ => false,
+      },
+      replaceTrickplayImages: switch (metadataRefreshMode) {
+        MetadataRefresh.fullRefresh => replaceTrickplayImages,
+        MetadataRefresh.validation => replaceTrickplayImages,
         _ => false,
       },
     );
@@ -133,20 +180,53 @@ class User extends _$User {
     return Response(response.base, UserData.fromDto(response.body));
   }
 
-  void clear() {
-    userState = null;
+  void clear() => userState = null;
+  void updateUser(AccountModel? user) => userState = user;
+  void loginUser(AccountModel? user) => state = user;
+  void setAuthMethod(Authentication method) => userState = state?.copyWith(authMethod: method);
+  void setLocalURL(String? value) {
+    final user = state;
+    if (user == null) return;
+    state = user.copyWith(
+      credentials: user.credentials.copyWith(localUrl: value?.isEmpty == true ? null : value),
+    );
   }
 
-  void updateUser(AccountModel? user) {
-    userState = user;
+  void setSeerrServerUrl(String? value) {
+    final user = state;
+    if (user == null) return;
+    final updated = (user.seerrCredentials ?? const SeerrCredentialsModel()).copyWith(
+      serverUrl: value?.trim() ?? "",
+    );
+    userState = user.copyWith(seerrCredentials: updated);
   }
 
-  void loginUser(AccountModel? user) {
-    state = user;
+  void logoutSeerr() {
+    final user = state;
+    if (user == null) return;
+    final updated = (user.seerrCredentials ?? const SeerrCredentialsModel()).copyWith(
+      apiKey: "",
+      sessionCookie: "",
+    );
+    userState = user.copyWith(seerrCredentials: updated);
   }
 
-  void setAuthMethod(Authentication method) {
-    userState = state?.copyWith(authMethod: method);
+  void setSeerrApiKey(String? value) {
+    final user = state;
+    if (user == null) return;
+    final updated = (user.seerrCredentials ?? const SeerrCredentialsModel()).copyWith(
+      apiKey: value?.trim() ?? "",
+    );
+    userState = user.copyWith(seerrCredentials: updated);
+  }
+
+  void setSeerrSessionCookie(String? value) {
+    final user = state;
+    if (user == null) return;
+    final updated = (user.seerrCredentials ?? const SeerrCredentialsModel()).copyWith(
+      sessionCookie: value?.trim() ?? "",
+    );
+    userState = user.copyWith(seerrCredentials: updated);
   }
 
   void addSearchQuery(String value) {
@@ -217,5 +297,25 @@ class User extends _$User {
   void deleteAllFilters() => userState = state?.copyWith(libraryFilters: []);
 
   String? createDownloadUrl(ItemBaseModel item) =>
-      Uri.encodeFull("${state?.server}/Items/${item.id}/Download?api_key=${state?.credentials.token}");
+      Uri.encodeFull("${state?.credentials.url}/Items/${item.id}/Download?api_key=${state?.credentials.token}");
+
+  Future<void> createNewUser(
+    String userName,
+    String password, {
+    required bool enableAllFolders,
+    required List<String> enabledFolders,
+  }) async {
+    final newUser = (await api.createNewUser(
+      CreateUserByName(name: userName, password: password),
+    ))
+        .body;
+    if (newUser == null) return;
+    await api.setUserPolicy(
+      id: newUser.id ?? "",
+      policy: newUser.policy?.copyWith(
+        enableAllFolders: enableAllFolders,
+        enabledFolders: enabledFolders,
+      ),
+    );
+  }
 }

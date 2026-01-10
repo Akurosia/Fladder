@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax_plus/iconsax_plus.dart';
-import 'package:path/path.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'package:fladder/models/items/photos_model.dart';
 import 'package:fladder/models/settings/video_player_settings.dart';
+import 'package:fladder/providers/api_provider.dart';
 import 'package:fladder/providers/settings/photo_view_settings_provider.dart';
 import 'package:fladder/providers/settings/video_player_settings_provider.dart';
 import 'package:fladder/providers/user_provider.dart';
+import 'package:fladder/util/adaptive_layout/adaptive_layout.dart';
 import 'package:fladder/util/duration_extensions.dart';
 import 'package:fladder/util/fladder_image.dart';
 import 'package:fladder/widgets/shared/fladder_slider.dart';
@@ -90,11 +91,15 @@ class _SimpleVideoPlayerState extends ConsumerState<SimpleVideoPlayer> with Wind
       'api_key': ref.read(userProvider)?.credentials.token,
     };
 
-    final params = Uri(queryParameters: directOptions).query;
-
     player.init(ref.read(videoPlayerSettingsProvider));
 
-    videoUrl = joinAll([ref.read(userProvider)?.server ?? "", "Videos", widget.video.id, "stream?$params"]);
+    final baseUrl = ref.read(serverUrlProvider) ?? '';
+    videoUrl = buildServerUriFromBase(
+          baseUrl,
+          pathSegments: ['Videos', widget.video.id, 'stream'],
+          queryParameters: directOptions,
+        )?.toString() ??
+        '';
 
     subscriptions.add(player.stateStream.listen((event) {
       setState(() {
@@ -216,6 +221,7 @@ class _SimpleVideoPlayerState extends ConsumerState<SimpleVideoPlayer> with Wind
                               color: Theme.of(context).colorScheme.onSurface,
                               onPressed: () async {
                                 await player.playOrPause();
+                                if (AdaptiveLayout.isDesktop(context)) return;
                                 if (player.lastState.playing) {
                                   WakelockPlus.enable();
                                 } else {

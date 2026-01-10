@@ -6,8 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:macos_window_utils/window_manipulator.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,6 +19,7 @@ import 'package:window_manager/window_manager.dart';
 
 import 'package:fladder/l10n/generated/app_localizations.dart';
 import 'package:fladder/localization_delegates.dart';
+import 'package:fladder/logic/application_menu.dart';
 import 'package:fladder/models/account_model.dart';
 import 'package:fladder/models/settings/arguments_model.dart';
 import 'package:fladder/providers/arguments_provider.dart';
@@ -29,15 +32,18 @@ import 'package:fladder/providers/video_player_provider.dart';
 import 'package:fladder/routes/auto_router.dart';
 import 'package:fladder/routes/auto_router.gr.dart';
 import 'package:fladder/screens/login/lock_screen.dart';
+import 'package:fladder/src/application_menu.g.dart';
 import 'package:fladder/src/video_player_helper.g.dart';
 import 'package:fladder/theme.dart';
 import 'package:fladder/util/adaptive_layout/adaptive_layout.dart';
 import 'package:fladder/util/application_info.dart';
 import 'package:fladder/util/fladder_config.dart';
 import 'package:fladder/util/localization_helper.dart';
+import 'package:fladder/util/macos_window_helpers.dart';
 import 'package:fladder/util/string_extensions.dart';
 import 'package:fladder/util/svg_utils.dart';
 import 'package:fladder/util/themes_data.dart';
+import 'package:fladder/util/window_helper.dart';
 import 'package:fladder/widgets/media_query_scaler.dart';
 
 bool get _isDesktop {
@@ -75,6 +81,19 @@ void main(List<String> args) async {
     FladderConfig.fromJson(result);
   }
 
+  String windowArguments = "";
+
+  if (!kIsWeb && Platform.isMacOS) {
+    await WindowManipulator.initialize(enableWindowDelegate: true);
+  }
+
+  if (_isDesktop) {
+    final windowController = await WindowController.fromCurrentEngine();
+    windowArguments = windowController.arguments;
+    final appMenu = ApplicationMenuImp();
+    ApplicationMenu.setUp(appMenu);
+  }
+
   final sharedPreferences = await SharedPreferences.getInstance();
 
   PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -102,7 +121,8 @@ void main(List<String> args) async {
         sharedPreferencesProvider.overrideWith((ref) => sharedPreferences),
         applicationInfoProvider.overrideWith((ref) => applicationInfo),
         crashLogProvider.overrideWith((ref) => crashProvider),
-        argumentsStateProvider.overrideWith((ref) => ArgumentsModel.fromArguments(args, leanBackEnabled)),
+        argumentsStateProvider
+            .overrideWith((ref) => ArgumentsModel.fromArguments(args, windowArguments, leanBackEnabled)),
         syncProvider.overrideWith((ref) => SyncNotifier(ref, applicationDirectory)),
       ],
       child: AdaptiveLayoutBuilder(
@@ -161,7 +181,10 @@ class _MainState extends ConsumerState<Main> with WindowListener, WidgetsBinding
 
     final difference = DateTime.now().difference(_lastPaused);
 
-    if (difference > timeOut && ref.read(userProvider)?.authMethod != Authentication.autoLogin) {
+    final lockMethod = ref.read(userProvider.select((value) => value?.authMethod));
+    final shouldLock = Authentication.secureOptions.contains(lockMethod);
+
+    if (difference > timeOut && shouldLock) {
       _lastPaused = DateTime.now();
 
       // Stop playback if the user was still watching a video
@@ -191,6 +214,7 @@ class _MainState extends ConsumerState<Main> with WindowListener, WidgetsBinding
   @override
   void onWindowClose() {
     ref.read(videoPlayerProvider).stop();
+    ref.read(clientSettingsProvider.notifier).closeDirectory();
     super.onWindowClose();
   }
 
@@ -222,30 +246,35 @@ class _MainState extends ConsumerState<Main> with WindowListener, WidgetsBinding
     super.onWindowMoved();
   }
 
+  @override
+  void onWindowEnterFullScreen() {
+    ref.read(mediaPlaybackProvider.notifier).update((state) => state.copyWith(fullScreen: true));
+    toggleMacTrafficLights(true);
+    super.onWindowEnterFullScreen();
+  }
+
+  @override
+  void onWindowLeaveFullScreen() {
+    toggleMacTrafficLights(false);
+    ref.read(mediaPlaybackProvider.notifier).update((state) => state.copyWith(fullScreen: false));
+    super.onWindowLeaveFullScreen();
+  }
+
   void _init() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     ref.read(sharedUtilityProvider).loadSettings();
 
     final clientSettings = ref.read(clientSettingsProvider);
+    final startupArguments = ref.read(argumentsStateProvider);
 
     if (_isDesktop) {
-      WindowOptions windowOptions = WindowOptions(
-          size: Size(clientSettings.size.x, clientSettings.size.y),
-          center: true,
-          backgroundColor: Colors.transparent,
-          skipTaskbar: false,
-          titleBarStyle: TitleBarStyle.hidden,
-          title: packageInfo.appName.capitalize());
-
-      windowManager.waitUntilReadyToShow(windowOptions, () async {
-        await windowManager.show();
-        await windowManager.focus();
-        final startupArguments = ref.read(argumentsStateProvider);
-        if (startupArguments.htpcMode && !(await windowManager.isFullScreen())) {
-          await windowManager.setFullScreen(true);
-        }
-      });
+      toggleMacTrafficLights(false);
+      await windowManager.setupFladderWindowChrome(
+        startupArguments,
+        clientSettings,
+        packageInfo,
+      );
     } else {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: []);
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -291,10 +320,17 @@ class _MainState extends ConsumerState<Main> with WindowListener, WidgetsBinding
             supportedLocales: AppLocalizations.supportedLocales,
             locale: language,
             localeResolutionCallback: (locale, supportedLocales) {
-              if (locale == null || !supportedLocales.contains(locale)) {
-                return const Locale('en');
+              const fallback = Locale('en');
+              if (locale == null) return fallback;
+              if (supportedLocales.contains(locale)) {
+                return locale;
               }
-              return locale;
+              final matchByLanguage = supportedLocales.firstWhere(
+                (l) => l.languageCode == locale.languageCode,
+                orElse: () => fallback,
+              );
+
+              return matchByLanguage;
             },
             builder: (context, child) => MediaQueryScaler(
               child: LocalizationContextWrapper(

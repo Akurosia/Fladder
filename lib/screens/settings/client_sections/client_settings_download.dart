@@ -42,7 +42,7 @@ List<Widget> buildClientSettingsDownload(BuildContext context, WidgetRef ref, Fu
                               String? selectedDirectory = await FilePicker.platform.getDirectoryPath(
                                   dialogTitle: context.localized.pathEditSelect, initialDirectory: currentFolder);
                               if (selectedDirectory != null) {
-                                ref.read(clientSettingsProvider.notifier).setSyncPath(selectedDirectory);
+                                await ref.read(clientSettingsProvider.notifier).setSyncPath(selectedDirectory);
                               }
                               Navigator.of(context).pop();
                             },
@@ -137,22 +137,19 @@ List<Widget> buildClientSettingsDownload(BuildContext context, WidgetRef ref, Fu
         SettingsListTile(
           label: Text(context.localized.maxConcurrentDownloadsTitle),
           subLabel: Text(context.localized.maxConcurrentDownloadsDesc),
-          trailing: SizedBox(
-            width: 150,
-            child: IntInputField(
-              controller: TextEditingController(text: clientSettings.maxConcurrentDownloads.toString()),
-              onSubmitted: (value) {
-                if (value != null) {
-                  ref.read(clientSettingsProvider.notifier).update(
-                        (current) => current.copyWith(
-                          maxConcurrentDownloads: value,
-                        ),
-                      );
+          trailing: IntInputField(
+            controller: TextEditingController(text: clientSettings.maxConcurrentDownloads.toString()),
+            onSubmitted: (value) {
+              if (value != null) {
+                ref.read(clientSettingsProvider.notifier).update(
+                      (current) => current.copyWith(
+                        maxConcurrentDownloads: value,
+                      ),
+                    );
 
-                  ref.read(backgroundDownloaderProvider.notifier).setMaxConcurrent(value);
-                }
-              },
-            ),
+                ref.read(backgroundDownloaderProvider.notifier).setMaxConcurrent(value);
+              }
+            },
           ),
         ),
       ]),
