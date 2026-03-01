@@ -16,7 +16,7 @@
         }
     },
     "ascending": "Ascendente",
-    "audio": "Áudio",
+    "audio": "{count, plural, one{Audio} other{Audio}}",
     "biometricsFailedCheckAgain": "Falha na biometria. Verifique as configurações e tente novamente.",
     "cancel": "Cancelar",
     "change": "Mudar",
@@ -84,7 +84,7 @@
     },
     "controls": "Controles",
     "clearAllSettings": "Limpar todas as configurações",
-    "collectionFolder": "Pasta de coleção",
+    "collectionFolder": "{count, plural, one{Collection folder} other{Collection folders}}",
     "color": "Cor",
     "dashboardContinueWatching": "Continuar assistindo",
     "dashboardNextUp": "Próximo",
