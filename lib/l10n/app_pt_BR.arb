@@ -1666,9 +1666,9 @@
     "addTunerDevice": "Adicionar dispositivo sintonizador",
     "addProvider": "Adicionar Provedor",
     "epgProviderAddedSuccessfully": "Provedor EPG adicionado com sucesso",
-    "editTunerDevice": "Editar dispositivo de sintonizador",
+    "editTunerDevice": "Editar dispositivo sintonizador",
     "userAgent": "Agente do Usuário",
     "userAgentOptional": "Agente do Usuário (opcional)",
-    "addEpgProvider": "Adicionar provedor de EPG",
-    "editEpgProvider": "Editar EPG Provedor"
+    "addEpgProvider": "Adicionar provedor EPG",
+    "editEpgProvider": "Editar Provedor EPG"
 }
