@@ -1731,5 +1731,6 @@
         }
     },
     "includeHiddenItems": "Incluir bibliotecas ocultas",
-    "includeHiddenItemsDesc": "Inclua bibliotecas escondidas no painel"
+    "includeHiddenItemsDesc": "Inclua bibliotecas escondidas no painel",
+    "settingsBlurEffectsTitle": "Habilitar efeitos de borla"
 }
