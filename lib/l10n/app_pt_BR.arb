@@ -1682,5 +1682,9 @@
     },
     "shareLoginLink": "Compartilhar link de login",
     "shareQRCode": "Compartilhar código QR",
-    "includePassword": "Incluir senha"
+    "includePassword": "Incluir senha",
+    "invalidAuthLink": "Link de login inválido",
+    "advancedVideoOptionsTitle": "Opções avançadas de vídeo",
+    "advancedVideoOptionsDesc": "Habilitar HDR, mapeamento de tom e manipulação de cores avançada (instável para alguns dispositivos)",
+    "enableAllTuners": "Habilitar para todos os afinadores"
 }
