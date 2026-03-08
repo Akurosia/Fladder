@@ -1708,5 +1708,6 @@
     "moviePrefixSubLabel": "Se um prefixo for aplicado aos títulos de filme, digite-o aqui para que o servidor possa processá-lo corretamente.",
     "movieCategoriesSubLabel": "Categorias para atribuir a canais correspondentes ao prefixo do filme",
     "newsCategoriesSubLabel": "Categorias para atribuir a canais correspondentes ao prefixo de notícias",
-    "sportsCategoriesSubLabel": "Categorias para atribuir a canais correspondentes ao prefixo esportivo"
+    "sportsCategoriesSubLabel": "Categorias para atribuir a canais correspondentes ao prefixo esportivo",
+    "kidsCategoriesSubLabel": "Categorias para atribuir a canais correspondentes ao prefixo das crianças"
 }
