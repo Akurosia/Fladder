@@ -1687,5 +1687,11 @@
     "advancedVideoOptionsTitle": "Opções avançadas de vídeo",
     "advancedVideoOptionsDesc": "Habilitar HDR, mapeamento de tom e manipulação de cores avançada (instável para alguns dispositivos)",
     "enableAllTuners": "Habilitar para todos os afinadores",
-    "enabledTuners": "Afinadores habilitados"
+    "enabledTuners": "Afinadores habilitados",
+    "movieCategories": "Categorias de filmes",
+    "newsCategories": "Categorias de notícias",
+    "sportsCategories": "Categorias de esportes",
+    "kidsCategories": "Categorias de crianças",
+    "fileOrUrl": "Arquivo ou URL",
+    "tunerIpAddress": "Endereço IP do Tuner"
 }
