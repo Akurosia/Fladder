@@ -1373,6 +1373,8 @@
   "qualityOptionsTitle": "Quality options",
   "qualityOptionsOriginal": "Original",
   "qualityOptionsAuto": "Auto",
+  "advancedVideoOptionsTitle": "Advanced video options",
+  "advancedVideoOptionsDesc": "Enable HDR, tone mapping, and advanced color handling (unstable for some devices)",
   "version": "Version",
   "mediaSegmentActions": "Media segment actions",
   "segmentActionNone": "None",
