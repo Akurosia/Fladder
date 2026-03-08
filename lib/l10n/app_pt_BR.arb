@@ -1714,5 +1714,22 @@
     "notificationChannelDescription": "Notificações para itens adicionados recentemente",
     "seerrRequestNotifications": "Notificações para pedidos Seerr",
     "notificationNewEpisodes": "Novos episódios adicionados",
-    "updateCheckInterval": "Atualizar intervalo de verificação"
+    "updateCheckInterval": "Atualizar intervalo de verificação",
+    "notificationsIntervalClientReminder": "O intervalo de notificação é definido para todos os usuários.",
+    "lastUpdateAt": "Última atualização em {date} em {time}",
+    "@lastUpdateAt": {
+        "description": "lastUpdateAt",
+        "placeholders": {
+            "time": {
+                "type": "DateTime",
+                "format": "jm"
+            },
+            "date": {
+                "type": "DateTime",
+                "format": "yMd"
+            }
+        }
+    },
+    "includeHiddenItems": "Incluir bibliotecas ocultas",
+    "includeHiddenItemsDesc": "Inclua bibliotecas escondidas no painel"
 }
