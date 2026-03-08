@@ -1712,5 +1712,7 @@
     "kidsCategoriesSubLabel": "Categorias para atribuir a canais correspondentes ao prefixo das crianças",
     "notifications": "Notificações",
     "notificationChannelDescription": "Notificações para itens adicionados recentemente",
-    "seerrRequestNotifications": "Notificações para pedidos Seerr"
+    "seerrRequestNotifications": "Notificações para pedidos Seerr",
+    "notificationNewEpisodes": "Novos episódios adicionados",
+    "updateCheckInterval": "Atualizar intervalo de verificação"
 }
