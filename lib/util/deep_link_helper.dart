@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:auto_route/auto_route.dart' show DeepLink, PageRouteInfo;
 
@@ -50,8 +49,7 @@ class AuthLinkData {
         removeUrlPrefix = removeUrlPrefix.padRight(removeUrlPrefix.length + (4 - pad), '=');
       }
       final bytes = base64Url.decode(removeUrlPrefix);
-      final decompressed = zlib.decode(bytes);
-      final jsonStr = utf8.decode(decompressed);
+      final jsonStr = utf8.decode(bytes);
       final map = jsonDecode(jsonStr) as Map<String, dynamic>;
       return AuthLinkData.fromJson(map);
     } catch (e) {
@@ -69,8 +67,7 @@ class AuthLinkData {
 String encodeAuthLink(AuthLinkData data) {
   final jsonStr = jsonEncode(data.toJson());
   final bytes = utf8.encode(jsonStr);
-  final compressed = zlib.encode(bytes);
-  var encoded = base64Url.encode(compressed);
+  var encoded = base64Url.encode(bytes);
   encoded = encoded.replaceAll('=', '');
   return encoded;
 }
