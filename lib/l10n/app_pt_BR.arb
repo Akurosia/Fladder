@@ -1709,5 +1709,8 @@
     "movieCategoriesSubLabel": "Categorias para atribuir a canais correspondentes ao prefixo do filme",
     "newsCategoriesSubLabel": "Categorias para atribuir a canais correspondentes ao prefixo de notícias",
     "sportsCategoriesSubLabel": "Categorias para atribuir a canais correspondentes ao prefixo esportivo",
-    "kidsCategoriesSubLabel": "Categorias para atribuir a canais correspondentes ao prefixo das crianças"
+    "kidsCategoriesSubLabel": "Categorias para atribuir a canais correspondentes ao prefixo das crianças",
+    "notifications": "Notificações",
+    "notificationChannelDescription": "Notificações para itens adicionados recentemente",
+    "seerrRequestNotifications": "Notificações para pedidos Seerr"
 }
