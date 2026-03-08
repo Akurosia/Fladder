@@ -868,23 +868,16 @@ class JellyService {
   }
 
   Future<Response<dynamic>> setCustomConfig(UserSettings currentSettings) async {
-    final merged = currentSettings.toJson().map((key, value) => MapEntry(key, value.toString()));
-    return mergeCustomPrefs(merged);
-  }
-
-  Future<Response<dynamic>> mergeCustomPrefs(Map<String, String> newPrefs) async {
     final currentDisplayPreferences = await api.displayPreferencesDisplayPreferencesIdGet(
       displayPreferencesId: _userSettings,
       $client: _client,
     );
-    final existingPrefs = Map<String, String>.from(currentDisplayPreferences.body?.customPrefs ?? {});
-    existingPrefs.addAll(newPrefs);
     return api.displayPreferencesDisplayPreferencesIdPost(
       displayPreferencesId: 'usersettings',
       userId: account?.id ?? "",
       $client: _client,
       body: currentDisplayPreferences.body?.copyWith(
-        customPrefs: existingPrefs,
+        customPrefs: currentSettings.toJson(),
       ),
     );
   }
