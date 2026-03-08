@@ -1733,5 +1733,8 @@
     "includeHiddenItems": "Incluir bibliotecas ocultas",
     "includeHiddenItemsDesc": "Inclua bibliotecas escondidas no painel",
     "settingsBlurEffectsTitle": "Habilitar efeitos de borla",
-    "settingsBlurEffectsDesc": "Habilite efeitos de borla na interface do usuário. Desativar isso pode melhorar o desempenho em dispositivos low-end."
+    "settingsBlurEffectsDesc": "Habilite efeitos de borla na interface do usuário. Desativar isso pode melhorar o desempenho em dispositivos low-end.",
+    "passwordNotRequired": "Não é necessário, deixe vazio para não incluir senha no link",
+    "connect": "Conecte-se",
+    "authLinkDesc": "Peça ao administrador do servidor para fornecer o link auth. O link contém informações de autenticação, por isso certifique-se de mantê-lo seguro."
 }
