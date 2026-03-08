@@ -159,31 +159,34 @@ class _LoginScreenCredentialsState extends ConsumerState<LoginScreenCredentials>
                   ),
                 ),
               ),
-              AspectRatio(
-                aspectRatio: 1,
-                child: Tooltip(
-                  message: context.localized.retrievePublicListOfUsers,
-                  waitDuration: const Duration(seconds: 1),
-                  child: IconButton.filled(
-                    onPressed: () {
-                      showConnectLinkDialog(
-                        context,
-                        (link) => loginUsingAuthLink(link),
-                      );
-                    },
-                    icon: const Icon(
-                      IconsaxPlusLinear.link_square,
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),
         if (serverCredentials == null)
-          DiscoverServersWidget(
-            serverCredentials: otherCredentials,
-            onPressed: (info) => provider.setServer(info.address),
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              DiscoverServersWidget(
+                serverCredentials: otherCredentials,
+                onPressed: (info) => provider.setServer(info.address),
+              ),
+              FilledButton(
+                onPressed: () {
+                  showConnectLinkDialog(
+                    context,
+                    (link) => loginUsingAuthLink(link),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(context.localized.connectWithAuthLink),
+                    const SizedBox(width: 8),
+                    const Icon(IconsaxPlusBold.link_square),
+                  ],
+                ),
+              ),
+            ],
           )
         else ...[
           Column(
