@@ -1736,5 +1736,17 @@
     "settingsBlurEffectsDesc": "Habilite efeitos de borla na interface do usuário. Desativar isso pode melhorar o desempenho em dispositivos low-end.",
     "passwordNotRequired": "Não é necessário, deixe vazio para não incluir senha no link",
     "connect": "Conecte-se",
-    "authLinkDesc": "Peça ao administrador do servidor para fornecer o link auth. O link contém informações de autenticação, por isso certifique-se de mantê-lo seguro."
+    "authLinkDesc": "Peça ao administrador do servidor para fornecer o link auth. O link contém informações de autenticação, por isso certifique-se de mantê-lo seguro.",
+    "deletedItem": "Excluído {itemName}",
+    "@deletedItem": {
+        "description": "Message shown when a item is deleted",
+        "placeholders": {
+            "itemName": {
+                "type": "String"
+            }
+        }
+    },
+    "libraryOrderDescription": "Arraste para reordenar bibliotecas na tela inicial. Bibliotecas desmarcadas não mostrarão itens adicionados recentemente.",
+    "hidePlayedInLatestTitle": "Ocultar conteúdo assistido",
+    "hidePlayedInLatestDescription": "Ocultar conteúdo assistido de 'Recentemente adicionado mídia '"
 }
