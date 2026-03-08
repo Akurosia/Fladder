@@ -1695,5 +1695,6 @@
     "fileOrUrl": "Arquivo ou URL",
     "tunerIpAddress": "Endereço IP do Tuner",
     "concurrentStreamsHint": "0 = Ilimitado",
-    "allowStreamSharing": "Permitir compartilhamento de fluxo"
+    "allowStreamSharing": "Permitir compartilhamento de fluxo",
+    "enableStreamLooping": "Habilitar loop de fluxo"
 }
