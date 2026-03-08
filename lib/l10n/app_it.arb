@@ -1820,5 +1820,26 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "connect": "Connetti",
+    "linkData": "Dati del link",
+    "passwordNotRequired": "Non richiesta, lascia vuoto per non includere la password nel link",
+    "authLinkButtonToolTip": "Apri finestra link di autenticazione",
+    "connectWithAuthLink": "Connetti con link di autenticazione",
+    "pasteFladderAuthLink": "Incolla link di autenticazione fladder://login?authLink=...",
+    "authLinkDesc": "Chiedi all’amministratore del server di fornirti il link di autenticazione. Il link contiene informazioni di autenticazione, quindi tienilo al sicuro.",
+    "generateLoginLink": "Codice per {userName}",
+    "@generateLoginLink": {
+        "description": "Code for a user to share",
+        "placeholders": {
+            "userName": {
+                "type": "String"
+            }
+        }
+    },
+    "shareLoginLink": "Condividi link di accesso",
+    "shareQRCode": "Condividi codice QR",
+    "copyLoginLink": "Copia link",
+    "includePassword": "Includi password",
+    "invalidAuthLink": "Link di accesso non valido"
 }
