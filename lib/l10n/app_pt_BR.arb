@@ -1670,5 +1670,17 @@
     "userAgent": "Agente do Usuário",
     "userAgentOptional": "Agente do Usuário (opcional)",
     "addEpgProvider": "Adicionar provedor EPG",
-    "editEpgProvider": "Editar Provedor EPG"
+    "editEpgProvider": "Editar Provedor EPG",
+    "generateLoginLink": "Código para {userName}",
+    "@generateLoginLink": {
+        "description": "Code for a user to share",
+        "placeholders": {
+            "userName": {
+                "type": "String"
+            }
+        }
+    },
+    "shareLoginLink": "Compartilhar link de login",
+    "shareQRCode": "Compartilhar código QR",
+    "includePassword": "Incluir senha"
 }
