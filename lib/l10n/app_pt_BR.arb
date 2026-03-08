@@ -1696,5 +1696,11 @@
     "tunerIpAddress": "Endereço IP do Tuner",
     "concurrentStreamsHint": "0 = Ilimitado",
     "allowStreamSharing": "Permitir compartilhamento de fluxo",
-    "enableStreamLooping": "Habilitar loop de fluxo"
+    "enableStreamLooping": "Habilitar loop de fluxo",
+    "readAtNativeFramerate": "Ler em framerate nativo",
+    "importFavoritesOnly": "Importar apenas canais favoritos",
+    "allowHWTranscoding": "Permitir transcodificação de hardware",
+    "detectDevices": "Detectar dispositivos",
+    "discoveredDevices": "Dispositivos descobertos",
+    "noDevicesFound": "Nenhum dispositivo encontrado"
 }
