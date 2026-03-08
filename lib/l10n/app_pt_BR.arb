@@ -1732,5 +1732,6 @@
     },
     "includeHiddenItems": "Incluir bibliotecas ocultas",
     "includeHiddenItemsDesc": "Inclua bibliotecas escondidas no painel",
-    "settingsBlurEffectsTitle": "Habilitar efeitos de borla"
+    "settingsBlurEffectsTitle": "Habilitar efeitos de borla",
+    "settingsBlurEffectsDesc": "Habilite efeitos de borla na interface do usuário. Desativar isso pode melhorar o desempenho em dispositivos low-end."
 }
