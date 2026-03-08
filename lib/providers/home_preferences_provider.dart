@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:fladder/jellyfin/jellyfin_open_api.enums.swagger.dart' as enums;
 import 'package:fladder/jellyfin/jellyfin_open_api.swagger.dart';
+import 'package:fladder/models/api_result.dart';
 import 'package:fladder/models/home_preferences_model.dart';
 import 'package:fladder/providers/api_provider.dart';
 import 'package:fladder/providers/service_provider.dart';
@@ -84,14 +85,14 @@ class HomePreferencesNotifier extends StateNotifier<HomePreferencesModel> {
     state = state.copyWith(groupedFolders: ids);
   }
 
-  Future<String?> save() async {
+  Future<ApiResult<dynamic>> save() async {
     try {
       await _saveLibraryPreferences();
       await ref.read(userProvider.notifier).updateInformation();
       await ref.read(viewsProvider.notifier).fetchViews();
-      return null;
+      return ApiResult.success(null);
     } catch (e) {
-      return e.toString();
+      return ApiResult.failure(ApiError(message: e.toString()));
     }
   }
 

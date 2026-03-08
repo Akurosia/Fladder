@@ -122,13 +122,10 @@ class _UserSettingsPageState extends ConsumerState<ProfileSettingsPage> with Wid
       bottomActions: [
         FilledButtonAwait(
           onPressed: () async {
-            final error = await ref.read(homePreferencesProvider.notifier).save();
-            if (!context.mounted) return;
-            if (error != null) {
-              FladderSnack.show(error, context: context);
-            } else {
-              FladderSnack.show(context.localized.saved, context: context);
-            }
+            await FladderSnack.showResponse(
+              ref.read(homePreferencesProvider.notifier).save(),
+              successTitle: context.localized.saved,
+            );
           },
           child: Text(context.localized.save),
         ),
