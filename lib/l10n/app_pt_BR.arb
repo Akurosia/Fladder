@@ -1686,5 +1686,6 @@
     "invalidAuthLink": "Link de login inválido",
     "advancedVideoOptionsTitle": "Opções avançadas de vídeo",
     "advancedVideoOptionsDesc": "Habilitar HDR, mapeamento de tom e manipulação de cores avançada (instável para alguns dispositivos)",
-    "enableAllTuners": "Habilitar para todos os afinadores"
+    "enableAllTuners": "Habilitar para todos os afinadores",
+    "enabledTuners": "Afinadores habilitados"
 }
