@@ -1693,5 +1693,7 @@
     "sportsCategories": "Categorias de esportes",
     "kidsCategories": "Categorias de crianças",
     "fileOrUrl": "Arquivo ou URL",
-    "tunerIpAddress": "Endereço IP do Tuner"
+    "tunerIpAddress": "Endereço IP do Tuner",
+    "concurrentStreamsHint": "0 = Ilimitado",
+    "allowStreamSharing": "Permitir compartilhamento de fluxo"
 }
