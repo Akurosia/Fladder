@@ -57,7 +57,7 @@
     "dashboardContinueListening": "Continua l'ascolto",
     "dashboardContinueReading": "Continua la lettura",
     "dashboardContinueWatching": "Continua a guardare",
-    "nextUp": "Prossimo in arrivo",
+    "nextUp": "Prossimo",
     "dashboardRecentlyAdded": "Aggiunto di recente in {name}",
     "@dashboardRecentlyAdded": {
         "description": "Recently added on home screen",
