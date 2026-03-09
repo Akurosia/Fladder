@@ -1785,5 +1785,10 @@
     "noEpgProvidersConfigured": "Nenhum provedor de EPG configurado",
     "xmltvPathUrl": "Caminho/URL do XMLTV",
     "fallbackMaxBitrate": "Taxa de transferência máxima de fallback (Mbps)",
-    "updateCheckIntervalDesc": "Com que frequência a tarefa em segundo plano é executada"
+    "updateCheckIntervalDesc": "Com que frequência a tarefa em segundo plano é executada",
+    "groupedFoldersTitle": "Bibliotecas agrupadas",
+    "seerrCustomHeaders": "Cabeçalhos personalizados",
+    "seerrHeaderValue": "Valor",
+    "url": "URL",
+    "moviePrefix": "Prefixo de filme"
 }
