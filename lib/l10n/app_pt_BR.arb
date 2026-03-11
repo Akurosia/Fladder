@@ -1687,7 +1687,7 @@
     "advancedVideoOptionsTitle": "Opções avançadas de vídeo",
     "advancedVideoOptionsDesc": "Ativar HDR, mapeamento de tons e tratamento avançado de cores (instável em alguns dispositivos)",
     "enableAllTuners": "Ativar para todos os sintonizadores",
-    "enabledTuners": "Sintonizadores habilitados",
+    "enabledTuners": "Sintonizadores ativados",
     "movieCategories": "Categorias de filmes",
     "newsCategories": "Categorias de notícias",
     "sportsCategories": "Categorias de esportes",
@@ -1790,5 +1790,33 @@
     "seerrCustomHeaders": "Cabeçalhos personalizados",
     "seerrHeaderValue": "Valor",
     "url": "URL",
-    "moviePrefix": "Prefixo de filme"
+    "moviePrefix": "Prefixo de filme",
+    "tunerHostAddedSuccessfully": "Sintonizador adicionado com sucesso",
+    "failedToAddTunerHost": "Falha ao adicionar sintonizador:{error}",
+    "@failedToAddTunerHost": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "tunerHostUpdatedSuccessfully": "Sintonizador atualizado com sucesso",
+    "failedToUpdateTunerHost": "Falha ao atualizar o sintonizador: {error}",
+    "@failedToUpdateTunerHost": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "deleteTunerHost": "Excluir sintonizador",
+    "tunerHostDeletedSuccessfully": "Sintonizador excluído com sucesso",
+    "failedToDeleteTunerHost": "Falha ao excluir o sintonizador: {error}",
+    "@failedToDeleteTunerHost": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    }
 }
