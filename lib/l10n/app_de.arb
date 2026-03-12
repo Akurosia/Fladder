@@ -1866,5 +1866,9 @@
     "pasteFladderAuthLink": "Fladder Auth Link einfügen fladder:///login?authLink=...",
     "connect": "Verbinden",
     "authLinkDesc": "Frage den Server-Admin, um den Auth-Link zu erhalten. Der Link enthält Authentifizierungsinformationen, behandle diesen daher vertraulich.",
-    "advancedVideoOptionsTitle": "Erweiterte Videooptionen"
+    "advancedVideoOptionsTitle": "Erweiterte Videooptionen",
+    "libraryOrderTitle": "Homescreen Reihenfolge",
+    "hidePlayedInLatestTitle": "Angesehene Inhalte ausblenden",
+    "hidePlayedInLatestDescription": "Angesehene Inhalte aus \"Kürzlich hinzugefügte Medien\" ausblenden",
+    "groupedFoldersDescription": "Inhalte aus den folgenden Bibliotheken automatisch in Ansichten wie „Filme“, „Musik“ und „TV“ gruppieren."
 }
