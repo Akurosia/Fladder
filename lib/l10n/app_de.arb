@@ -1865,5 +1865,6 @@
     "connectWithAuthLink": "Mit Auth Link verbinden",
     "pasteFladderAuthLink": "Fladder Auth Link einfügen fladder:///login?authLink=...",
     "connect": "Verbinden",
-    "authLinkDesc": "Frage den Server-Admin, um den Auth-Link zu erhalten. Der Link enthält Authentifizierungsinformationen, behandle diesen daher vertraulich."
+    "authLinkDesc": "Frage den Server-Admin, um den Auth-Link zu erhalten. Der Link enthält Authentifizierungsinformationen, behandle diesen daher vertraulich.",
+    "advancedVideoOptionsTitle": "Erweiterte Videooptionen"
 }
