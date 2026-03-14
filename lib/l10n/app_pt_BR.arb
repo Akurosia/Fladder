@@ -1819,5 +1819,39 @@
             }
         }
     },
-    "libraryOrderTitle": "Ordem da Tela Inicial"
+    "libraryOrderTitle": "Ordem da Tela Inicial",
+    "mediaTypeTV": "{count, plural, one{Canal de TV} other{Canais de TV}}",
+    "@mediaTypeTV": {
+        "description": "TV Channel (plural)",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "seerrUrlSchemeWarning": "Não foi possível detectar automaticamente o esquema de URL. O padrão será https://. Adicione o prefixo http:// se o seu servidor não usar HTTPS.",
+    "seerrHeader": "Cabeçalho",
+    "friendlyName": "Nome amigável",
+    "ignoreDts": "Ignorar data e hora DTS",
+    "notificationNewItems": "{count, plural, one{{count} novo item} other{{count} novos itens}}",
+    "@notificationNewItems": {
+        "description": "Plural for number of new items in a notification",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "notificationNewRequests": "{count, plural, one{{count} nova solicitação} other{{count} novas solicitações}}",
+    "@notificationNewRequests": {
+        "description": "Plural for number of new Seerr requests in a notification",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "notificationTimerIOSWarning": " O iOS decide quando e se as atualizações serão executadas, podendo haver atrasos ou até mesmo a ausência de notificações.",
+    "authLinkButtonToolTip": "Abrir caixa de diálogo de link de autenticação"
 }
