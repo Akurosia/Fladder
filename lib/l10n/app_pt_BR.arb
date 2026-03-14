@@ -1818,5 +1818,6 @@
                 "type": "String"
             }
         }
-    }
+    },
+    "libraryOrderTitle": "Ordem da Tela Inicial"
 }
