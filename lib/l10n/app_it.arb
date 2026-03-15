@@ -1858,5 +1858,6 @@
     "hidePlayedInLatestTitle": "Nascondi contenuti già visti",
     "hidePlayedInLatestDescription": "Media'Nascondi contenuti già visti da \"Media aggiunti di recente\"",
     "groupedFoldersTitle": "Librerie raggruppate",
-    "groupedFoldersDescription": "Raggruppa automaticamente i contenuti dalle seguenti librerie in viste come \"Film\", \"Musica\" e \"Serie TV\"."
+    "groupedFoldersDescription": "Raggruppa automaticamente i contenuti dalle seguenti librerie in viste come \"Film\", \"Musica\" e \"Serie TV\".",
+    "seerrUrlSchemeWarning": "Impossibile rilevare automaticamente lo schema dell'URL. Si passa di default a https://. Prefissa con http:// se il tuo server non utilizza HTTPS."
 }
