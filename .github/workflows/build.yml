@@ -443,9 +443,9 @@ jobs:
 
   build-linux-flatpak:
     runs-on: ubuntu-latest
-    # prepare-metainfo is skipped for nightly; !failure() && !cancelled() allows this job to still run
+    # This job should run for both release and nightly even if prepare-metainfo is skipped
     if: ${{ !failure() && !cancelled() && (needs.fetch-info.outputs.build_type == 'release' || needs.fetch-info.outputs.build_type == 'nightly') }}
-    needs: [fetch-info, build-linux, prepare-metainfo]
+    needs: [fetch-info, build-linux]
     container:
       image: bilelmoussaoui/flatpak-github-actions:gnome-46
       options: --privileged
