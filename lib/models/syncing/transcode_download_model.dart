@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:fladder/jellyfin/jellyfin_open_api.swagger.dart';
 import 'package:fladder/models/item_base_model.dart';
 import 'package:fladder/util/bitrate_helper.dart';
+import 'package:fladder/util/localization_helper.dart';
 
 part 'transcode_download_model.freezed.dart';
 part 'transcode_download_model.g.dart';
@@ -34,19 +35,6 @@ abstract class TranscodeDownloadModel with _$TranscodeDownloadModel {
   }
 
   factory TranscodeDownloadModel.fromJson(Map<String, dynamic> json) => _$TranscodeDownloadModelFromJson(json);
-
-  Map<String, String> get queryParams => {
-        "VideoCodec": videoCodec.name,
-        "Container": container.name,
-        "audioCodec": audioCodec.name,
-        "maxHeight": maxHeight.label,
-        "MaxBitrate": maxBitrate.calculatedBitRate.toString(),
-        "SubtitleStreamIndex": "1",
-        "AudioStreamIndex": "1",
-        "TranscodingMaxAudioChannels": "2",
-        "RequireAvc": "false",
-        "EnableAudioVbrEncoding": "true"
-      };
 
   Map<String, String> curlHeaders(Duration duration, {ItemBaseModel? item}) => {
         'User-Agent': 'curl/8.0.1',
@@ -94,9 +82,9 @@ abstract class TranscodeDownloadModel with _$TranscodeDownloadModel {
 
   String label(BuildContext context) {
     if (!enabled) {
-      return "Original";
+      return context.localized.qualityOptionsOriginal;
     }
-    return "Transcode: ${videoCodec.name.toUpperCase()} - ${audioCodec.name.toUpperCase()} | ${maxHeight.label}p | ~${maxBitrate.label(context)}";
+    return "${context.localized.playbackTypeTranscode}: ${videoCodec.name.toUpperCase()} - ${audioCodec.name.toUpperCase()} | ${maxHeight.label}p | ~${maxBitrate.label(context)}";
   }
 }
 
