@@ -542,13 +542,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Checkout repository (release)
-        if: needs.fetch-info.outputs.build_type == 'release'
-        uses: actions/checkout@v4.1.1
-        with:
-          ref: develop
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Set version variables
         id: version
         run: |
