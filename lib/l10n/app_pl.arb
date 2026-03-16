@@ -943,5 +943,6 @@
     },
     "shareLoginLink": "Udostępnij link do logowania",
     "shareQRCode": "Udostępnij kod QR",
-    "copyLoginLink": "Skopiuj link"
+    "copyLoginLink": "Skopiuj link",
+    "includePassword": "Uwzględnić słowo hasło"
 }
