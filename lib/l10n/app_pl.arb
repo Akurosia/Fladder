@@ -826,7 +826,7 @@
         }
     },
     "pathEditDesc": "Ta lokalizacja jest ustawiana dla wszystkich użytkowników, żadne dane zsynchronizowane dotychczas nie będą już dostępne, ale pozostaną na urządzeniu.",
-    "syncRemoveDataDesc": "Usunąć zsynchronizowane dane? Ta operacja jest nieodwracalna w związku z czym konieczna będzie ponowna synchronizacja.",
+    "syncRemoveDataDesc": "Usunąć zsynchronizowane dane? Ta operacja jest nieodwracalna w związku z czym konieczna będzie ponowna synchronizacja",
     "writer": "{count, plural, other{Scenarzytów} one{Scenarzysta}}",
     "@writer": {
         "description": "writer",
@@ -944,5 +944,6 @@
     "shareLoginLink": "Udostępnij link do logowania",
     "shareQRCode": "Udostępnij kod QR",
     "copyLoginLink": "Skopiuj link",
-    "includePassword": "Uwzględnić słowo hasło"
+    "includePassword": "Uwzględnić słowo hasło",
+    "invalidAuthLink": "Nieprawidłowy link logowania"
 }
