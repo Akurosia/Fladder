@@ -1866,5 +1866,7 @@
     "seerrUrlSchemeWarning": "Não foi possível detetar automaticamente o esquema de URL. Usando https:// por defeito. Adicione o prefixo http:// se o seu servidor não utilizar HTTPS.",
     "seerrMediaStatusBlacklisted": "Na lista negra",
     "seerrLoggedIn": "Com sessão iniciada no Seerr",
-    "hidePlayedInLatestDescription": "Ocultar conteúdo já visto de 'Adicionados recentemente'"
+    "hidePlayedInLatestDescription": "Ocultar conteúdo já visto de 'Adicionados recentemente'",
+    "homeBannerDetailed": "Detalhado",
+    "backgroundColor": "Cor de fundo"
 }
