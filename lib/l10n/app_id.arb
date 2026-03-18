@@ -1993,5 +1993,17 @@
     "hidePlayedInLatestTitle": "Sembunyikan yang sudah ditonton",
     "hidePlayedInLatestDescription": "Sembunyikan yang sudah ditonton dari \"Media yang Baru Ditambahkan\"",
     "groupedFoldersTitle": "Perpustakaan Terkelompok",
-    "groupedFoldersDescription": "Secara otomatis mengelompokkan konten dari perpustakaan berikut ke dalam tampilan seperti ‘Film’, ‘Musik’, dan ‘TV’."
+    "groupedFoldersDescription": "Secara otomatis mengelompokkan konten dari perpustakaan berikut ke dalam tampilan seperti ‘Film’, ‘Musik’, dan ‘TV’.",
+    "transcodeInfoTitle": "Info transkoding",
+    "transcodeInfoNoMetadata": "Metadata transkoding tidak tersedia.",
+    "transcodeDetailsTitle": "Detail transkoding",
+    "containerLabel": "Kontainer",
+    "videoCodecLabel": "Kodek video",
+    "audioCodecLabel": "Kodek audio",
+    "bitrateLabel": "Bitrate",
+    "kbps": "kbps",
+    "resolutionLabel": "Resolusi",
+    "downloadTranscoded": "Unduh versi transkoding",
+    "downloadOriginal": "Unduh versi asli",
+    "seerrUrlSchemeWarning": "Tidak dapat mendeteksi skema URL secara otomatis. Menggunakan default https://. Tambahkan awalan http:// jika server Anda tidak menggunakan HTTPS."
 }
