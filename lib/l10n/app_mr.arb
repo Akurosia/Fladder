@@ -1,6 +1,6 @@
 {
-    "about": "Fladder बद्दल",
-    "accept": "स्वीकार करा",
+    "about": "Fladder विषयी",
+    "accept": "स्वीकारा",
     "addToCollection": "संग्रहात जोडा",
     "advanced": "प्रगत",
     "all": "सर्व",
@@ -111,7 +111,7 @@
     },
     "unknown": "अज्ञात",
     "useDefaults": "डिफॉल्ट वापरा",
-    "userName": "प्रयोक्ता नाव",
+    "userName": "वापरकर्त्याचे नाव",
     "videoScalingFill": "भरा",
     "videoScalingFillScreenTitle": "पडदा भरा",
     "videoScalingFitHeight": "उंची भरा",
@@ -237,7 +237,7 @@
     "settings": "सेटिंग",
     "settingsProfileTitle": "प्रोफाइल",
     "settingsQuickConnectTitle": "जलद-कनेक्ट",
-    "switchUser": "प्रयोक्ता बदला",
+    "switchUser": "वापरकर्ता बदला",
     "sync": "सिंक करा",
     "theme": "थीम",
     "addItemsToPlaylist": "{itemLength} वस्तू प्लेसिस्टमध्ये जोडा",
@@ -784,7 +784,7 @@
     "settingsPlayerVideoHWAccelTitle": "हार्डवेअर अ‍ॅक्सेलेरेशन",
     "autoCheckForUpdates": "वेळोवेळी अपडेट असल्याचे तपासा",
     "dateLastContentAdded": "शेवटची सामग्री जोडण्याचा दिनांक",
-    "downloadsClearDesc": "प्रत्येक सिंक केलेल्या प्रयोक्याचा डेटा साफ करून सर्व सिंक केलेला डेटा काढून टाकायचा का?",
+    "downloadsClearDesc": "प्रत्येक सिंक केलेल्या वापरकर्त्याचे डेटा साफ करून सर्व सिंक केलेला डेटा काढून टाकायचा का?",
     "dynamicText": "गतिक",
     "heightOffset": "उंची ऑफसेट",
     "loop": "लूप",
@@ -830,7 +830,7 @@
         }
     },
     "settingsPlayerBufferSizeDesc": "व्हिडियो प्लेबॅकसाठी बफर आकार ठरवा. याने कॅशमध्ये किती डेटा लोड केली जाते हे निर्धारित होते.",
-    "appLockTitle": "{userName} यांच्यासाठी लॉग-इन पद्धत सेट करा",
+    "appLockTitle": "{userName} यांच्यासाठी लॉगइन पद्धत सेट करा",
     "@appLockTitle": {
         "description": "Pop-up to pick a login method",
         "placeholders": {
@@ -1262,5 +1262,14 @@
     "videoCodecLabel": "व्हिडियो कोडेक",
     "audioCodecLabel": "ऑडिओ कोडेक",
     "bitrateLabel": "बिटरेट",
-    "kbps": "kbps"
+    "kbps": "kbps",
+    "generateLoginLink": "{userName} यांच्यासाठीचा कोड",
+    "@generateLoginLink": {
+        "description": "Code for a user to share",
+        "placeholders": {
+            "userName": {
+                "type": "String"
+            }
+        }
+    }
 }
