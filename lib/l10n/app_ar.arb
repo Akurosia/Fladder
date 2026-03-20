@@ -1879,5 +1879,16 @@
     "hidePlayedInLatestTitle": "إخفاء المحتوى المُشاهد",
     "hidePlayedInLatestDescription": "إخفاء المحتوى المُشاهد من قسم \"الوسائط المضافة حديثاً\"",
     "groupedFoldersTitle": "المكتبات المجمّعة",
-    "groupedFoldersDescription": "تجميع المحتوى تلقائياً من المكتبات التالية في أقسام مثل \"الأفلام\"، \"الموسيقى\"، و\"التلفاز\"."
+    "groupedFoldersDescription": "تجميع المحتوى تلقائياً من المكتبات التالية في أقسام مثل \"الأفلام\"، \"الموسيقى\"، و\"التلفاز\".",
+    "transcodeInfoTitle": "معلومات التحويل",
+    "transcodeInfoNoMetadata": "لا تتوفر بيانات وصفية للتحويل.",
+    "transcodeDetailsTitle": "تفاصيل التحويل",
+    "containerLabel": "الحاوية",
+    "videoCodecLabel": "ترميز الفيديو",
+    "audioCodecLabel": "ترميز الصوت",
+    "bitrateLabel": "معدل البث",
+    "kbps": "كيلوبت/ثانية",
+    "resolutionLabel": "الدقة",
+    "downloadTranscoded": "تنزيل النسخة المحوّلة",
+    "downloadOriginal": "تنزيل النسخة الأصلية"
 }
