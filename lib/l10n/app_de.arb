@@ -1884,7 +1884,7 @@
     "libraryOrderDescription": "Ziehe die Bibliotheken, um sie auf der Startseite neu anzuordnen. Nicht ausgewählte Bibliotheken werden keine neu hinzugefügten Einträge anzeigen.",
     "groupedFoldersTitle": "Gruppierte Bibliotheken",
     "transcodeInfoTitle": "Transcoding Informationen",
-    "transcodeInfoNoMetadata": "Es sind keine Transcoding Metadaten vrrfügbar",
+    "transcodeInfoNoMetadata": "Es sind keine Transcoding Metadaten verfügbar",
     "transcodeDetailsTitle": "Transcoding Details",
     "containerLabel": "Container",
     "videoCodecLabel": "Video Codec",
