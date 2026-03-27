@@ -1858,5 +1858,10 @@
     "transcodeDetailsTitle": "Detalhes de Transcodificação",
     "videoCodecLabel": "Codec de vídeo",
     "audioCodecLabel": "Codec de áudio",
-    "bitrateLabel": "Taxa de bits"
+    "bitrateLabel": "Taxa de bits",
+    "transcodeInfoNoMetadata": "Não há metadados de transcodificação disponíveis.",
+    "containerLabel": "Container",
+    "kbps": "kbps",
+    "resolutionLabel": "Resolução",
+    "downloadOriginal": "Baixar original"
 }
