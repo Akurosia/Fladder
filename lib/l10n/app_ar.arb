@@ -1890,5 +1890,20 @@
     "kbps": "كيلوبت/ثانية",
     "resolutionLabel": "الدقة",
     "downloadTranscoded": "تنزيل النسخة المحوّلة",
-    "downloadOriginal": "تنزيل النسخة الأصلية"
+    "downloadOriginal": "تنزيل النسخة الأصلية",
+    "airsIn": "يُعرض خلال {count} {duration}",
+    "@airsIn": {
+        "description": "airsIn",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            },
+            "duration": {
+                "type": "String",
+                "example": "days"
+            }
+        }
+    },
+    "today": "اليوم"
 }
