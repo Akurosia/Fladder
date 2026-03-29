@@ -99,7 +99,7 @@
     "delete": "Удалить",
     "dateAdded": "Добавлено",
     "dateLastContentAdded": "Дата добавления",
-    "days": "{считать, plural, один{Day} несколько{Days}}",
+    "days": "{count, plural, one{День} other{Дней}}",
     "deleteItem": "Удалить {item}?",
     "@deleteItem": {
         "description": "deleteItem",
@@ -261,14 +261,14 @@
     "mediaTypeBook": "{count, plural, one{Книга} two{Книги} other{Книг}}",
     "mediaTypeBoxset": "{count, plural, one{Набор} two{Набора} other{Наборов}}",
     "mediaTypeEpisode": "{count, plural, one{Эпизод} two{Эпизода} other{Эпизодов}}",
-    "mediaTypeFolder": "Папка",
-    "mediaTypeMovie": "Фильм",
-    "mediaTypePerson": "Персона",
-    "mediaTypePhoto": "Фото",
-    "mediaTypePhotoAlbum": "Фотоальбом",
-    "mediaTypePlaylist": "Плейлист",
-    "mediaTypeSeason": "Сезон",
-    "mediaTypeSeries": "Серии",
+    "mediaTypeFolder": "{count, plural, one{Папка} other{Папки}}",
+    "mediaTypeMovie": "{count, plural, one{Фильм} other{Фильмы}}",
+    "mediaTypePerson": "{count, plural, one{Персона} other{Персоны}}",
+    "mediaTypePhoto": "{count, plural, one{Фото} other{Фото}}",
+    "mediaTypePhotoAlbum": "{count, plural, one{Фотоальбом} other{Фотоальбомы}}",
+    "mediaTypePlaylist": "{count, plural, one{Плейлист} other{Плейлисты}}",
+    "mediaTypeSeason": "{count, plural, one{Сезон} other{Сезоны}}",
+    "mediaTypeSeries": "{count, plural, one{Сериал} other{Сериалы}}",
     "metadataRefreshDefault": "Сканирование на наличие новых и обновленных файлов",
     "metadataRefreshFull": "Заменить все метаданные",
     "metadataRefreshValidation": "Поиск отсутствующих метаданных",
@@ -284,7 +284,7 @@
     },
     "moreOptions": "Другие варианты",
     "mouseDragSupport": "Перетаскивание с помощью мыши",
-    "musicAlbum": "Альбом",
+    "musicAlbum": "{count, plural, one{Альбом} other{Альбомы}}",
     "name": "Название",
     "navigation": "Навигация",
     "navigationDashboard": "Главная",
@@ -553,7 +553,7 @@
     "settingsHomeBannerInformationDesc": "Информация для отображения на основном баннере",
     "settingsPlayerBufferSizeTitle": "Размер видеобуфера",
     "settingsPlayerVideoHWAccelTitle": "Аппаратное ускорение",
-    "settingsProfileDesc": "Экран блокировки, локальный адрес",
+    "settingsProfileDesc": "Экран блокировки, Локальный адрес, Seerr",
     "showAlbum": "Покатать альбом",
     "settingsNextUpCutoffDays": "Лимит дней для \"Следующего\"",
     "somethingWentWrongPasswordCheck": "Что-то пошло не так. Проверьте свой пароль.",
@@ -850,7 +850,7 @@
     },
     "playBackSettings": "Настройки воспроизведения",
     "syncRemoveDataTitle": "Удалить синхронизированные данные?",
-    "video": "Видео",
+    "video": "{count, plural, one{Видео} other{Видео}}",
     "syncStatusCanceled": "Отменено",
     "syncDeleteItemTitle": "Удалить синхронизированный элемент",
     "schemeSettingsTonalSpot": "Тональное пятно",
@@ -1182,5 +1182,225 @@
     "includePassword": "Включить пароль",
     "invalidAuthLink": "Неверная ссылка для входа",
     "homeBannerDetailed": "Подробный",
-    "homeBannerTV": "ТВ"
+    "homeBannerTV": "ТВ",
+    "mediaTypeTV": "{count, plural, one{ТВ Канал} other{ТВ Каналы}}",
+    "@mediaTypeTV": {
+        "description": "TV Channel (plural)",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "subtitlePlaybackModeOnlyForced": "Только форсированные",
+    "backgroundColor": "Цвет фона",
+    "advancedVideoOptionsTitle": "Расширенные параметры видео",
+    "advancedVideoOptionsDesc": "Включить HDR, тональное отображение и продвинутую обработку цвета (нестабильно для некоторых устройств)",
+    "playbackTypeTV": "ТВ",
+    "enableSpeedBoostTitle": "Включить ускорение",
+    "enableSpeedBoostDesc": "Нажмите и удерживайте экран телефона или пробел клавиатуры, чтобы ускорить воспроизведение",
+    "speedBoostRateTitle": "Степень ускорения",
+    "speedBoostRateDesc": "Скорость воспроизведения, когда ускорение активировано",
+    "enableDoubleTapSeekTitle": "Двойное касание для перемотки/воспроизведения/паузы",
+    "enableDoubleTapSeekDesc": "Двойное касание по правой/левой части экрана, чтобы промотать вперед/назад соответственно. Двойное касание по центру для воспроизведения/паузы",
+    "showLess": "Показать меньше",
+    "programData": "Данные программ",
+    "hours": "{count, plural, one{Час} other{Часов}}",
+    "@hours": {
+        "description": "Pluralization for hours",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            }
+        }
+    },
+    "weeks": "{count, plural, one{Неделя} other{Недель}}",
+    "@weeks": {
+        "description": "Pluralization for weeks",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "2"
+            }
+        }
+    },
+    "months": "{count, plural, one{Месяц} other{Месяцев}}",
+    "@months": {
+        "description": "Pluralization for months",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "5"
+            }
+        }
+    },
+    "years": "{count, plural, one{Год} other{Лет}}",
+    "@years": {
+        "description": "Pluralization for years",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "airsIn": "Выходит через {count} {duration}",
+    "@airsIn": {
+        "description": "airsIn",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            },
+            "duration": {
+                "type": "String",
+                "example": "days"
+            }
+        }
+    },
+    "lastRunTaking": "Последний запуск {date}, заняло {time}",
+    "@lastRunTaking": {
+        "description": "lastRunTaking",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "newTaskTrigger": "Новый триггер задачи",
+    "dayOfTheWeek": "День недели",
+    "time": "Время",
+    "interval": "Интервал",
+    "taskTimeLimitInHours": "Ограничение времени (в часах)",
+    "taskTriggerIntervalDesc": "Каждые {time}",
+    "@taskTriggerIntervalDesc": {
+        "description": "Task trigger interval desc",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "taskTriggerDailyDesc": "Ежедневно в {time}",
+    "@taskTriggerDailyDesc": {
+        "description": "taskTriggerDailyDesc",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "taskTriggerWeeklyDesc": "Еженедельно в {day} в {time}",
+    "@taskTriggerWeeklyDesc": {
+        "description": "taskTriggerWeeklyDesc",
+        "placeholders": {
+            "day": {
+                "type": "String"
+            },
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "taskTriggerTimeLimitSub": "Ограничение времени: {time}",
+    "@taskTriggerTimeLimitSub": {
+        "description": "taskTriggerTimeLimit",
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "performance": "Производительность",
+    "serverNameLabel": "Имя сервера",
+    "cachePath": "Путь к кэшу",
+    "metadataPath": "Путь к метаданным",
+    "maxConcurrentLibraryScanLabel": "Максимальное количество параллельных сканирований библиотек",
+    "maxImageDecodingThreadsLabel": "Максимальное количество потоков декодирования изображений",
+    "controlPanelServerDesc": "Имя сервера, Quick Connect, Производительность",
+    "deleteUserTitle": "Удалить пользователя {user}?",
+    "@deleteUserTitle": {
+        "description": "deleteUserTitle",
+        "placeholders": {
+            "user": {
+                "type": "String"
+            }
+        }
+    },
+    "deleteUserDesc": "Это навсегда удалит пользователя {user} и все связанные с ним настройки.",
+    "@deleteUserDesc": {
+        "description": "deleteUserDesc",
+        "placeholders": {
+            "user": {
+                "type": "String"
+            }
+        }
+    },
+    "userInformation": "Информация о пользователе",
+    "allowManageServer": "Разрешить этому пользователю управлять сервером",
+    "allowCollections": "Разрешить этому пользователю управлять коллекциями",
+    "allowEditSubtitles": "Разрешить этому пользователю редактировать субтитры",
+    "featureAccess": "Доступ к функциям",
+    "allowLiveTVAccess": "Разрешить доступ к ТВ",
+    "allowLiveTVRecording": "Разрешить управление записями ТВ",
+    "mediaPlayback": "Воспроизведение медиа",
+    "allowMediaPlayback": "Разрешить воспроизведение медиа",
+    "allowVideoTranscoding": "Разрешить воспроизведение видео, которое требует транскодирование",
+    "allowAudioTranscoding": "Разрешить воспроизведение аудио, которое требует транскодирование",
+    "forceRemoteTranscoding": "Принудительно транскодировать с удаленного источника",
+    "syncplay": "Syncplay",
+    "syncplayAccess": "Доступ к Syncplay",
+    "syncplayAccessCreateAndJoinGroups": "Создавать группы и вступать в них",
+    "syncplayAccessJoinGroups": "Вступать в группы",
+    "syncplayAccessNone": "Ничего",
+    "allowMediaDeletion": "Разрешить удаление медиа",
+    "allLibraries": "Все библиотеки",
+    "libraryAccess": "Доступ к библиотеке",
+    "enableAllLibraries": "Предоставить доступ ко всем библиотекам",
+    "enableAllDevices": "Предоставить доступ ко всем устройствам",
+    "parentalControl": "Родительский контроль",
+    "blockedItemsNoRating": "Заблокированные элементы с отсутствующим или нераспознанным возрастным рейтингом",
+    "maxParentalRating": "Максимальный возрастной рейтинг",
+    "allowItemsTags": "Разрешить элементы с тегами",
+    "blockItemsTags": "Заблокировать элементы с тегами",
+    "accessSchedules": "Доступ по расписанию",
+    "addAccessSchedule": "Добавить доступ по расписанию",
+    "dayOfWeek": "День недели",
+    "startTime": "Время начала",
+    "endTime": "Время конца",
+    "addTag": "Добавить тег",
+    "createNewUser": "Создать нового пользователя",
+    "createUser": "Создать пользователя",
+    "users": "Пользователи",
+    "editUser": "Редактировать пользователя",
+    "general": "Общее",
+    "access": "Доступ",
+    "endTimeMustBeAfter": "Время завершения должно быть после времени начала",
+    "assignLibraries": "Назначить библиотеки",
+    "enableAccessAllLibraries": "Предоставить доступ ко всем библиотекам",
+    "currentPassword": "Текущий пароль",
+    "newPassword": "Новый пароль",
+    "confirmPassword": "Подтвердить пароль",
+    "resetPassword": "Сбросить пароль",
+    "passwordResetSuccess": "Пароль успешно сброшен",
+    "passwordResetFailed": "Не удалось сбросить пароль",
+    "passwordMismatch": "Новый пароль и подтерждение пароля не совпадают",
+    "passwordChangeSuccess": "Пароль успешно изменен",
+    "savePassword": "Сохранить пароль",
+    "deleteLibraryConfirmTitle": "Удалить библиотеку?",
+    "deleteLibraryConfirmMessage": "Вы уверены, что хотите удалить {libraryName}?\nЭто действие нельзя отменить.",
+    "@deleteLibraryConfirmMessage": {
+        "placeholders": {
+            "libraryName": {
+                "type": "String"
+            }
+        }
+    },
+    "noLibrarySelected": "Библиотека не выбрана",
+    "automaticallyAddToCollection": "Автоматически добавлять в коллекцию"
 }
