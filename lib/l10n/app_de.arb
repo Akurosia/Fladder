@@ -847,7 +847,7 @@
     "segmentActionNone": "Keine",
     "closeVideo": "Video schließen",
     "autoNextOffSmartTitle": "Smart",
-    "clientSettingsRequireWifiDesc": "Nur herunterladen, wenn Sie mit einem WLAN-Netzwerk verbunden sind",
+    "clientSettingsRequireWifiDesc": "Nur herunterladen, wenn Sie mit einem Wlan-Netzwerk verbunden sind",
     "clientSettingsShowAllCollectionsDesc": "Wenn aktiviert, werden alle Sammlungstypen angezeigt, einschließlich derjenigen, die von Fladder nicht unterstützt werden",
     "downloadFile": "{type} herunterladen",
     "@downloadFile": {
@@ -857,7 +857,7 @@
             }
         }
     },
-    "copyStreamUrl": "Stream-URL kopieren",
+    "copyStreamUrl": "Stream-Url kopieren",
     "mediaSegmentCommercial": "Werbung",
     "mediaSegmentPreview": "Vorschau",
     "mediaSegmentRecap": "Rückblick",
@@ -897,7 +897,7 @@
     "playNextVideo": "Nächstes Video abspielen",
     "external": "Extern",
     "settingsAutoNextTitle": "Vorschau des nächsten Titels",
-    "clientSettingsRequireWifiTitle": "WLAN erforderlich",
+    "clientSettingsRequireWifiTitle": "Wlan erforderlich",
     "episodeUnaired": "Unveröffentlicht",
     "episodeMissing": "Fehlt",
     "castAndCrew": "Besetzung & Crew",
@@ -1660,7 +1660,7 @@
     "enableNewTVLayout": "Neues TV Layout aktivieren",
     "enableNewTVLayoutDesc": "Zeige größere TV-Stil Banner auf dem Dashboard. Dies wird zum Standardlayout in einer zukünftigen Version.",
     "enableSpeedBoostTitle": "Beschleunigung aktivieren",
-    "enableSpeedBoostDesc": "Bildschirm (Touch) oder Leertaste (PC) gedrückt halten, um die Wiedergabegeschwindigkeit temporär zu erhöhen",
+    "enableSpeedBoostDesc": "Bildschirm (Touch) oder Leertaste (Pc) gedrückt halten, um die Wiedergabegeschwindigkeit temporär zu erhöhen",
     "speedBoostRateTitle": "Beschleunigungsrate",
     "speedBoostRateDesc": "Wiedergabegeschwindigkeit bei aktivierter Beschleunigung",
     "enableDoubleTapSeekTitle": "Doppelt tippen zum spulen/starten/pausieren",
@@ -1884,7 +1884,7 @@
     "libraryOrderDescription": "Ziehe die Bibliotheken, um sie auf der Startseite neu anzuordnen. Nicht ausgewählte Bibliotheken werden keine neu hinzugefügten Einträge anzeigen.",
     "groupedFoldersTitle": "Gruppierte Bibliotheken",
     "transcodeInfoTitle": "Transcoding Informationen",
-    "transcodeInfoNoMetadata": "Es sind keine Transcoding Metadaten verfügbar",
+    "transcodeInfoNoMetadata": "Es sind keine Transcoding Metadaten verfügbar.",
     "transcodeDetailsTitle": "Transcoding Details",
     "containerLabel": "Container",
     "videoCodecLabel": "Video Codec",
@@ -1894,5 +1894,20 @@
     "resolutionLabel": "Auflösung",
     "downloadTranscoded": "Transkodiert herunterladen",
     "downloadOriginal": "Im Original herunterladen",
-    "seerrUrlSchemeWarning": "Konnte das URL-Schema nicht automatisch erkennen. Es wird standardmäßig https:// verwendet. Nutze das http:// Prefix, wenn dein Server kein HTTPS verwendet."
+    "seerrUrlSchemeWarning": "Konnte das URL-Schema nicht automatisch erkennen. Es wird standardmäßig https:// verwendet. Nutze das http:// Prefix, wenn dein Server kein HTTPS verwendet.",
+    "airsIn": "Wird ausgestrahlt in {count} {duration}",
+    "@airsIn": {
+        "description": "airsIn",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            },
+            "duration": {
+                "type": "String",
+                "example": "days"
+            }
+        }
+    },
+    "today": "Heute"
 }
