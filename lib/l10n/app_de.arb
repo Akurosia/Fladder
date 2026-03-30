@@ -3,7 +3,7 @@
     "clearAllSettingsQuestion": "Alle Einstellungen zurücksetzen?",
     "clearChanges": "Änderungen verwerfen",
     "clearSelection": "Auswahl aufheben",
-    "collectionFolder": "{count, plural, one{Collection folder} other{Collection folders}}",
+    "collectionFolder": "{count, plural, one{Sammlung Ordner} other{Sammlungen Ordner}}",
     "color": "Farbe",
     "deleteItem": "{item} löschen?",
     "@deleteItem": {
@@ -27,9 +27,9 @@
             }
         }
     },
-    "mediaTypePhoto": "{count, plural, one{Photo} other{Photos}}",
+    "mediaTypePhoto": "{count, plural, one{Foto} other{Fotos}}",
     "mediaTypePlaylist": "{count, plural, one{Playlist} other{Playlists}}",
-    "mediaTypePhotoAlbum": "{count, plural, one{Photo Album} other{Photo Albums}}",
+    "mediaTypePhotoAlbum": "{count, plural, one{Foto Album} other{Foto Alben}}",
     "mediaTypeSeries": "{count, plural, one{Series} other{Series}}",
     "minutes": "{count, plural, other{Minuten} one{Minute} }",
     "@minutes": {
