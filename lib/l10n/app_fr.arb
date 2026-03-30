@@ -1880,5 +1880,8 @@
     "resolutionLabel": "Définition",
     "seerrUrlSchemeWarning": "Impossible d'auto-détecter le protocole. Utilisation de https:// par défaut. Préfixez l'URL par http:// si votre serveur n'utilise pas HTTPS.",
     "downloadTranscoded": "Télécharger la version transcodée",
-    "downloadOriginal": "Télécharger la version originale"
+    "downloadOriginal": "Télécharger la version originale",
+    "transcodeInfoNoMetadata": "Aucune métadonnées de transcodage n ' est disponible.",
+    "kbps": "kbps",
+    "containerLabel": "Conteneur"
 }
