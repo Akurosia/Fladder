@@ -1856,5 +1856,29 @@
     "advancedVideoOptionsDesc": "Activer le HDR, le tone mapping et la gestion avancée des couleurs (instable sur certains appareils)",
     "linkData": "Données du lien",
     "passwordNotRequired": "Non requis, laissez vide pour ne pas inclure le mot de passe dans le lien",
-    "authLinkButtonToolTip": "Ouvrir la fenêtre du lien d’authentification"
+    "authLinkButtonToolTip": "Ouvrir la fenêtre du lien d’authentification",
+    "today": "Aujourd'hui",
+    "airsIn": "Diffusé dans {count} {duration}",
+    "@airsIn": {
+        "description": "airsIn",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            },
+            "duration": {
+                "type": "String",
+                "example": "days"
+            }
+        }
+    },
+    "transcodeInfoTitle": "Info de transcodage",
+    "transcodeDetailsTitle": "Détails de transcodage",
+    "videoCodecLabel": "Codec Vidéo",
+    "audioCodecLabel": "Codec Audio",
+    "bitrateLabel": "Débit",
+    "resolutionLabel": "Définition",
+    "seerrUrlSchemeWarning": "Impossible d'auto-détecter le protocole. Utilisation de https:// par défaut. Préfixez l'URL par http:// si votre serveur n'utilise pas HTTPS.",
+    "downloadTranscoded": "Télécharger la version transcodée",
+    "downloadOriginal": "Télécharger la version originale"
 }
