@@ -28,13 +28,13 @@
     "appLockAutoLogin": "Автоматический вход в систему",
     "appLockBiometrics": "Биометрия",
     "appLockPasscode": "Пароль",
-    "audio": "{count, plural, one{Аудио} other{Аудио}}",
+    "audio": "{count, plural, one{Аудио} few{Аудио} many{Аудио} other{Аудио}}",
     "autoPlay": "Автоматическое воспроизведение",
     "backgroundOpacity": "Непрозрачность фона",
     "bold": "Жирный",
     "cancel": "Отмена",
     "change": "Изменить",
-    "chapter": "{count, plural, other{Глав} two{Главы} one{Глава}}",
+    "chapter": "{count, plural, one{Глава} few{Главы} many{Глав} other{Глав}}",
     "@chapter": {
         "description": "chapter",
         "placeholders": {
@@ -47,7 +47,7 @@
     "clear": "Очистить",
     "close": "Закрыть",
     "code": "Код",
-    "collectionFolder": "{count, plural, one{Папка коллекций} other{Папки коллекций}}",
+    "collectionFolder": "{count, plural, one{Папка коллекций} few{Папки коллекций} many{Папок коллекций} other{Папок коллекций}}",
     "combined": "Комбинированный",
     "controls": "Управление",
     "dashboard": "Главная",
@@ -73,7 +73,7 @@
         }
     },
     "nextUp": "Следующее",
-    "actor": "{count, plural, other{Актёры} two{Актёра} one{Актёр}}",
+    "actor": "{count, plural, one{Актёр} few{Актёра} many{Актёров} other{Актёров}}",
     "@actor": {
         "description": "actor",
         "placeholders": {
@@ -194,7 +194,7 @@
     "error": "Ошибка",
     "failedToLoadImage": "Не удалось загрузить изображение",
     "favorite": "Избранное",
-    "favorites": "Избранные",
+    "favorites": "Избранное",
     "fetchingLibrary": "Получение элементов библиотеки…",
     "filter": "{count, plural, other{Фильтров} two{Фильтра} one{Фильтр}}",
     "@filter": {
@@ -229,7 +229,7 @@
             }
         }
     },
-    "library": "{count, plural, other{Библиотек} two{Библиотеки} one{Библиотека}}",
+    "library": "{count, plural, other{Библиотеки} one{Библиотека}}",
     "@library": {
         "description": "Plural",
         "placeholders": {
@@ -1402,5 +1402,14 @@
         }
     },
     "noLibrarySelected": "Библиотека не выбрана",
-    "automaticallyAddToCollection": "Автоматически добавлять в коллекцию"
+    "automaticallyAddToCollection": "Автоматически добавлять в коллекцию",
+    "recentRequests": "Последние запросы",
+    "trending": "Смотрят сейчас",
+    "popularMovies": "Популярные фильмы",
+    "popularSeries": "Популярные сериалы",
+    "discover": "Найти новое",
+    "maxConcurrentLibraryScanDesc": "Максимальное количество параллельных задач при сканировании библиотеки. Если оставить пустым, значение будет выбрано автоматически на основе количества процессорных ядер вашей системы. ВНИМАНИЕ: слишком высокое значение может вызвать проблемы с сетевыми файловыми системами; при возникновении неполадок уменьшите это число.",
+    "maxImageDecodingThreadsDesc": "Максимальное количество параллельных операций кодирования изображений. Если оставить пустым, значение будет выбрано автоматически на основе количества процессорных ядер вашей системы.",
+    "allowMediaConversion": "Разрешить воспроизведение видео, которое требует конвертацию медиафайлов",
+    "enabledPhotos": "Отображать фотографии"
 }
