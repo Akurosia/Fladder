@@ -1870,5 +1870,20 @@
     "bitrateLabel": "Bitrate",
     "kbps": "kbps",
     "resolutionLabel": "Risoluzione",
-    "downloadTranscoded": "Scarica transcodificato"
+    "downloadTranscoded": "Scarica transcodificato",
+    "today": "Oggi",
+    "airsIn": "In onda tra {count} {duration}",
+    "@airsIn": {
+        "description": "airsIn",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            },
+            "duration": {
+                "type": "String",
+                "example": "days"
+            }
+        }
+    }
 }
