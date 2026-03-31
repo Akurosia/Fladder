@@ -1129,7 +1129,7 @@
     "subtitlePlaybackModeSmart": "Умный",
     "deleteRequestConfirmation": "Вы уверены, что хотите удалить этот запрос?",
     "segmentActionSkipOnce": "Пропустить один раз",
-    "controlPanel": "Панель управления",
+    "controlPanel": "Настройки сервера",
     "controlPanelDesc": "Сервер, Активность, Пользователи, Библиотека",
     "controlDashboard": "Панель управления",
     "serverName": "Имя сервера",
@@ -1861,5 +1861,28 @@
         }
     },
     "linkData": "Данные ссылки",
-    "passwordNotRequired": "Не требуется, оставьте пустым, чтобы не включать пароль в ссылку"
+    "passwordNotRequired": "Не требуется, оставьте пустым, чтобы не включать пароль в ссылку",
+    "connectWithAuthLink": "Подключиться с ссылкой для входа",
+    "pasteFladderAuthLink": "Вставьте ссылку для входа вида fladder:///login?authLink=...",
+    "connect": "Подключиться",
+    "deletedItem": "{itemName} удалено",
+    "@deletedItem": {
+        "description": "Message shown when a item is deleted",
+        "placeholders": {
+            "itemName": {
+                "type": "String"
+            }
+        }
+    },
+    "libraryOrderTitle": "Порядок элементов домашнего экрана",
+    "authLinkButtonToolTip": "Открыть диалог входа по ссылке",
+    "authLinkDesc": "Попросите у администратора сервера ссылку для входа. Она содержит конфиденциальные данные, не передавайте её никому.",
+    "libraryOrderDescription": "Перетащите, чтобы изменить порядок медиатек на главном экране. Для скрытых медиатек недавно добавленные элементы отображаться не будут.",
+    "hidePlayedInLatestTitle": "Скрыть просмотренный контент",
+    "hidePlayedInLatestDescription": "Скрыть просмотренный контент из 'Недавно добавлено'",
+    "groupedFoldersTitle": "Группировка медиатек",
+    "groupedFoldersDescription": "Автоматически группировать содержимое из следующих медиатек в разделы, такие как \"Фильмы\", \"Музыка\" и \"Сериалы\".",
+    "downloadTranscoded": "Загрузить с транскодированием",
+    "downloadOriginal": "Загрузить в исходном качестве",
+    "today": "Сегодня"
 }
