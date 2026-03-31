@@ -1159,7 +1159,7 @@
         }
     },
     "lessThenAMinute": "Менее минуты",
-    "plannedTasks": "Закреплённые задачи",
+    "plannedTasks": "Планировщик задач",
     "taskTriggerTypeInterval": "Интервал",
     "taskTriggerTypeDaily": "Ежедневно",
     "taskTriggerTypeWeekly": "Еженедельно",
@@ -1411,5 +1411,455 @@
     "maxConcurrentLibraryScanDesc": "Максимальное количество параллельных задач при сканировании библиотеки. Если оставить пустым, значение будет выбрано автоматически на основе количества процессорных ядер вашей системы. ВНИМАНИЕ: слишком высокое значение может вызвать проблемы с сетевыми файловыми системами; при возникновении неполадок уменьшите это число.",
     "maxImageDecodingThreadsDesc": "Максимальное количество параллельных операций кодирования изображений. Если оставить пустым, значение будет выбрано автоматически на основе количества процессорных ядер вашей системы.",
     "allowMediaConversion": "Разрешить воспроизведение видео, которое требует конвертацию медиафайлов",
-    "enabledPhotos": "Отображать фотографии"
+    "enabledPhotos": "Отображать фотографии",
+    "enabledLUFSScan": "Включить сканирование LUFS",
+    "enabledRealtimeMonitoring": "Включить отслеживание в реальном времени",
+    "enabledEmbeddedTitles": "Предпочитать встроенные названия",
+    "enabledEmbeddedExtrasTitles": "Предпочитать встроенные названия для доп. материалов",
+    "automaticRefreshInterval": "Интервал автоматического обновления",
+    "autoRefreshIntervalNote": "Может увеличить время сканирования медиатеки.",
+    "preferredDownloadLanguage": "Предпочитаемый язык для загрузки",
+    "countryRegion": "Страна/Регион",
+    "saveMetadata": "Сохранять метаданные",
+    "metadataFetchers": "Источники метаданных ({type})",
+    "@metadataFetchers": {
+        "placeholders": {
+            "type": {
+                "type": "String"
+            }
+        }
+    },
+    "enableAndRankMetadataFetchers": "Включить и приоритизировать предпочитаемые источники метаданных.",
+    "enableAndRankImagesFetchers": "Включить и приоритизировать предпочитаемые источники изображений.",
+    "imageFetchers": "Источники изображений ({type})",
+    "@imageFetchers": {
+        "placeholders": {
+            "type": {
+                "type": "String"
+            }
+        }
+    },
+    "mediaSegmentProviders": "Провайдеры сегментов медиа",
+    "enableAndRankMediaSegmentProviders": "Включить и приоритизировать предпочитаемых провайдеров сегментов медиа.",
+    "trickplay": "Trickplay",
+    "enableTrickplayImageExtraction": "Включить генерацию изображений trickplay",
+    "extractTrickplayImagesDuringLibraryScan": "Генерировать изображения trickplay во время сканирования библиотеки",
+    "saveTrickplayImagesNextToMedia": "Сохранять изображения trickplay рядом с медиа",
+    "chapterImages": "Изображения секций",
+    "enableChapterImageExtraction": "Включить генерацию изображений для секций",
+    "extractChapterImagesDuringLibraryScan": "Генерировать изображения секций во время сканирования библиотеки",
+    "subtitleDownloads": "Загрузки субтитров",
+    "downloadLanguages": "Загружаемые языки",
+    "subtitleDownloaders": "Загрузчики субтитров",
+    "onlyPerfectSubtitleMatch": "Загружать только субтитры, которые идеально соответствуют видеофайлам",
+    "perfectSubtitleMatchDescription": "Требование полного соответствия, при котором будут отфильтровываться только те субтитры, которые были проверены и подтверждены на соответствие с вашим видеофайлом. Если снять этот флажок, повысится вероятность загрузки субтитров, но увеличатся шансы плохой синхронизации или неверного текста субтитров.",
+    "skipSubtitlesIfAudioMatches": "Пропустить, если аудиодорожка по умолчанию соответствует загружаемому языку",
+    "skipSubtitlesIfEmbedded": "Пропустить, если видео уже содержит встроенные субтитры",
+    "saveSubtitlesNextToMedia": "Сохранять субтитры рядом с видеофайлами",
+    "saveArtWorkNextToMedia": "Сохранять иллюстрации рядом с медиа файлами",
+    "saveArtWorkNextToMediaDesc": "Сохранение иллюстраций внутри папок с медиа позволит легко их редактировать.",
+    "select": "Выбрать",
+    "newLibrary": "Новая медиатека",
+    "contentType": "Тип содержимого",
+    "metadataImageLongPressTouch": "Удерживайте, чтобы удалить изображение",
+    "metadataImageLongPressClick": "Щёлкните правой кнопкой мыши, чтобы удалить изображение",
+    "primary": "Основное",
+    "logo": "{count, plural, one{Логотип} few{Логотипа} many{Логотипов} other{Логотипов}}",
+    "@logo": {
+        "description": "logo",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "backdrop": "{count, plural, one{Подложка} few{Подложки} many{Подложек} other{Подложек}}",
+    "@backdrop": {
+        "description": "backdrop",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "selectFolderToAdd": "Выберите каталог",
+    "systemRootFolder": "Корневая папка системы",
+    "selectedPath": "Выбранный путь: {path}",
+    "@selectedPath": {
+        "placeholders": {
+            "path": {
+                "type": "String"
+            }
+        }
+    },
+    "recentlyAdded": "Недавно добавленное",
+    "expectedMovies": "Ожидаемые фильмы",
+    "expectedSeries": "Ожидаемые сериалы",
+    "requestConfiguration": "Параметры запроса",
+    "qualityProfile": "Профиль качества",
+    "selectProfile": "Выберите профиль",
+    "rootFolder": "Корневая папка",
+    "selectFolder": "Выберите папку",
+    "tags": "Теги",
+    "noTags": "Нет тегов",
+    "requestAs": "Запросить как",
+    "requestQuotaStatus": "{remaining} из {limit} осталось (сброс каждые {days} дн.)",
+    "@requestQuotaStatus": {
+        "placeholders": {
+            "remaining": {
+                "type": "int"
+            },
+            "limit": {
+                "type": "int"
+            },
+            "days": {
+                "type": "int"
+            }
+        }
+    },
+    "requestQuotaLimitReached": "Достигнут лимит запросов для {mediaType}.",
+    "@requestQuotaLimitReached": {
+        "placeholders": {
+            "mediaType": {
+                "type": "String"
+            }
+        }
+    },
+    "submitRequest": "Отправить запрос",
+    "noOverviewAvailable": "Обзор недоступен.",
+    "downloading": "загрузка",
+    "request": "Запрос",
+    "requestMore": "Запросить ещё",
+    "viewRequest": "Посмотреть запрос",
+    "email": "Электронная почта",
+    "username": "Имя пользователя",
+    "ok": "Хорошо",
+    "transcodeInfoTitle": "Параметры транскодирования",
+    "transcodeInfoNoMetadata": "Метаданные транскодирования недоступны.",
+    "transcodeDetailsTitle": "Детали транскодирования",
+    "containerLabel": "Контейнер",
+    "videoCodecLabel": "Видеокодек",
+    "audioCodecLabel": "Аудиокодек",
+    "bitrateLabel": "Битрейт",
+    "kbps": "кбит/c",
+    "resolutionLabel": "Разрешение",
+    "seerr": "Seerr",
+    "seerrNotConfigured": "Не настроен",
+    "seerrLoadingUser": "Загрузка пользователя",
+    "seerrUnknownUser": "Неизвестный пользователь",
+    "loggedInAs": "Вход выполнен как {displayName}",
+    "@loggedInAs": {
+        "placeholders": {
+            "displayName": {
+                "type": "String"
+            }
+        }
+    },
+    "seerrServer": "Сервер Seerr",
+    "seerrAuthenticateLocal": "Аутентификация Seerr (локально)",
+    "rootFolderDefaultLabel": "{folder} (По умолчанию)",
+    "@rootFolderDefaultLabel": {
+        "placeholders": {
+            "folder": {
+                "type": "String"
+            }
+        }
+    },
+    "seerrAnimeSeriesNote": "* Это аниме-сериал.",
+    "seerrAutoApproveNotice": "Отправленные вами запросы принимаются автоматически.",
+    "seerrPermissionDenied": "У вас недостаточно прав для запроса такого типа контента.",
+    "seerrRequestStatusPending": "На рассмотрении",
+    "seerrRequestStatusApproved": "Принято",
+    "seerrRequestStatusDeclined": "Отклонено",
+    "seerrRequestStatusFailed": "Ошибка",
+    "seerrRequestStatusCompleted": "Завершено",
+    "seerrMediaStatusProcessing": "Обработка",
+    "seerrMediaStatusPartiallyAvailable": "Частично доступно",
+    "seerrMediaStatusAvailable": "Доступно",
+    "seerrMediaStatusBlacklisted": "Заблокировано",
+    "seerrMediaStatusDeleted": "Удалено",
+    "seerrAuthApiKey": "API-ключ",
+    "seerrAuthLocal": "Локально",
+    "seerrAuthJellyfin": "Jellyfin",
+    "seerrUserFetchFailed": "Не удалось получить пользователя из Seerr",
+    "seerrEnterServerUrlFirst": "Сначала введите адрес сервера Seerr",
+    "seerrUrlSchemeWarning": "Не удалось автоматически определить схему URL. Используется https://. Добавьте http:// в начале, если ваш сервер не использует HTTPS.",
+    "seerrApiKeySaved": "API-ключ сохранён",
+    "seerrLoggedIn": "Выполнен вход в Seerr",
+    "seerrConnectedToServer": "Успешное подключение к Seerr: {serverUrl}",
+    "@seerrConnectedToServer": {
+        "placeholders": {
+            "serverUrl": {
+                "type": "String"
+            }
+        }
+    },
+    "seerrCustomHeaders": "Пользовательские заголовки",
+    "seerrHeader": "Заголовок",
+    "seerrHeaderValue": "Значение",
+    "emailUsername": "Электронная почта/Имя пользователя",
+    "sponsor": "Спонсор",
+    "sponsorMessage": "Если вам нравится Fladder, поддержите проект - это поможет его развитию. Спасибо!",
+    "min": "мин.",
+    "max": "макс.",
+    "manageRequest": "Управление запросом",
+    "requestAll": "Запросить все",
+    "openInSeerr": "Открыть в Seerr",
+    "openInSonarr": "Открыть в Sonarr",
+    "openInRadarr": "Открыть в Radarr",
+    "removeFromSonarr": "Удалить из Sonarr",
+    "removeFromRadarr": "Удалить из Radarr",
+    "markAllSeasonsAsAvailable": "Пометить все сезоны как доступные",
+    "markAsAvailable": "Пометить как доступное",
+    "deleteData": "Удалить данные",
+    "removeSeriesFromSonarrConfirm": "Удалить этот сериал из Sonarr? Это удалит все данные, ВКЛЮЧАЯ ФАЙЛЫ.",
+    "removeMovieFromRadarrConfirm": "Удалить этот фильм из Radarr? Это удалит все данные, ВКЛЮЧАЯ ФАЙЛЫ.",
+    "removedFromSonarr": "Удалено из Sonarr",
+    "removedFromRadarr": "Удалено из Radarr",
+    "markAllSeasonsAsAvailableConfirm": "Пометить все сезоны как доступные?",
+    "markAsAvailableConfirm": "Пометить как доступное?",
+    "markedAsAvailable": "Помечено как доступное",
+    "deleteSeerrDataConfirm": "Удалить все данные из Seerr? Это действие невозможно отменить.\nЕсли данные всё ещё присутствуют в {service}, они могут быть импортированы повторно.",
+    "@deleteSeerrDataConfirm": {
+        "description": "Confirmation message for deleting Seerr data",
+        "placeholders": {
+            "service": {
+                "type": "String",
+                "example": "Sonarr/Radarr"
+            }
+        }
+    },
+    "dataDeleted": "Данные удалены",
+    "approve": "Принять",
+    "decline": "Отклонить",
+    "pendingRequests": "{count, plural, =0{Нет ожидающих запросов} one{{count} ожидающий запрос} few{{count} ожидающих запроса} many{{count} ожидающих запросов} other{{count} ожидающих запросов}}",
+    "@pendingRequests": {
+        "description": "pendingRequests",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "processing": "Обрабатывается",
+    "seerrDetails": "Подробности в Seerr",
+    "watch": "Смотреть",
+    "watchChannel": "Смотреть {channel}",
+    "@watchChannel": {
+        "placeholders": {
+            "channel": {
+                "type": "String"
+            }
+        }
+    },
+    "now": "Сейчас",
+    "noPrograms": "Нет доступных программ",
+    "switchChannel": "Переключить канал",
+    "switchChannelDesc": "Хотите посмотреть \"{programName}\" на {channelName}?",
+    "@switchChannelDesc": {
+        "placeholders": {
+            "programName": {
+                "type": "String"
+            },
+            "channelName": {
+                "type": "String"
+            }
+        }
+    },
+    "specialFeature": "{count, plural, one{Дополнительный материал} other{Дополнительные материалы}}",
+    "@specialFeature": {
+        "description": "special feature",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "activeTvChannels": "Активные ТВ каналы",
+    "enableNewTVLayout": "Включить новую компоновку ТВ",
+    "liveTV": "Прямой эфир",
+    "liveTvManageTunersEpg": "Управление тюнерами и источниками телепрограммы (EPG)",
+    "tunerDevices": "Тюнеры",
+    "epgGuideProviders": "Провайдеры телепрограммы (EPG)",
+    "noTunerDevicesConfigured": "Нет настроенных тюнеров",
+    "noEpgProvidersConfigured": "Нет настроенных провайдеров телепрограммы (EPG)",
+    "addTunerDevice": "Добавить тюнер",
+    "addProvider": "Добавить провайдера",
+    "tunerHostAddedSuccessfully": "Тюнер успешно добавлен",
+    "failedToAddTunerHost": "Не удалось добавить тюнер: {error}",
+    "@failedToAddTunerHost": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "tunerHostUpdatedSuccessfully": "Тюнер успешно обновлён",
+    "failedToUpdateTunerHost": "Не удалось обновить тюнер: {error}",
+    "@failedToUpdateTunerHost": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "deleteTunerHost": "Удалить тюнер",
+    "deleteTunerHostConfirm": "Вы уверены, что хотите удалить \"{name}\"?",
+    "@deleteTunerHostConfirm": {
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "tunerHostDeletedSuccessfully": "Тюнер успешно удалён",
+    "failedToDeleteTunerHost": "Не удалось удалить тюнер: {error}",
+    "@failedToDeleteTunerHost": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "epgProviderAddedSuccessfully": "Провайдер телепрограммы (EPG) успешно добавлен",
+    "failedToAddEpgProvider": "Не удалось добавить провайдера телепрограммы (EPG): {error}",
+    "@failedToAddEpgProvider": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "epgProviderUpdatedSuccessfully": "Провайдер телепрограммы (EPG) успешно обновлён",
+    "failedToUpdateEpgProvider": "Не удалось обновить провайдера телепрограммы (EPG): {error}",
+    "@failedToUpdateEpgProvider": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "deleteEpgProvider": "Удалить провайдера телепрограммы (EPG)",
+    "deleteEpgProviderConfirm": "Вы уверены, что хотите удалить этого провайдера?",
+    "epgProviderDeletedSuccessfully": "Провайдер телепрограммы (EPG) успешно удалён",
+    "failedToDeleteEpgProvider": "Не удалось удалить провайдера телепрограммы (EPG): {error}",
+    "@failedToDeleteEpgProvider": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "editTunerDevice": "Редактировать тюнер",
+    "friendlyName": "Понятное название",
+    "url": "URL",
+    "userAgent": "User Agent",
+    "userAgentOptional": "User Agent (опционально)",
+    "maxConcurrentStreams": "Максимальное количество параллельных потоков",
+    "addEpgProvider": "Добавить провайдера телепрограммы (EPG)",
+    "editEpgProvider": "Редактировать провайдера телепрограммы (EPG)",
+    "xmltvPathUrl": "XMLTV Путь/URL",
+    "enableAllTuners": "Включить для всех тюнеров",
+    "enabledTuners": "Включенные тюнеры",
+    "selectTuners": "Выберите тюнеры",
+    "moviePrefix": "Префикс фильма",
+    "movieCategories": "Фильмовые категории",
+    "newsCategories": "Новостные категории",
+    "sportsCategories": "Спортивные категории",
+    "kidsCategories": "Детские категории",
+    "fileOrUrl": "Файл или URL",
+    "tunerIpAddress": "IP адрес тюнера",
+    "fallbackMaxBitrate": "Максимальный резервный битрейт (Мбит/с)",
+    "concurrentStreams": "Максимальное количество параллельных потоков",
+    "concurrentStreamsHint": "0 = Не ограничено",
+    "allowFmp4Container": "Разрешить транскодирование в fMP4",
+    "allowStreamSharing": "Разрешить дублирование потока",
+    "enableStreamLooping": "Включить зацикливание потока",
+    "ignoreDts": "Игнорировать временные метки DTS",
+    "readAtNativeFramerate": "Вычитывать данные в исходной частоте кадров",
+    "importFavoritesOnly": "Импортировать только избранные каналы",
+    "allowHWTranscoding": "Разрешить аппаратное транскодирование",
+    "detectDevices": "Обнаружить устройства",
+    "discoveredDevices": "Обнаруженные устройства",
+    "noDevicesFound": "Устройства не найдены",
+    "failedToDiscoverDevices": "Не удалось обнаружить устройства: {error}",
+    "@failedToDiscoverDevices": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    },
+    "path": "Путь",
+    "maxConcurrentStreamsLabel": "Максимальное количество параллельных потоков",
+    "noCategories": "Нет категорий",
+    "moviePrefixSubLabel": "Если к названиям фильмов применяется префикс, укажите его здесь, чтобы сервер мог корректно его обработать.",
+    "movieCategoriesSubLabel": "Категории для назначения каналам, соответствующим префиксу фильмов",
+    "newsCategoriesSubLabel": "Категории для назначения каналам, соответствующим префиксу новостей",
+    "sportsCategoriesSubLabel": "Категории для назначения каналам, соответствующим префиксу спорта",
+    "kidsCategoriesSubLabel": "Категории для назначения каналам, соответствующим префиксу детских каналов",
+    "enableNewTVLayoutDesc": "Показывать увеличенные баннеры в стиле ТВ в панели управления. В будущих версиях эта компоновка станет стандартной.",
+    "notifications": "Уведомления",
+    "showNewItemNotificationTitle": "Уведомления об элементах медиатеки",
+    "notificationChannelDescription": "Уведомления о новых элементах",
+    "seerrRequestNotifications": "Уведомления о запросах из Seerr",
+    "notificationNewEpisodes": "Добавлены новые эпизоды",
+    "notificationNewItems": "{count, plural, one{{count} новый элемент} few{{count} новых элемента} many{{count} новых элементов} other{{count} новых элементов}}",
+    "@notificationNewItems": {
+        "description": "Plural for number of new items in a notification",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "notificationNewRequests": "{count, plural, one{{count} новый запрос} few{{count} новых запроса} many{{count} новых запросов} other{{count} новых запросов}}",
+    "@notificationNewRequests": {
+        "description": "Plural for number of new Seerr requests in a notification",
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "notificationTimerIOSWarning": " iOS определяет, когда и будут ли вообще выполняться фоновые обновления. Уведомления могут задерживаться или не отображаться вовсе.",
+    "batteryOptimizationDesc": "Оптимизация батареи может задерживать фоновые уведомления Fladder.\nНажмите, чтобы открыть системные настройки и отключить оптимизацию для Fladder, чтобы повысить надёжность уведомлений.",
+    "updateCheckInterval": "Интервал проверки обновлений",
+    "updateCheckIntervalDesc": "Как часто выполняется фоновая задача",
+    "notificationsIntervalClientReminder": "Интервал уведомлений устанавливается для всех пользователей.",
+    "lastUpdateAt": "Последнее обновление {date} в {time}",
+    "@lastUpdateAt": {
+        "description": "lastUpdateAt",
+        "placeholders": {
+            "time": {
+                "type": "DateTime",
+                "format": "jm"
+            },
+            "date": {
+                "type": "DateTime",
+                "format": "yMd"
+            }
+        }
+    },
+    "includeHiddenItems": "Включая скрытые медиатеки",
+    "includeHiddenItemsDesc": "Включая скрытые медиатеки из панели управления",
+    "settingsBlurEffectsTitle": "Включить эффект размытия",
+    "settingsBlurEffectsDesc": "Включить эффект размытия в интерфейсе. Отключение может повысить производительность на слабых устройствах.",
+    "profileSettingsOpenAuthAtLaunch": "Показывать метод авторизации на экране блокировки",
+    "toggleSidebar": "Переключить боковую панель",
+    "requestedSuccessForItem": "{itemName} успешно запрошено",
+    "@requestedSuccessForItem": {
+        "description": "Message shown when a media item is successfully requested",
+        "placeholders": {
+            "itemName": {
+                "type": "String"
+            }
+        }
+    },
+    "linkData": "Данные ссылки",
+    "passwordNotRequired": "Не требуется, оставьте пустым, чтобы не включать пароль в ссылку"
 }
