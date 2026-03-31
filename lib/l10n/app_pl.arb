@@ -1868,5 +1868,20 @@
     "groupedFoldersTitle": "Zgrupowane Biblioteki",
     "groupedFoldersDescription": "Automatycznie grupuj zawartość z następujących bibliotek w widoki takie jak 'Filmy', 'Muzyka' i 'TV'.",
     "downloadTranscoded": "Pobierz transkodowane",
-    "downloadOriginal": "Pobierz oryginalne"
+    "downloadOriginal": "Pobierz oryginalne",
+    "airsIn": "Emisja za {count} {duration}",
+    "@airsIn": {
+        "description": "airsIn",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "3"
+            },
+            "duration": {
+                "type": "String",
+                "example": "days"
+            }
+        }
+    },
+    "today": "Dzisiaj"
 }
