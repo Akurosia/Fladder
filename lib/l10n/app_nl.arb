@@ -58,7 +58,7 @@
     "clearSelection": "Selectie wissen",
     "close": "Sluiten",
     "code": "Code",
-    "collectionFolder": "{count, plural, one{Collectie folder} other{Collectie folders}}",
+    "collectionFolder": "{count, plural, one{Collectie map} other{Collectie mappen}}",
     "color": "Kleur",
     "combined": "Gecombineerd",
     "communityRating": "Gemeenschapswaardering",
@@ -1818,5 +1818,18 @@
     "includeHiddenItemsDesc": "Inclusief bibliotheken verborgen van dashboard scherm",
     "settingsBlurEffectsTitle": "Blur effecten aanzetten",
     "settingsBlurEffectsDesc": "Schakel vervagingseffecten in de gebruikersinterface in. Het uitschakelen hiervan kan de prestaties op minder krachtige apparaten verbeteren.",
-    "profileSettingsOpenAuthAtLaunch": "Toon authenticatiemethode bij app-vergrendeling"
+    "profileSettingsOpenAuthAtLaunch": "Toon authenticatiemethode bij app-vergrendeling",
+    "generateLoginLink": "Code voor {userName}",
+    "@generateLoginLink": {
+        "description": "Code for a user to share",
+        "placeholders": {
+            "userName": {
+                "type": "String"
+            }
+        }
+    },
+    "shareQRCode": "Deel QR code",
+    "copyLoginLink": "Link kopiëren",
+    "includePassword": "Wachtwoord includeren",
+    "invalidAuthLink": "Ongeldige login link"
 }
