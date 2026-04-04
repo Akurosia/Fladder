@@ -210,48 +210,45 @@ class _PlayerSettingsPageState extends ConsumerState<PlayerSettingsPage> {
                 onChanged: (value) => provider.setEnableSpeedBoost(value),
               ),
             ),
-            AnimatedFadeSize(
-              child: videoSettings.enableSpeedBoost
-                  ? Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            context.localized.speedBoostRateTitle,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                          if (context.localized.speedBoostRateDesc.isNotEmpty)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: Text(
-                                context.localized.speedBoostRateDesc,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: FladderSlider(
-                                  min: 0.25,
-                                  max: 3.0,
-                                  value: videoSettings.speedBoostRate,
-                                  divisions: 55,
-                                  onChanged: (value) => provider.setSpeedBoostRate(value),
-                                ),
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
-                                "${videoSettings.speedBoostRate.toStringAsFixed(2)}x",
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
-                            ],
-                          ),
-                        ],
+            if (videoSettings.enableSpeedBoost)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      context.localized.speedBoostRateTitle,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    if (context.localized.speedBoostRateDesc.isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: Text(
+                          context.localized.speedBoostRateDesc,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                       ),
-                    )
-                  : Container(),
-            ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: FladderSlider(
+                            min: 0.25,
+                            max: 3.0,
+                            value: videoSettings.speedBoostRate,
+                            divisions: 55,
+                            onChanged: (value) => provider.setSpeedBoostRate(value),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          "${videoSettings.speedBoostRate.toStringAsFixed(2)}x",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             if (AdaptiveLayout.inputDeviceOf(context) == InputDevice.touch)
               SettingsListTile(
                 label: Text(context.localized.enableDoubleTapSeekTitle),
