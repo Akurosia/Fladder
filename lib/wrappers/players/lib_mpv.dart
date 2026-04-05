@@ -156,8 +156,8 @@ class LibMPV extends BasePlayer {
   }
 
   Future<void> setStartPosition(Duration position) async {
-    if (_player?.platform case final mpv.NativePlayer platform) {
-      await platform.setProperty(
+    if (_player?.platform is mpv.NativePlayer) {
+      await (_player?.platform as dynamic).setProperty(
         'start',
         '${position.inMilliseconds / 1000}',
       );
