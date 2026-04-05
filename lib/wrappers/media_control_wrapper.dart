@@ -59,6 +59,7 @@ class MediaControlsWrapper extends BaseAudioHandler implements VideoPlayerContro
   SMTCWindows? smtc;
 
   bool initializedWrapper = false;
+  bool _isNewPlayback = false;
 
   Future<void> init() async {
     if (!initializedWrapper) {
@@ -119,10 +120,8 @@ class MediaControlsWrapper extends BaseAudioHandler implements VideoPlayerContro
       final context = ref.read(localizationContextProvider);
       await (_player as NativePlayer).sendPlaybackDataToNative(context, model, startPosition);
     }
+    _isNewPlayback = play;
     await _player?.loadVideo(model.media?.url ?? "", play, startPosition: startPosition);
-    if (play) {
-      ref.read(playBackModel)?.playbackStarted(startPosition, ref);
-    }
     _player?.applySubtitleSettings(ref.read(subtitleSettingsProvider));
   }
 
@@ -247,8 +246,8 @@ class MediaControlsWrapper extends BaseAudioHandler implements VideoPlayerContro
     _player?.play();
 
     final currentPosition = await ref.read(playBackModel.select((value) => value?.startDuration()));
-    final isPlaying = playbackState.value.playing;
-    if (!isPlaying) {
+    if (_isNewPlayback || !playbackState.value.playing) {
+      _isNewPlayback = false;
       ref.read(playBackModel)?.playbackStarted(currentPosition ?? Duration.zero, ref);
     }
 

@@ -136,6 +136,7 @@ class VideoPlayerNotifier extends StateNotifier<MediaControlsWrapper> {
       await state.setSubtitleTrack(null, model);
       ref.read(playBackModel.notifier).update((state) => newPlaybackModel);
 
+      await state.play();
       return true;
     }
 
