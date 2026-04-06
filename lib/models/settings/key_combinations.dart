@@ -31,7 +31,8 @@ abstract class KeyCombination with _$KeyCombination {
   }
 
   bool containsSameSet(KeyCombination other) {
-    return (key == other.key && modifier == other.modifier) || (altKey == other.key && altModifier == other.modifier);
+    return ((key?.keyId == other.key?.keyId) && modifierMatches(modifier, other.modifier)) ||
+        ((altKey?.keyId == other.key?.keyId) && modifierMatches(altModifier, other.modifier));
   }
 
   @override
@@ -83,11 +84,27 @@ abstract class KeyCombination with _$KeyCombination {
     LogicalKeyboardKey.controlRight,
   };
 
+  static final superKeys = {
+    LogicalKeyboardKey.meta,
+    LogicalKeyboardKey.metaLeft,
+    LogicalKeyboardKey.metaRight,
+    LogicalKeyboardKey.superKey,
+  };
+
   static final modifierKeys = {
     ...shiftKeys,
     ...altKeys,
     ...ctrlKeys,
+    ...superKeys,
   };
+
+  static bool modifierMatches(LogicalKeyboardKey? pressedModifier, LogicalKeyboardKey? configuredModifier) {
+    if (pressedModifier == configuredModifier) return true;
+    if (pressedModifier == null || configuredModifier == null) return false;
+
+    // Keep left/right distinction for Shift/Alt/Ctrl, but normalize macOS Command/Super variants.
+    return superKeys.contains(pressedModifier) && superKeys.contains(configuredModifier);
+  }
 }
 
 class LogicalKeyboardSerializer extends JsonConverter<LogicalKeyboardKey, String> {
