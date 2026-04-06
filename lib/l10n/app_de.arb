@@ -30,7 +30,7 @@
     "mediaTypePhoto": "{count, plural, one{Foto} other{Fotos}}",
     "mediaTypePlaylist": "{count, plural, one{Playlist} other{Playlists}}",
     "mediaTypePhotoAlbum": "{count, plural, one{Foto Album} other{Foto Alben}}",
-    "mediaTypeSeries": "{count, plural, one{Series} other{Series}}",
+    "mediaTypeSeries": "{count, plural, one{Serie} other{Serien}}",
     "minutes": "{count, plural, other{Minuten} one{Minute} }",
     "@minutes": {
         "description": "minute",
@@ -1909,5 +1909,19 @@
             }
         }
     },
-    "today": "Heute"
+    "today": "Heute",
+    "gestures": "Gesten",
+    "enableEdgeGesturesTitle": "Eck-Gesten aktivieren",
+    "enableEdgeGesturesDesc": "Verändere Helligkeit und Lautstärke durch das hoch- und runterstreichen an den Bildschirmrändern",
+    "reverseEdgeGesturesTitle": "Eck-Gesten tauschen",
+    "reverseEdgeGesturesDesc": "Tausche die Seiten der Helligkeits- und Lautstärkeregler",
+    "brightnessIndicator": "Helligkeit: {brightness}",
+    "@brightnessIndicator": {
+        "placeholders": {
+            "brightness": {
+                "type": "int"
+            }
+        }
+    },
+    "viewTrailer": "Trailer anzeigen"
 }
