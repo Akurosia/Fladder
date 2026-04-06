@@ -622,7 +622,7 @@
             }
         }
     },
-    "library": "{count, plural, one{Biblioteka} few{Biblioteki} many{Bibliotek} other{Bibliotek} }",
+    "library": "{count, plural, zero {Biblioteka} one{Biblioteka} few{Biblioteki} many{Bibliotek} other{Bibliotek} }",
     "@library": {
         "description": "Plural",
         "placeholders": {
@@ -1883,5 +1883,19 @@
             }
         }
     },
-    "today": "Dzisiaj"
+    "today": "Dzisiaj",
+    "viewTrailer": "Zobacz zwiastun",
+    "gestures": "Gesty",
+    "enableEdgeGesturesTitle": "Włącz gęsty krawędziowe",
+    "enableEdgeGesturesDesc": "Kontroluj jasność i głośność przez pociągnięcie w górę lub w dół na krawędziach ekranu",
+    "reverseEdgeGesturesTitle": "Zamień gęsty krawędziowe",
+    "reverseEdgeGesturesDesc": "Zmień stronę dla jasności, a głośności",
+    "brightnessIndicator": "Jasność: {brightness}",
+    "@brightnessIndicator": {
+        "placeholders": {
+            "brightness": {
+                "type": "int"
+            }
+        }
+    }
 }
