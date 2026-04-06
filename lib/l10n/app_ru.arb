@@ -1884,5 +1884,48 @@
     "groupedFoldersDescription": "Автоматически группировать содержимое из следующих медиатек в разделы, такие как \"Фильмы\", \"Музыка\" и \"Сериалы\".",
     "downloadTranscoded": "Загрузить с транскодированием",
     "downloadOriginal": "Загрузить в исходном качестве",
-    "today": "Сегодня"
+    "today": "Сегодня",
+    "gestures": "Жесты",
+    "enableEdgeGesturesTitle": "Включить жесты по краям экрана",
+    "enableEdgeGesturesDesc": "Управляйте яркостью и громкостью, проводя пальцем вверх и вниз по краям экрана",
+    "reverseEdgeGesturesTitle": "Поменять местами стороны жестов",
+    "reverseEdgeGesturesDesc": "Поменять стороны для управления яркостью и громкостью",
+    "brightnessIndicator": "Яркость: {brightness}",
+    "@brightnessIndicator": {
+        "placeholders": {
+            "brightness": {
+                "type": "int"
+            }
+        }
+    },
+    "viewTrailer": "Смотреть трейлер",
+    "personBirthday": "Дата рождения: {date}",
+    "@personBirthday": {
+        "description": "Birthday label with formatted date",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "personAge": "Возраст: {age}",
+    "@personAge": {
+        "description": "Age label with age number",
+        "placeholders": {
+            "age": {
+                "type": "int",
+                "example": "30"
+            }
+        }
+    },
+    "personBirthPlace": "Место рождения: {place}",
+    "@personBirthPlace": {
+        "placeholders": {
+            "place": {
+                "type": "String"
+            }
+        }
+    },
+    "seerrMovies": "Найти новые фильмы",
+    "seerrSeries": "Найти новые сериалы"
 }
