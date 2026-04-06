@@ -1905,5 +1905,49 @@
             }
         }
     },
-    "today": "اليوم"
+    "today": "اليوم",
+    "gestures": "الإيماءات",
+    "anyLanguage": "أي لغة",
+    "enableEdgeGesturesTitle": "تفعيل إيماءات الحواف",
+    "enableEdgeGesturesDesc": "التحكم في السطوع والصوت عبر السحب لأعلى أو لأسفل على حواف الشاشة",
+    "reverseEdgeGesturesTitle": "تبديل إيماءات الحواف",
+    "reverseEdgeGesturesDesc": "تبديل الجهة للتحكم في السطوع والصوت",
+    "brightnessIndicator": "السطوع: {brightness}",
+    "@brightnessIndicator": {
+        "placeholders": {
+            "brightness": {
+                "type": "int"
+            }
+        }
+    },
+    "viewTrailer": "مشاهدة الإعلان التشويقي",
+    "personBirthday": "تاريخ الميلاد: {date}",
+    "@personBirthday": {
+        "description": "Birthday label with formatted date",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "personAge": "العمر: {age}",
+    "@personAge": {
+        "description": "Age label with age number",
+        "placeholders": {
+            "age": {
+                "type": "int",
+                "example": "30"
+            }
+        }
+    },
+    "personBirthPlace": "وُلد في {place}",
+    "@personBirthPlace": {
+        "placeholders": {
+            "place": {
+                "type": "String"
+            }
+        }
+    },
+    "seerrMovies": "استكشاف الأفلام",
+    "seerrSeries": "استكشاف المسلسلات"
 }
