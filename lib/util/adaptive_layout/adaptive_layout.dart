@@ -233,7 +233,8 @@ class _AdaptiveLayoutBuilderState extends ConsumerState<AdaptiveLayoutBuilder> {
               padding: (useAdditionalPadding
                   ? EdgeInsets.only(top: isAndroidTV ? 12 : defaultTitleBarHeight, bottom: 16)
                   : mediaQuery.padding.copyWith(
-                      top: defaultTargetPlatform == TargetPlatform.iOS ? math.max(24, mediaQuery.padding.top) : 0)),
+                      top: defaultTargetPlatform == TargetPlatform.iOS ? math.max(24, mediaQuery.padding.top) : null,
+                    )),
               viewPadding: useAdditionalPadding
                   ? EdgeInsets.only(top: isAndroidTV ? 12 : defaultTitleBarHeight, bottom: 16)
                   : null,
