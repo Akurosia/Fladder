@@ -193,7 +193,7 @@ class OverviewHeader extends ConsumerWidget {
               .toList(),
         ),
       )
-    ].withPositionProvider();
+    ].withPositionProvider(context: context);
 
     return ConstrainedBox(
       constraints: BoxConstraints(
