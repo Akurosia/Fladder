@@ -1804,5 +1804,6 @@
     "allowHWTranscoding": "Permitir la transcodificación de hardware",
     "detectDevices": "Detectar dispositivos",
     "discoveredDevices": "Dispositivos descubiertos",
-    "noDevicesFound": "No se encontraron dispositivos"
+    "noDevicesFound": "No se encontraron dispositivos",
+    "noCategories": "Sin categorías"
 }
