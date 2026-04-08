@@ -329,6 +329,19 @@ class _TVBottomInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final opacity = 0.65;
+    final playStatusLabel = poster.unplayedLabel(context.localized);
+
+    final labelWidget = SimpleLabel(
+      color: Theme.of(context).colorScheme.primaryContainer,
+      iconColor: Theme.of(context).colorScheme.primary,
+      label: playStatusLabel != null
+          ? Text(playStatusLabel)
+          : const Icon(
+              Icons.check_rounded,
+              size: 18,
+            ),
+    );
+
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 1500),
       child: Column(
@@ -398,7 +411,7 @@ class _TVBottomInfo extends StatelessWidget {
                     productionYear: episode.overview.productionYear?.toString(),
                     communityRating: episode.overview.communityRating,
                     runTime: episode.overview.runTime,
-                    unplayedLabel: poster.unplayedLabel(context.localized),
+                    additionalLabels: [labelWidget],
                   ),
                 ],
               ),
@@ -416,7 +429,7 @@ class _TVBottomInfo extends StatelessWidget {
                 productionYear: poster.overview.productionYear?.toString(),
                 communityRating: poster.overview.communityRating,
                 runTime: poster.overview.runTime,
-                unplayedLabel: poster.unplayedLabel(context.localized),
+                additionalLabels: [labelWidget],
               ),
               Text(
                 poster.overview.summary,

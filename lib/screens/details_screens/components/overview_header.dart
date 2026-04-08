@@ -371,7 +371,7 @@ class MetadataLabels extends StatelessWidget {
   final String? productionYear;
   final Duration? runTime;
   final double? communityRating;
-  final String? unplayedLabel;
+  final List<Widget> additionalLabels;
 
   const MetadataLabels({
     this.favourite,
@@ -379,7 +379,7 @@ class MetadataLabels extends StatelessWidget {
     this.productionYear,
     this.runTime,
     this.communityRating,
-    this.unplayedLabel,
+    this.additionalLabels = const [],
     super.key,
   });
 
@@ -426,22 +426,13 @@ class MetadataLabels extends StatelessWidget {
               communityRating?.toStringAsFixed(2) ?? "",
             ),
           ),
-        SimpleLabel(
-          color: Theme.of(context).colorScheme.primaryContainer,
-          iconColor: Theme.of(context).colorScheme.primary,
-          label: unplayedLabel != null
-              ? Text(unplayedLabel!)
-              : const Icon(
-                  Icons.check_rounded,
-                  size: 18,
-                ),
-        ),
         if (favourite != null)
           SimpleLabel(
             icon: favourite == true ? IconsaxPlusBold.heart : IconsaxPlusLinear.heart,
             color: Theme.of(context).colorScheme.error,
             iconColor: Theme.of(context).colorScheme.onError,
           ),
+        ...additionalLabels,
       ].addInBetween(CircleAvatar(
         radius: 3,
         backgroundColor: Theme.of(context).colorScheme.onSurface,

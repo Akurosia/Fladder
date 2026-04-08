@@ -124,12 +124,8 @@ class _DetailScaffoldState extends ConsumerState<DetailScaffold> {
       0,
     ).resolve(Directionality.of(context));
     final contentPadding = EdgeInsets.only(
-      left: isRtl
-          ? horizontalBasePadding + directionalHorizontalSafeArea.left
-          : sideBarPadding + 25 + directionalHorizontalSafeArea.left,
-      right: isRtl
-          ? sideBarPadding + 25 + directionalHorizontalSafeArea.right
-          : horizontalBasePadding + directionalHorizontalSafeArea.right,
+      left: horizontalBasePadding + directionalHorizontalSafeArea.left,
+      right: horizontalBasePadding + directionalHorizontalSafeArea.right,
     );
     final schemeVariant = ref.watch(clientSettingsProvider.select((value) => value.schemeVariant));
     final newColorScheme = dominantColor != null

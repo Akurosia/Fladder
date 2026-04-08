@@ -267,6 +267,18 @@ class _BannerInfoOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const opacity = 0.95;
+    final playStatusLabel = poster.unplayedLabel(context.localized);
+
+    final labelWidget = SimpleLabel(
+      color: Theme.of(context).colorScheme.primaryContainer,
+      iconColor: Theme.of(context).colorScheme.primary,
+      label: playStatusLabel != null
+          ? Text(playStatusLabel)
+          : const Icon(
+              Icons.check_rounded,
+              size: 18,
+            ),
+    );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
@@ -307,7 +319,7 @@ class _BannerInfoOverlay extends StatelessWidget {
                     productionYear: episode.overview.productionYear?.toString(),
                     communityRating: episode.overview.communityRating,
                     runTime: episode.overview.runTime,
-                    unplayedLabel: poster.unplayedLabel(context.localized),
+                    additionalLabels: [labelWidget],
                   ),
                 ],
               ),
@@ -328,7 +340,7 @@ class _BannerInfoOverlay extends StatelessWidget {
                 productionYear: poster.overview.productionYear?.toString(),
                 communityRating: poster.overview.communityRating,
                 runTime: poster.overview.runTime,
-                unplayedLabel: poster.unplayedLabel(context.localized),
+                additionalLabels: [labelWidget],
               ),
               Genres(
                 genres: poster.overview.genreItems.take(6).toList(),
