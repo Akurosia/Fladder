@@ -117,16 +117,18 @@ class _DetailScaffoldState extends ConsumerState<DetailScaffold> {
     final sideBarPadding = AdaptiveLayout.of(context).sideBarWidth;
     final topBarPadding = AdaptiveLayout.of(context).topBarHeight;
     final directionalSidePadding = EdgeInsetsDirectional.only(start: sideBarPadding);
-    final directionalHorizontalSafeArea = EdgeInsetsDirectional.fromSTEB(
-      safeArea.left,
-      0,
-      safeArea.right,
-      0,
-    ).resolve(Directionality.of(context));
     final contentPadding = EdgeInsets.only(
-      left: horizontalBasePadding + directionalHorizontalSafeArea.left,
-      right: horizontalBasePadding + directionalHorizontalSafeArea.right,
+      left: isRtl ? horizontalBasePadding : sideBarPadding + 25 + safeArea.left,
+      right: isRtl ? sideBarPadding + 25 + safeArea.right : horizontalBasePadding,
     );
+    final topRowPadding = safeArea
+        .add(directionalSidePadding.resolve(Directionality.of(context)))
+        .add(
+          const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        )
+        .add(
+          EdgeInsets.only(top: topBarPadding),
+        );
     final schemeVariant = ref.watch(clientSettingsProvider.select((value) => value.schemeVariant));
     final newColorScheme = dominantColor != null
         ? ColorScheme.fromSeed(
@@ -277,15 +279,7 @@ class _DetailScaffoldState extends ConsumerState<DetailScaffold> {
                   IconTheme(
                     data: IconThemeData(color: Theme.of(context).colorScheme.onSurface),
                     child: Padding(
-                      padding: directionalSidePadding
-                          .add(directionalHorizontalSafeArea)
-                          .resolve(Directionality.of(context))
-                          .add(
-                            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                          )
-                          .add(
-                            EdgeInsets.only(top: topBarPadding + safeArea.top),
-                          ),
+                      padding: topRowPadding,
                       child: Row(
                         children: [
                           IconButton.filledTonal(
