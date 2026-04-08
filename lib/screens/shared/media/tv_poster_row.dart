@@ -329,18 +329,6 @@ class _TVBottomInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final opacity = 0.65;
-    final playStatusLabel = poster.unplayedLabel(context.localized);
-
-    final labelWidget = SimpleLabel(
-      color: Theme.of(context).colorScheme.primaryContainer,
-      iconColor: Theme.of(context).colorScheme.primary,
-      label: playStatusLabel != null
-          ? Text(playStatusLabel)
-          : const Icon(
-              Icons.check_rounded,
-              size: 18,
-            ),
-    );
 
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 1500),
@@ -411,7 +399,7 @@ class _TVBottomInfo extends StatelessWidget {
                     productionYear: episode.overview.productionYear?.toString(),
                     communityRating: episode.overview.communityRating,
                     runTime: episode.overview.runTime,
-                    additionalLabels: [labelWidget],
+                    playLabel: poster.watchedState(context.localized),
                   ),
                 ],
               ),
@@ -423,13 +411,24 @@ class _TVBottomInfo extends StatelessWidget {
               ),
             ],
           _ => [
-              MetadataLabels(
-                favourite: poster.userData.isFavourite ? true : null,
-                officialRating: poster.overview.parentalRating,
-                productionYear: poster.overview.productionYear?.toString(),
-                communityRating: poster.overview.communityRating,
-                runTime: poster.overview.runTime,
-                additionalLabels: [labelWidget],
+              Row(
+                spacing: 12,
+                children: [
+                  Text(
+                    poster.detailedName(context.localized) ?? "",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  MetadataLabels(
+                    favourite: poster.userData.isFavourite ? true : null,
+                    officialRating: poster.overview.parentalRating,
+                    productionYear: poster.overview.productionYear?.toString(),
+                    communityRating: poster.overview.communityRating,
+                    runTime: poster.overview.runTime,
+                    playLabel: poster.watchedState(context.localized),
+                  ),
+                ],
               ),
               Text(
                 poster.overview.summary,
