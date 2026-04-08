@@ -461,5 +461,116 @@
     "quickConnectInputACode": "Mata in en kod",
     "quickConnectWrongCode": "Fel kod",
     "settingsClientDesc": "Allmän, Time-out, Layout, Tema",
-    "settingsClientTitle": "Fladder"
+    "settingsClientTitle": "Fladder",
+    "biometricsFailedCheckAgain": "Biometri misslyckades. Kontrollera inställningar och försök igen.",
+    "generateLoginLink": "Kod för {userName}",
+    "@generateLoginLink": {
+        "description": "Code for a user to share",
+        "placeholders": {
+            "userName": {
+                "type": "String"
+            }
+        }
+    },
+    "shareLoginLink": "Dela inloggningslänk",
+    "shareQRCode": "Dela QR-kod",
+    "copyLoginLink": "Kopiera länk",
+    "includePassword": "Inkludera lösenord",
+    "gestures": "Gester",
+    "dynamicText": "Dynamisk",
+    "homeBannerDetailed": "Detaljerad",
+    "other": "Andra",
+    "overview": "Översikt",
+    "pathEditTitle": "Ändra plats",
+    "play": "Spela {item}",
+    "@play": {
+        "description": "Play with",
+        "placeholders": {
+            "item": {
+                "type": "String"
+            }
+        }
+    },
+    "moreFrom": "Mer från {info}",
+    "@moreFrom": {
+        "description": "More from",
+        "placeholders": {
+            "info": {
+                "type": "String"
+            }
+        }
+    },
+    "moreOptions": "Fler alternativ",
+    "mouseDragSupport": "Drag med mus",
+    "navigation": "Navigation",
+    "noItemsSynced": "Inga objekt synkroniserade",
+    "noItemsToShow": "Inga objekt att visa",
+    "noRating": "Inget betyg",
+    "noResults": "Inga resultat",
+    "noServersFound": "Inga nya servrar hittades",
+    "noSuggestionsFound": "Inga förslag hittades",
+    "none": "Ingen",
+    "normal": "Normal",
+    "notPartOfAlbum": "Inte en del av ett album",
+    "options": "Alternativ",
+    "includeHiddenItems": "Inkludera dolda bibliotek",
+    "linkData": "Länk data",
+    "passwordNotRequired": "Inte nödvändigt, lämna tomt för att inte inkludera lösenord i länken",
+    "connect": "Anslut",
+    "groupedFoldersTitle": "Grupperade bibliotek",
+    "downloadOriginal": "Ladda ner original",
+    "personBirthday": "Födelsedag: {date}",
+    "@personBirthday": {
+        "description": "Birthday label with formatted date",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "personAge": "Ålder: {age}",
+    "@personAge": {
+        "description": "Age label with age number",
+        "placeholders": {
+            "age": {
+                "type": "int",
+                "example": "30"
+            }
+        }
+    },
+    "personBirthPlace": "Född i {place}",
+    "@personBirthPlace": {
+        "placeholders": {
+            "place": {
+                "type": "String"
+            }
+        }
+    },
+    "seerrMovies": "Upptäck filmer",
+    "playFrom": "Spela från {name}",
+    "@playFrom": {
+        "description": "playFrom",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "playFromStart": "Spela {name} från början",
+    "@playFromStart": {
+        "description": "speel vanaf het begin",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "playLabel": "Spela",
+    "playVideos": "Spela videor",
+    "quickConnectAction": "Ange snabb anslutningskod för",
+    "quickConnectTitle": "Snabbanslutning",
+    "contentRating": "Innehållsbetyg",
+    "settingsBlurredPlaceholderDesc": "Visa suddig bakgrund när du laddar affischer",
+    "settingsContinue": "Fortsätt",
+    "settingsHomeBannerDescription": "Visa som en bildspel, karusell eller dölja bannern"
 }
