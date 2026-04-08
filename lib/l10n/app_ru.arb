@@ -1474,7 +1474,7 @@
             }
         }
     },
-    "backdrop": "{count, plural, one{Подложка} few{Подложки} many{Подложек} other{Подложек}}",
+    "backdrop": "{count, plural, one{Задник} few{Задника} many{Задников} other{Задников}}",
     "@backdrop": {
         "description": "backdrop",
         "placeholders": {
