@@ -141,6 +141,8 @@
   },
   "controls": "Controls",
   "@controls": {},
+  "gestures": "Gestures",
+  "@gestures": {},
   "dashboard": "Dashboard",
   "@dashboard": {},
   "dashboardContinue": "Continue",
@@ -942,6 +944,8 @@
   "@settingsProfileTitle": {},
   "settingsProfileSubtitleLanguage": "Preferred subtitle language",
   "@settingsProfileSubtitleLanguage": {},
+  "anyLanguage": "Any language",
+  "@anyLanguage": {},
   "settingsProfileSubtitleMode": "Subtitle mode",
   "@settingsProfileSubtitleMode": {},
   "subtitlePlaybackModeDefault": "Default",
@@ -1264,6 +1268,10 @@
   "subtitleConfiguration": "Subtitle configuration",
   "off": "Off",
   "screenBrightness": "Screen brightness",
+  "enableEdgeGesturesTitle": "Enable edge gestures",
+  "enableEdgeGesturesDesc": "Control brightness and volume by sliding up and down on the edges of the screen",
+  "reverseEdgeGesturesTitle": "Swap edge gestures",
+  "reverseEdgeGesturesDesc": "Swap the side for brightness and volume control",
   "scale": "Scale",
   "playBackSettings": "Playback Settings",
   "settingsAutoNextTitle": "Next-up preview",
@@ -1523,6 +1531,14 @@
       }
     }
   },
+  "brightnessIndicator": "Brightness: {brightness}",
+  "@brightnessIndicator": {
+    "placeholders": {
+      "brightness": {
+        "type": "int"
+      }
+    }
+  },
   "speedIndicator": "Playback rate: {speed}",
   "@speedIndicator": {
     "placeholders": {
@@ -1685,6 +1701,20 @@
     "placeholders": {
       "time": {
         "type": "String"
+      }
+    }
+  },
+  "airsIn": "Airs in {count} {duration}",
+  "@airsIn": {
+    "description": "airsIn",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      },
+      "duration": {
+        "type": "String",
+        "example": "days"
       }
     }
   },
@@ -2090,6 +2120,24 @@
   "@username": {},
   "ok": "OK",
   "@ok": {},
+  "transcodeInfoTitle": "Transcode Info",
+  "@transcodeInfoTitle": {},
+  "transcodeInfoNoMetadata": "No transcoding metadata is available.",
+  "@transcodeInfoNoMetadata": {},
+  "transcodeDetailsTitle": "Transcode Details",
+  "@transcodeDetailsTitle": {},
+  "containerLabel": "Container",
+  "@containerLabel": {},
+  "videoCodecLabel": "Video codec",
+  "@videoCodecLabel": {},
+  "audioCodecLabel": "Audio codec",
+  "@audioCodecLabel": {},
+  "bitrateLabel": "Bitrate",
+  "@bitrateLabel": {},
+  "kbps": "kbps",
+  "@kbps": {},
+  "resolutionLabel": "Resolution",
+  "@resolutionLabel": {},
   "seerr": "Seerr",
   "@seerr": {},
   "seerrNotConfigured": "Not configured",
@@ -2154,6 +2202,8 @@
   "@seerrUserFetchFailed": {},
   "seerrEnterServerUrlFirst": "Enter a Seerr server URL first",
   "@seerrEnterServerUrlFirst": {},
+  "seerrUrlSchemeWarning": "Could not auto-detect URL scheme. Defaulting to https://. Prefix with http:// if your server doesn't use HTTPS.",
+  "@seerrUrlSchemeWarning": {},
   "seerrApiKeySaved": "API key saved",
   "@seerrApiKeySaved": {},
   "seerrLoggedIn": "Logged in to Seerr",
@@ -2237,6 +2287,7 @@
   },
   "processing": "Processing",
   "seerrDetails": "Seerr details",
+  "viewTrailer": "View trailer",
   "watch": "Watch",
   "watchChannel": "Watch {channel}",
   "@watchChannel": {
@@ -2533,5 +2584,37 @@
   "groupedFoldersTitle": "Grouped Libraries",
   "@groupedFoldersTitle": {},
   "groupedFoldersDescription": "Automatically group content from the following libraries into views such as 'Movies', 'Music' and 'TV'.",
-  "@groupedFoldersDescription": {}
+  "@groupedFoldersDescription": {},
+  "downloadTranscoded": "Download transcoded",
+  "downloadOriginal": "Download original",
+  "personBirthday": "Birthday: {date}",
+  "@personBirthday": {
+    "description": "Birthday label with formatted date",
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "personAge": "Age: {age}",
+  "@personAge": {
+    "description": "Age label with age number",
+    "placeholders": {
+      "age": {
+        "type": "int",
+        "example": "30"
+      }
+    }
+  },
+  "personBirthPlace": "Born in {place}",
+  "@personBirthPlace": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "seerrMovies": "Discover Movies",
+  "seerrSeries": "Discover Series",
+  "today": "Today"
 }
