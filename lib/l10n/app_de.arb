@@ -1923,5 +1923,35 @@
             }
         }
     },
-    "viewTrailer": "Trailer anzeigen"
+    "viewTrailer": "Trailer anzeigen",
+    "anyLanguage": "Beliebige Sprache",
+    "personBirthday": "Geburtstag: {date}",
+    "@personBirthday": {
+        "description": "Birthday label with formatted date",
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "personAge": "Alter: {age}",
+    "@personAge": {
+        "description": "Age label with age number",
+        "placeholders": {
+            "age": {
+                "type": "int",
+                "example": "30"
+            }
+        }
+    },
+    "personBirthPlace": "Geboren in {place}",
+    "@personBirthPlace": {
+        "placeholders": {
+            "place": {
+                "type": "String"
+            }
+        }
+    },
+    "seerrMovies": "Filme entdecken",
+    "seerrSeries": "Serien entdecken"
 }
