@@ -31,11 +31,11 @@ jobs:
           VERSION_NAME=$(echo "$FULL_VERSION" | cut -d'+' -f1)
           # Exact Build Number (e.g., 1)
           BUILD_NUMBER=$(echo "$FULL_VERSION" | cut -d'+' -f2)
-          
+
           echo "version=${VERSION_NAME}" >> "$GITHUB_OUTPUT"
           echo "build_number=${BUILD_NUMBER}" >> "$GITHUB_OUTPUT"
           echo "Version: $VERSION_NAME (Build: $BUILD_NUMBER)"
-          
+
           # Check if this version is already tagged
           if git rev-parse "v${VERSION_NAME}" >/dev/null 2>&1; then
             echo "is_new_version=false" >> "$GITHUB_OUTPUT"
@@ -53,7 +53,7 @@ jobs:
           VERSION="${{ steps.version.outputs.version }}"
           DATE=$(date +%Y-%m-%d)
           NEW_RELEASE="  <releases>\n    <release version=\"${VERSION}\" date=\"${DATE}\">\n      <description>\n        <p>${{ env.CHANGELOG_MSG }}</p>\n      </description>\n    </release>\n  </releases>"
-          perl -i -0777 -pe "s/  <releases>.*?<\/releases>/$NEW_RELEASE/s" flatpak/nl.jknaapen.fladder.metainfo.xml
+          perl -i -0777 -pe "s@  <releases>.*?</releases>@$NEW_RELEASE@s" flatpak/nl.jknaapen.fladder.metainfo.xml
 
       - name: Update Fastlane Changelog
         if: steps.version.outputs.is_new_version == 'true'
@@ -69,26 +69,26 @@ jobs:
         run: |
           git config user.name "Fladder Bot"
           git config user.email "fladder-bot[bot]@users.noreply.github.com"
-          
+
           VERSION="v${{ steps.version.outputs.version }}"
-          
+
           # 1. Commit metadata to develop
           git add flatpak/nl.jknaapen.fladder.metainfo.xml
           git add fastlane/metadata/android/en-US/changelogs/
-          
+
           if git diff --staged --quiet; then
             echo "No changes to metadata"
           else
             git commit -m "chore: prepare release $VERSION"
             git push origin develop
           fi
-          
+
           # 2. Merge develop into master
           git fetch origin master
           git checkout master
           git merge develop --no-ff -m "chore: merge develop into master for $VERSION"
           git push origin master
-          
+
           # 3. Create and push the tag on master
           git tag "$VERSION"
           git push origin "$VERSION"
