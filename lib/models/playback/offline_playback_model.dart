@@ -29,6 +29,7 @@ class OfflinePlaybackModel extends PlaybackModel {
   });
 
   final SyncedItem syncedItem;
+  final List<SyncedItem> syncedQueue;
 
   @override
   List<Chapter>? get chapters => syncedItem.chapters;
@@ -38,6 +39,7 @@ class OfflinePlaybackModel extends PlaybackModel {
 
   @override
   ItemBaseModel? get nextVideo => queue.nextOrNull(item);
+
   @override
   ItemBaseModel? get previousVideo => queue.previousOrNull(item);
 
@@ -109,8 +111,6 @@ class OfflinePlaybackModel extends PlaybackModel {
 
   @override
   String toString() => 'OfflinePlaybackModel(item: $item, syncedItem: $syncedItem)';
-
-  final List<SyncedItem> syncedQueue;
 
   @override
   OfflinePlaybackModel copyWith({

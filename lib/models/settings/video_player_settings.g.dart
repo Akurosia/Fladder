@@ -14,7 +14,7 @@ _VideoPlayerSettingsModel _$VideoPlayerSettingsModelFromJson(
           BoxFit.contain,
       fillScreen: json['fillScreen'] as bool? ?? false,
       hardwareAccel: json['hardwareAccel'] as bool? ?? true,
-      useLibass: json['useLibass'] as bool? ?? false,
+      useLibass: json['useLibass'] as bool? ?? true,
       enableTunneling: json['enableTunneling'] as bool? ?? false,
       bufferSize: (json['bufferSize'] as num?)?.toInt() ?? 32,
       playerOptions:
@@ -47,6 +47,13 @@ _VideoPlayerSettingsModel _$VideoPlayerSettingsModelFromJson(
       screensaver:
           $enumDecodeNullable(_$ScreensaverEnumMap, json['screensaver']) ??
               Screensaver.logo,
+      enableSpeedBoost: json['enableSpeedBoost'] as bool? ?? false,
+      speedBoostRate: (json['speedBoostRate'] as num?)?.toDouble() ?? 2.0,
+      enableDoubleTapSeek: json['enableDoubleTapSeek'] as bool? ?? true,
+      enableAdvancedVideoOptions:
+          json['enableAdvancedVideoOptions'] as bool? ?? false,
+      enableEdgeGestures: json['enableEdgeGestures'] as bool? ?? true,
+      reverseEdgeGestures: json['reverseEdgeGestures'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$VideoPlayerSettingsModelToJson(
@@ -73,6 +80,12 @@ Map<String, dynamic> _$VideoPlayerSettingsModelToJson(
       'hotKeys': instance.hotKeys
           .map((k, e) => MapEntry(_$VideoHotKeysEnumMap[k]!, e)),
       'screensaver': _$ScreensaverEnumMap[instance.screensaver]!,
+      'enableSpeedBoost': instance.enableSpeedBoost,
+      'speedBoostRate': instance.speedBoostRate,
+      'enableDoubleTapSeek': instance.enableDoubleTapSeek,
+      'enableAdvancedVideoOptions': instance.enableAdvancedVideoOptions,
+      'enableEdgeGestures': instance.enableEdgeGestures,
+      'reverseEdgeGestures': instance.reverseEdgeGestures,
     };
 
 const _$BoxFitEnumMap = {

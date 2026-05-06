@@ -164,8 +164,9 @@ class _PhotoViewerScreenState extends ConsumerState<PhotoViewerScreen> with Widg
           onExit: (event) => setState(() => _showOverlay(show: false)),
           child: Scaffold(
             appBar: photos.isEmpty
-                ? const FladderAppBar(
+                ? FladderAppBar(
                     automaticallyImplyLeading: true,
+                    isDesktop: AdaptiveLayout.of(context).isDesktop,
                   )
                 : null,
             body: photos.isEmpty
@@ -256,7 +257,7 @@ class _PhotoViewerScreenState extends ConsumerState<PhotoViewerScreen> with Widg
                         ),
                       switch (state.extendedImageLoadState) {
                         LoadState.loading => const Center(
-                            child: CircularProgressIndicator.adaptive(strokeCap: StrokeCap.round),
+                            child: CircularProgressIndicator(strokeCap: StrokeCap.round),
                           ),
                         LoadState.completed => switch (photo.internalType) {
                             FladderItemType.video => SimpleVideoPlayer(

@@ -15,10 +15,12 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ClientSettingsModel implements DiagnosticableTreeMixin {
   String? get syncPath;
+  TranscodeDownloadModel get transcodeDownloadModel;
   Vector2 get position;
   Vector2 get size;
   Duration? get timeOut;
   Duration? get nextUpDateCutoff;
+  Duration get updateNotificationsInterval;
   ThemeMode get themeMode;
   ColorThemes? get themeColor;
   bool get deriveColorsFromItem;
@@ -32,13 +34,16 @@ mixin _$ClientSettingsModel implements DiagnosticableTreeMixin {
   bool get pinchPosterZoom;
   bool get mouseDragSupport;
   bool get requireWifi;
+  bool get expandSideBar;
   bool get showAllCollectionTypes;
   int get maxConcurrentDownloads;
   DynamicSchemeVariant get schemeVariant;
   BackgroundType get backgroundImage;
+  bool get enableBlurEffects;
   bool get checkForUpdates;
   bool get usePosterForLibrary;
   bool get useSystemIME;
+  bool get useTVExpandedLayout;
   String? get lastViewedUpdate;
   int? get libraryPageSize;
   Map<GlobalHotKeys, KeyCombination> get shortcuts;
@@ -59,10 +64,14 @@ mixin _$ClientSettingsModel implements DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'ClientSettingsModel'))
       ..add(DiagnosticsProperty('syncPath', syncPath))
+      ..add(
+          DiagnosticsProperty('transcodeDownloadModel', transcodeDownloadModel))
       ..add(DiagnosticsProperty('position', position))
       ..add(DiagnosticsProperty('size', size))
       ..add(DiagnosticsProperty('timeOut', timeOut))
       ..add(DiagnosticsProperty('nextUpDateCutoff', nextUpDateCutoff))
+      ..add(DiagnosticsProperty(
+          'updateNotificationsInterval', updateNotificationsInterval))
       ..add(DiagnosticsProperty('themeMode', themeMode))
       ..add(DiagnosticsProperty('themeColor', themeColor))
       ..add(DiagnosticsProperty('deriveColorsFromItem', deriveColorsFromItem))
@@ -75,15 +84,18 @@ mixin _$ClientSettingsModel implements DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('pinchPosterZoom', pinchPosterZoom))
       ..add(DiagnosticsProperty('mouseDragSupport', mouseDragSupport))
       ..add(DiagnosticsProperty('requireWifi', requireWifi))
+      ..add(DiagnosticsProperty('expandSideBar', expandSideBar))
       ..add(
           DiagnosticsProperty('showAllCollectionTypes', showAllCollectionTypes))
       ..add(
           DiagnosticsProperty('maxConcurrentDownloads', maxConcurrentDownloads))
       ..add(DiagnosticsProperty('schemeVariant', schemeVariant))
       ..add(DiagnosticsProperty('backgroundImage', backgroundImage))
+      ..add(DiagnosticsProperty('enableBlurEffects', enableBlurEffects))
       ..add(DiagnosticsProperty('checkForUpdates', checkForUpdates))
       ..add(DiagnosticsProperty('usePosterForLibrary', usePosterForLibrary))
       ..add(DiagnosticsProperty('useSystemIME', useSystemIME))
+      ..add(DiagnosticsProperty('useTVExpandedLayout', useTVExpandedLayout))
       ..add(DiagnosticsProperty('lastViewedUpdate', lastViewedUpdate))
       ..add(DiagnosticsProperty('libraryPageSize', libraryPageSize))
       ..add(DiagnosticsProperty('shortcuts', shortcuts));
@@ -91,7 +103,7 @@ mixin _$ClientSettingsModel implements DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ClientSettingsModel(syncPath: $syncPath, position: $position, size: $size, timeOut: $timeOut, nextUpDateCutoff: $nextUpDateCutoff, themeMode: $themeMode, themeColor: $themeColor, deriveColorsFromItem: $deriveColorsFromItem, amoledBlack: $amoledBlack, blurPlaceHolders: $blurPlaceHolders, blurUpcomingEpisodes: $blurUpcomingEpisodes, selectedLocale: $selectedLocale, enableMediaKeys: $enableMediaKeys, posterSize: $posterSize, pinchPosterZoom: $pinchPosterZoom, mouseDragSupport: $mouseDragSupport, requireWifi: $requireWifi, showAllCollectionTypes: $showAllCollectionTypes, maxConcurrentDownloads: $maxConcurrentDownloads, schemeVariant: $schemeVariant, backgroundImage: $backgroundImage, checkForUpdates: $checkForUpdates, usePosterForLibrary: $usePosterForLibrary, useSystemIME: $useSystemIME, lastViewedUpdate: $lastViewedUpdate, libraryPageSize: $libraryPageSize, shortcuts: $shortcuts)';
+    return 'ClientSettingsModel(syncPath: $syncPath, transcodeDownloadModel: $transcodeDownloadModel, position: $position, size: $size, timeOut: $timeOut, nextUpDateCutoff: $nextUpDateCutoff, updateNotificationsInterval: $updateNotificationsInterval, themeMode: $themeMode, themeColor: $themeColor, deriveColorsFromItem: $deriveColorsFromItem, amoledBlack: $amoledBlack, blurPlaceHolders: $blurPlaceHolders, blurUpcomingEpisodes: $blurUpcomingEpisodes, selectedLocale: $selectedLocale, enableMediaKeys: $enableMediaKeys, posterSize: $posterSize, pinchPosterZoom: $pinchPosterZoom, mouseDragSupport: $mouseDragSupport, requireWifi: $requireWifi, expandSideBar: $expandSideBar, showAllCollectionTypes: $showAllCollectionTypes, maxConcurrentDownloads: $maxConcurrentDownloads, schemeVariant: $schemeVariant, backgroundImage: $backgroundImage, enableBlurEffects: $enableBlurEffects, checkForUpdates: $checkForUpdates, usePosterForLibrary: $usePosterForLibrary, useSystemIME: $useSystemIME, useTVExpandedLayout: $useTVExpandedLayout, lastViewedUpdate: $lastViewedUpdate, libraryPageSize: $libraryPageSize, shortcuts: $shortcuts)';
   }
 }
 
@@ -103,10 +115,12 @@ abstract mixin class $ClientSettingsModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String? syncPath,
+      TranscodeDownloadModel transcodeDownloadModel,
       Vector2 position,
       Vector2 size,
       Duration? timeOut,
       Duration? nextUpDateCutoff,
+      Duration updateNotificationsInterval,
       ThemeMode themeMode,
       ColorThemes? themeColor,
       bool deriveColorsFromItem,
@@ -119,16 +133,21 @@ abstract mixin class $ClientSettingsModelCopyWith<$Res> {
       bool pinchPosterZoom,
       bool mouseDragSupport,
       bool requireWifi,
+      bool expandSideBar,
       bool showAllCollectionTypes,
       int maxConcurrentDownloads,
       DynamicSchemeVariant schemeVariant,
       BackgroundType backgroundImage,
+      bool enableBlurEffects,
       bool checkForUpdates,
       bool usePosterForLibrary,
       bool useSystemIME,
+      bool useTVExpandedLayout,
       String? lastViewedUpdate,
       int? libraryPageSize,
       Map<GlobalHotKeys, KeyCombination> shortcuts});
+
+  $TranscodeDownloadModelCopyWith<$Res> get transcodeDownloadModel;
 }
 
 /// @nodoc
@@ -145,10 +164,12 @@ class _$ClientSettingsModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? syncPath = freezed,
+    Object? transcodeDownloadModel = null,
     Object? position = null,
     Object? size = null,
     Object? timeOut = freezed,
     Object? nextUpDateCutoff = freezed,
+    Object? updateNotificationsInterval = null,
     Object? themeMode = null,
     Object? themeColor = freezed,
     Object? deriveColorsFromItem = null,
@@ -161,13 +182,16 @@ class _$ClientSettingsModelCopyWithImpl<$Res>
     Object? pinchPosterZoom = null,
     Object? mouseDragSupport = null,
     Object? requireWifi = null,
+    Object? expandSideBar = null,
     Object? showAllCollectionTypes = null,
     Object? maxConcurrentDownloads = null,
     Object? schemeVariant = null,
     Object? backgroundImage = null,
+    Object? enableBlurEffects = null,
     Object? checkForUpdates = null,
     Object? usePosterForLibrary = null,
     Object? useSystemIME = null,
+    Object? useTVExpandedLayout = null,
     Object? lastViewedUpdate = freezed,
     Object? libraryPageSize = freezed,
     Object? shortcuts = null,
@@ -177,6 +201,10 @@ class _$ClientSettingsModelCopyWithImpl<$Res>
           ? _self.syncPath
           : syncPath // ignore: cast_nullable_to_non_nullable
               as String?,
+      transcodeDownloadModel: null == transcodeDownloadModel
+          ? _self.transcodeDownloadModel
+          : transcodeDownloadModel // ignore: cast_nullable_to_non_nullable
+              as TranscodeDownloadModel,
       position: null == position
           ? _self.position
           : position // ignore: cast_nullable_to_non_nullable
@@ -193,6 +221,10 @@ class _$ClientSettingsModelCopyWithImpl<$Res>
           ? _self.nextUpDateCutoff
           : nextUpDateCutoff // ignore: cast_nullable_to_non_nullable
               as Duration?,
+      updateNotificationsInterval: null == updateNotificationsInterval
+          ? _self.updateNotificationsInterval
+          : updateNotificationsInterval // ignore: cast_nullable_to_non_nullable
+              as Duration,
       themeMode: null == themeMode
           ? _self.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
@@ -241,6 +273,10 @@ class _$ClientSettingsModelCopyWithImpl<$Res>
           ? _self.requireWifi
           : requireWifi // ignore: cast_nullable_to_non_nullable
               as bool,
+      expandSideBar: null == expandSideBar
+          ? _self.expandSideBar
+          : expandSideBar // ignore: cast_nullable_to_non_nullable
+              as bool,
       showAllCollectionTypes: null == showAllCollectionTypes
           ? _self.showAllCollectionTypes
           : showAllCollectionTypes // ignore: cast_nullable_to_non_nullable
@@ -257,6 +293,10 @@ class _$ClientSettingsModelCopyWithImpl<$Res>
           ? _self.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
               as BackgroundType,
+      enableBlurEffects: null == enableBlurEffects
+          ? _self.enableBlurEffects
+          : enableBlurEffects // ignore: cast_nullable_to_non_nullable
+              as bool,
       checkForUpdates: null == checkForUpdates
           ? _self.checkForUpdates
           : checkForUpdates // ignore: cast_nullable_to_non_nullable
@@ -268,6 +308,10 @@ class _$ClientSettingsModelCopyWithImpl<$Res>
       useSystemIME: null == useSystemIME
           ? _self.useSystemIME
           : useSystemIME // ignore: cast_nullable_to_non_nullable
+              as bool,
+      useTVExpandedLayout: null == useTVExpandedLayout
+          ? _self.useTVExpandedLayout
+          : useTVExpandedLayout // ignore: cast_nullable_to_non_nullable
               as bool,
       lastViewedUpdate: freezed == lastViewedUpdate
           ? _self.lastViewedUpdate
@@ -282,6 +326,17 @@ class _$ClientSettingsModelCopyWithImpl<$Res>
           : shortcuts // ignore: cast_nullable_to_non_nullable
               as Map<GlobalHotKeys, KeyCombination>,
     ));
+  }
+
+  /// Create a copy of ClientSettingsModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TranscodeDownloadModelCopyWith<$Res> get transcodeDownloadModel {
+    return $TranscodeDownloadModelCopyWith<$Res>(_self.transcodeDownloadModel,
+        (value) {
+      return _then(_self.copyWith(transcodeDownloadModel: value));
+    });
   }
 }
 
@@ -300,14 +355,14 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
   /// ```
 
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_ClientSettingsModel value)? $default, {
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_ClientSettingsModel value)? internal,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _ClientSettingsModel() when $default != null:
-        return $default(_that);
+      case _ClientSettingsModel() when internal != null:
+        return internal(_that);
       case _:
         return orElse();
     }
@@ -327,13 +382,13 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
   /// ```
 
   @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_ClientSettingsModel value) $default,
-  ) {
+  TResult map<TResult extends Object?>({
+    required TResult Function(_ClientSettingsModel value) internal,
+  }) {
     final _that = this;
     switch (_that) {
       case _ClientSettingsModel():
-        return $default(_that);
+        return internal(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -352,13 +407,13 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
   /// ```
 
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_ClientSettingsModel value)? $default,
-  ) {
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_ClientSettingsModel value)? internal,
+  }) {
     final _that = this;
     switch (_that) {
-      case _ClientSettingsModel() when $default != null:
-        return $default(_that);
+      case _ClientSettingsModel() when internal != null:
+        return internal(_that);
       case _:
         return null;
     }
@@ -377,13 +432,15 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
   /// ```
 
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
+  TResult maybeWhen<TResult extends Object?>({
     TResult Function(
             String? syncPath,
+            TranscodeDownloadModel transcodeDownloadModel,
             Vector2 position,
             Vector2 size,
             Duration? timeOut,
             Duration? nextUpDateCutoff,
+            Duration updateNotificationsInterval,
             ThemeMode themeMode,
             ColorThemes? themeColor,
             bool deriveColorsFromItem,
@@ -396,28 +453,33 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
             bool pinchPosterZoom,
             bool mouseDragSupport,
             bool requireWifi,
+            bool expandSideBar,
             bool showAllCollectionTypes,
             int maxConcurrentDownloads,
             DynamicSchemeVariant schemeVariant,
             BackgroundType backgroundImage,
+            bool enableBlurEffects,
             bool checkForUpdates,
             bool usePosterForLibrary,
             bool useSystemIME,
+            bool useTVExpandedLayout,
             String? lastViewedUpdate,
             int? libraryPageSize,
             Map<GlobalHotKeys, KeyCombination> shortcuts)?
-        $default, {
+        internal,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _ClientSettingsModel() when $default != null:
-        return $default(
+      case _ClientSettingsModel() when internal != null:
+        return internal(
             _that.syncPath,
+            _that.transcodeDownloadModel,
             _that.position,
             _that.size,
             _that.timeOut,
             _that.nextUpDateCutoff,
+            _that.updateNotificationsInterval,
             _that.themeMode,
             _that.themeColor,
             _that.deriveColorsFromItem,
@@ -430,13 +492,16 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
             _that.pinchPosterZoom,
             _that.mouseDragSupport,
             _that.requireWifi,
+            _that.expandSideBar,
             _that.showAllCollectionTypes,
             _that.maxConcurrentDownloads,
             _that.schemeVariant,
             _that.backgroundImage,
+            _that.enableBlurEffects,
             _that.checkForUpdates,
             _that.usePosterForLibrary,
             _that.useSystemIME,
+            _that.useTVExpandedLayout,
             _that.lastViewedUpdate,
             _that.libraryPageSize,
             _that.shortcuts);
@@ -459,13 +524,15 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
   /// ```
 
   @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(
+  TResult when<TResult extends Object?>({
+    required TResult Function(
             String? syncPath,
+            TranscodeDownloadModel transcodeDownloadModel,
             Vector2 position,
             Vector2 size,
             Duration? timeOut,
             Duration? nextUpDateCutoff,
+            Duration updateNotificationsInterval,
             ThemeMode themeMode,
             ColorThemes? themeColor,
             bool deriveColorsFromItem,
@@ -478,27 +545,32 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
             bool pinchPosterZoom,
             bool mouseDragSupport,
             bool requireWifi,
+            bool expandSideBar,
             bool showAllCollectionTypes,
             int maxConcurrentDownloads,
             DynamicSchemeVariant schemeVariant,
             BackgroundType backgroundImage,
+            bool enableBlurEffects,
             bool checkForUpdates,
             bool usePosterForLibrary,
             bool useSystemIME,
+            bool useTVExpandedLayout,
             String? lastViewedUpdate,
             int? libraryPageSize,
             Map<GlobalHotKeys, KeyCombination> shortcuts)
-        $default,
-  ) {
+        internal,
+  }) {
     final _that = this;
     switch (_that) {
       case _ClientSettingsModel():
-        return $default(
+        return internal(
             _that.syncPath,
+            _that.transcodeDownloadModel,
             _that.position,
             _that.size,
             _that.timeOut,
             _that.nextUpDateCutoff,
+            _that.updateNotificationsInterval,
             _that.themeMode,
             _that.themeColor,
             _that.deriveColorsFromItem,
@@ -511,13 +583,16 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
             _that.pinchPosterZoom,
             _that.mouseDragSupport,
             _that.requireWifi,
+            _that.expandSideBar,
             _that.showAllCollectionTypes,
             _that.maxConcurrentDownloads,
             _that.schemeVariant,
             _that.backgroundImage,
+            _that.enableBlurEffects,
             _that.checkForUpdates,
             _that.usePosterForLibrary,
             _that.useSystemIME,
+            _that.useTVExpandedLayout,
             _that.lastViewedUpdate,
             _that.libraryPageSize,
             _that.shortcuts);
@@ -539,13 +614,15 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
   /// ```
 
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
+  TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
             String? syncPath,
+            TranscodeDownloadModel transcodeDownloadModel,
             Vector2 position,
             Vector2 size,
             Duration? timeOut,
             Duration? nextUpDateCutoff,
+            Duration updateNotificationsInterval,
             ThemeMode themeMode,
             ColorThemes? themeColor,
             bool deriveColorsFromItem,
@@ -558,27 +635,32 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
             bool pinchPosterZoom,
             bool mouseDragSupport,
             bool requireWifi,
+            bool expandSideBar,
             bool showAllCollectionTypes,
             int maxConcurrentDownloads,
             DynamicSchemeVariant schemeVariant,
             BackgroundType backgroundImage,
+            bool enableBlurEffects,
             bool checkForUpdates,
             bool usePosterForLibrary,
             bool useSystemIME,
+            bool useTVExpandedLayout,
             String? lastViewedUpdate,
             int? libraryPageSize,
             Map<GlobalHotKeys, KeyCombination> shortcuts)?
-        $default,
-  ) {
+        internal,
+  }) {
     final _that = this;
     switch (_that) {
-      case _ClientSettingsModel() when $default != null:
-        return $default(
+      case _ClientSettingsModel() when internal != null:
+        return internal(
             _that.syncPath,
+            _that.transcodeDownloadModel,
             _that.position,
             _that.size,
             _that.timeOut,
             _that.nextUpDateCutoff,
+            _that.updateNotificationsInterval,
             _that.themeMode,
             _that.themeColor,
             _that.deriveColorsFromItem,
@@ -591,13 +673,16 @@ extension ClientSettingsModelPatterns on ClientSettingsModel {
             _that.pinchPosterZoom,
             _that.mouseDragSupport,
             _that.requireWifi,
+            _that.expandSideBar,
             _that.showAllCollectionTypes,
             _that.maxConcurrentDownloads,
             _that.schemeVariant,
             _that.backgroundImage,
+            _that.enableBlurEffects,
             _that.checkForUpdates,
             _that.usePosterForLibrary,
             _that.useSystemIME,
+            _that.useTVExpandedLayout,
             _that.lastViewedUpdate,
             _that.libraryPageSize,
             _that.shortcuts);
@@ -613,10 +698,12 @@ class _ClientSettingsModel extends ClientSettingsModel
     with DiagnosticableTreeMixin {
   _ClientSettingsModel(
       {this.syncPath,
+      required this.transcodeDownloadModel,
       this.position = const Vector2(x: 0, y: 0),
       this.size = const Vector2(x: 1280, y: 720),
       this.timeOut = const Duration(seconds: 30),
       this.nextUpDateCutoff,
+      this.updateNotificationsInterval = const Duration(hours: 1),
       this.themeMode = ThemeMode.system,
       this.themeColor,
       this.deriveColorsFromItem = true,
@@ -629,13 +716,16 @@ class _ClientSettingsModel extends ClientSettingsModel
       this.pinchPosterZoom = false,
       this.mouseDragSupport = false,
       this.requireWifi = true,
+      this.expandSideBar = false,
       this.showAllCollectionTypes = false,
       this.maxConcurrentDownloads = 2,
       this.schemeVariant = DynamicSchemeVariant.rainbow,
       this.backgroundImage = BackgroundType.blurred,
+      this.enableBlurEffects = false,
       this.checkForUpdates = true,
       this.usePosterForLibrary = false,
       this.useSystemIME = false,
+      this.useTVExpandedLayout = false,
       this.lastViewedUpdate,
       this.libraryPageSize,
       final Map<GlobalHotKeys, KeyCombination> shortcuts = const {}})
@@ -647,6 +737,8 @@ class _ClientSettingsModel extends ClientSettingsModel
   @override
   final String? syncPath;
   @override
+  final TranscodeDownloadModel transcodeDownloadModel;
+  @override
   @JsonKey()
   final Vector2 position;
   @override
@@ -657,6 +749,9 @@ class _ClientSettingsModel extends ClientSettingsModel
   final Duration? timeOut;
   @override
   final Duration? nextUpDateCutoff;
+  @override
+  @JsonKey()
+  final Duration updateNotificationsInterval;
   @override
   @JsonKey()
   final ThemeMode themeMode;
@@ -694,6 +789,9 @@ class _ClientSettingsModel extends ClientSettingsModel
   final bool requireWifi;
   @override
   @JsonKey()
+  final bool expandSideBar;
+  @override
+  @JsonKey()
   final bool showAllCollectionTypes;
   @override
   @JsonKey()
@@ -706,6 +804,9 @@ class _ClientSettingsModel extends ClientSettingsModel
   final BackgroundType backgroundImage;
   @override
   @JsonKey()
+  final bool enableBlurEffects;
+  @override
+  @JsonKey()
   final bool checkForUpdates;
   @override
   @JsonKey()
@@ -713,6 +814,9 @@ class _ClientSettingsModel extends ClientSettingsModel
   @override
   @JsonKey()
   final bool useSystemIME;
+  @override
+  @JsonKey()
+  final bool useTVExpandedLayout;
   @override
   final String? lastViewedUpdate;
   @override
@@ -745,12 +849,16 @@ class _ClientSettingsModel extends ClientSettingsModel
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     properties
-      ..add(DiagnosticsProperty('type', 'ClientSettingsModel'))
+      ..add(DiagnosticsProperty('type', 'ClientSettingsModel.internal'))
       ..add(DiagnosticsProperty('syncPath', syncPath))
+      ..add(
+          DiagnosticsProperty('transcodeDownloadModel', transcodeDownloadModel))
       ..add(DiagnosticsProperty('position', position))
       ..add(DiagnosticsProperty('size', size))
       ..add(DiagnosticsProperty('timeOut', timeOut))
       ..add(DiagnosticsProperty('nextUpDateCutoff', nextUpDateCutoff))
+      ..add(DiagnosticsProperty(
+          'updateNotificationsInterval', updateNotificationsInterval))
       ..add(DiagnosticsProperty('themeMode', themeMode))
       ..add(DiagnosticsProperty('themeColor', themeColor))
       ..add(DiagnosticsProperty('deriveColorsFromItem', deriveColorsFromItem))
@@ -763,15 +871,18 @@ class _ClientSettingsModel extends ClientSettingsModel
       ..add(DiagnosticsProperty('pinchPosterZoom', pinchPosterZoom))
       ..add(DiagnosticsProperty('mouseDragSupport', mouseDragSupport))
       ..add(DiagnosticsProperty('requireWifi', requireWifi))
+      ..add(DiagnosticsProperty('expandSideBar', expandSideBar))
       ..add(
           DiagnosticsProperty('showAllCollectionTypes', showAllCollectionTypes))
       ..add(
           DiagnosticsProperty('maxConcurrentDownloads', maxConcurrentDownloads))
       ..add(DiagnosticsProperty('schemeVariant', schemeVariant))
       ..add(DiagnosticsProperty('backgroundImage', backgroundImage))
+      ..add(DiagnosticsProperty('enableBlurEffects', enableBlurEffects))
       ..add(DiagnosticsProperty('checkForUpdates', checkForUpdates))
       ..add(DiagnosticsProperty('usePosterForLibrary', usePosterForLibrary))
       ..add(DiagnosticsProperty('useSystemIME', useSystemIME))
+      ..add(DiagnosticsProperty('useTVExpandedLayout', useTVExpandedLayout))
       ..add(DiagnosticsProperty('lastViewedUpdate', lastViewedUpdate))
       ..add(DiagnosticsProperty('libraryPageSize', libraryPageSize))
       ..add(DiagnosticsProperty('shortcuts', shortcuts));
@@ -779,7 +890,7 @@ class _ClientSettingsModel extends ClientSettingsModel
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ClientSettingsModel(syncPath: $syncPath, position: $position, size: $size, timeOut: $timeOut, nextUpDateCutoff: $nextUpDateCutoff, themeMode: $themeMode, themeColor: $themeColor, deriveColorsFromItem: $deriveColorsFromItem, amoledBlack: $amoledBlack, blurPlaceHolders: $blurPlaceHolders, blurUpcomingEpisodes: $blurUpcomingEpisodes, selectedLocale: $selectedLocale, enableMediaKeys: $enableMediaKeys, posterSize: $posterSize, pinchPosterZoom: $pinchPosterZoom, mouseDragSupport: $mouseDragSupport, requireWifi: $requireWifi, showAllCollectionTypes: $showAllCollectionTypes, maxConcurrentDownloads: $maxConcurrentDownloads, schemeVariant: $schemeVariant, backgroundImage: $backgroundImage, checkForUpdates: $checkForUpdates, usePosterForLibrary: $usePosterForLibrary, useSystemIME: $useSystemIME, lastViewedUpdate: $lastViewedUpdate, libraryPageSize: $libraryPageSize, shortcuts: $shortcuts)';
+    return 'ClientSettingsModel.internal(syncPath: $syncPath, transcodeDownloadModel: $transcodeDownloadModel, position: $position, size: $size, timeOut: $timeOut, nextUpDateCutoff: $nextUpDateCutoff, updateNotificationsInterval: $updateNotificationsInterval, themeMode: $themeMode, themeColor: $themeColor, deriveColorsFromItem: $deriveColorsFromItem, amoledBlack: $amoledBlack, blurPlaceHolders: $blurPlaceHolders, blurUpcomingEpisodes: $blurUpcomingEpisodes, selectedLocale: $selectedLocale, enableMediaKeys: $enableMediaKeys, posterSize: $posterSize, pinchPosterZoom: $pinchPosterZoom, mouseDragSupport: $mouseDragSupport, requireWifi: $requireWifi, expandSideBar: $expandSideBar, showAllCollectionTypes: $showAllCollectionTypes, maxConcurrentDownloads: $maxConcurrentDownloads, schemeVariant: $schemeVariant, backgroundImage: $backgroundImage, enableBlurEffects: $enableBlurEffects, checkForUpdates: $checkForUpdates, usePosterForLibrary: $usePosterForLibrary, useSystemIME: $useSystemIME, useTVExpandedLayout: $useTVExpandedLayout, lastViewedUpdate: $lastViewedUpdate, libraryPageSize: $libraryPageSize, shortcuts: $shortcuts)';
   }
 }
 
@@ -793,10 +904,12 @@ abstract mixin class _$ClientSettingsModelCopyWith<$Res>
   @useResult
   $Res call(
       {String? syncPath,
+      TranscodeDownloadModel transcodeDownloadModel,
       Vector2 position,
       Vector2 size,
       Duration? timeOut,
       Duration? nextUpDateCutoff,
+      Duration updateNotificationsInterval,
       ThemeMode themeMode,
       ColorThemes? themeColor,
       bool deriveColorsFromItem,
@@ -809,16 +922,22 @@ abstract mixin class _$ClientSettingsModelCopyWith<$Res>
       bool pinchPosterZoom,
       bool mouseDragSupport,
       bool requireWifi,
+      bool expandSideBar,
       bool showAllCollectionTypes,
       int maxConcurrentDownloads,
       DynamicSchemeVariant schemeVariant,
       BackgroundType backgroundImage,
+      bool enableBlurEffects,
       bool checkForUpdates,
       bool usePosterForLibrary,
       bool useSystemIME,
+      bool useTVExpandedLayout,
       String? lastViewedUpdate,
       int? libraryPageSize,
       Map<GlobalHotKeys, KeyCombination> shortcuts});
+
+  @override
+  $TranscodeDownloadModelCopyWith<$Res> get transcodeDownloadModel;
 }
 
 /// @nodoc
@@ -835,10 +954,12 @@ class __$ClientSettingsModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? syncPath = freezed,
+    Object? transcodeDownloadModel = null,
     Object? position = null,
     Object? size = null,
     Object? timeOut = freezed,
     Object? nextUpDateCutoff = freezed,
+    Object? updateNotificationsInterval = null,
     Object? themeMode = null,
     Object? themeColor = freezed,
     Object? deriveColorsFromItem = null,
@@ -851,13 +972,16 @@ class __$ClientSettingsModelCopyWithImpl<$Res>
     Object? pinchPosterZoom = null,
     Object? mouseDragSupport = null,
     Object? requireWifi = null,
+    Object? expandSideBar = null,
     Object? showAllCollectionTypes = null,
     Object? maxConcurrentDownloads = null,
     Object? schemeVariant = null,
     Object? backgroundImage = null,
+    Object? enableBlurEffects = null,
     Object? checkForUpdates = null,
     Object? usePosterForLibrary = null,
     Object? useSystemIME = null,
+    Object? useTVExpandedLayout = null,
     Object? lastViewedUpdate = freezed,
     Object? libraryPageSize = freezed,
     Object? shortcuts = null,
@@ -867,6 +991,10 @@ class __$ClientSettingsModelCopyWithImpl<$Res>
           ? _self.syncPath
           : syncPath // ignore: cast_nullable_to_non_nullable
               as String?,
+      transcodeDownloadModel: null == transcodeDownloadModel
+          ? _self.transcodeDownloadModel
+          : transcodeDownloadModel // ignore: cast_nullable_to_non_nullable
+              as TranscodeDownloadModel,
       position: null == position
           ? _self.position
           : position // ignore: cast_nullable_to_non_nullable
@@ -883,6 +1011,10 @@ class __$ClientSettingsModelCopyWithImpl<$Res>
           ? _self.nextUpDateCutoff
           : nextUpDateCutoff // ignore: cast_nullable_to_non_nullable
               as Duration?,
+      updateNotificationsInterval: null == updateNotificationsInterval
+          ? _self.updateNotificationsInterval
+          : updateNotificationsInterval // ignore: cast_nullable_to_non_nullable
+              as Duration,
       themeMode: null == themeMode
           ? _self.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
@@ -931,6 +1063,10 @@ class __$ClientSettingsModelCopyWithImpl<$Res>
           ? _self.requireWifi
           : requireWifi // ignore: cast_nullable_to_non_nullable
               as bool,
+      expandSideBar: null == expandSideBar
+          ? _self.expandSideBar
+          : expandSideBar // ignore: cast_nullable_to_non_nullable
+              as bool,
       showAllCollectionTypes: null == showAllCollectionTypes
           ? _self.showAllCollectionTypes
           : showAllCollectionTypes // ignore: cast_nullable_to_non_nullable
@@ -947,6 +1083,10 @@ class __$ClientSettingsModelCopyWithImpl<$Res>
           ? _self.backgroundImage
           : backgroundImage // ignore: cast_nullable_to_non_nullable
               as BackgroundType,
+      enableBlurEffects: null == enableBlurEffects
+          ? _self.enableBlurEffects
+          : enableBlurEffects // ignore: cast_nullable_to_non_nullable
+              as bool,
       checkForUpdates: null == checkForUpdates
           ? _self.checkForUpdates
           : checkForUpdates // ignore: cast_nullable_to_non_nullable
@@ -958,6 +1098,10 @@ class __$ClientSettingsModelCopyWithImpl<$Res>
       useSystemIME: null == useSystemIME
           ? _self.useSystemIME
           : useSystemIME // ignore: cast_nullable_to_non_nullable
+              as bool,
+      useTVExpandedLayout: null == useTVExpandedLayout
+          ? _self.useTVExpandedLayout
+          : useTVExpandedLayout // ignore: cast_nullable_to_non_nullable
               as bool,
       lastViewedUpdate: freezed == lastViewedUpdate
           ? _self.lastViewedUpdate
@@ -972,6 +1116,17 @@ class __$ClientSettingsModelCopyWithImpl<$Res>
           : shortcuts // ignore: cast_nullable_to_non_nullable
               as Map<GlobalHotKeys, KeyCombination>,
     ));
+  }
+
+  /// Create a copy of ClientSettingsModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TranscodeDownloadModelCopyWith<$Res> get transcodeDownloadModel {
+    return $TranscodeDownloadModelCopyWith<$Res>(_self.transcodeDownloadModel,
+        (value) {
+      return _then(_self.copyWith(transcodeDownloadModel: value));
+    });
   }
 }
 

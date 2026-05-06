@@ -77,7 +77,7 @@ class _ControlPanelScreenState extends ConsumerState<ControlPanelScreen> {
         AdaptiveLayout.layoutModeOf(context) == LayoutMode.dual && context.tabsRouter.current.name == route.routeName;
 
     return Padding(
-      padding: EdgeInsets.only(left: AdaptiveLayout.of(context).sideBarWidth),
+      padding: EdgeInsetsDirectional.only(start: AdaptiveLayout.of(context).sideBarWidth),
       child: Container(
         color: context.colors.surface,
         child: SettingsScaffold(
@@ -114,6 +114,13 @@ class _ControlPanelScreenState extends ConsumerState<ControlPanelScreen> {
               selected: containsRoute(const ControlLibrariesRoute()),
               icon: IconsaxPlusLinear.book,
               onTap: () => navigateTo(const ControlLibrariesRoute()),
+            ),
+            SettingsListTile(
+              label: Text(context.localized.liveTV),
+              subLabel: Text(context.localized.liveTvManageTunersEpg),
+              selected: containsRoute(const ControlLiveTvRoute()),
+              icon: IconsaxPlusLinear.video_circle,
+              onTap: () => navigateTo(const ControlLiveTvRoute()),
             ),
             SettingsLabelDivider(label: context.localized.advanced),
             SettingsListTile(

@@ -4,9 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:fladder/jellyfin/enum_models.dart';
-import 'package:fladder/jellyfin/jellyfin_open_api.swagger.dart';
 import 'package:fladder/jellyfin/jellyfin_open_api.enums.swagger.dart' as enums;
+import 'package:fladder/jellyfin/jellyfin_open_api.swagger.dart';
 import 'package:fladder/models/account_model.dart';
+import 'package:fladder/models/api_result.dart';
 import 'package:fladder/models/item_base_model.dart';
 import 'package:fladder/models/items/item_shared_models.dart';
 import 'package:fladder/models/library_filters_model.dart';
@@ -89,8 +90,10 @@ class User extends _$User {
     final currentUserConfiguration = state?.userConfiguration;
     if (currentUserConfiguration == null) return;
 
-    final updated = currentUserConfiguration.copyWith(
-      subtitleLanguagePreference: language?.isEmpty ?? true ? null : language,
+    final normalizedLanguage = language?.trim().toLowerCase();
+    final updated = currentUserConfiguration.copyWithWrapped(
+      subtitleLanguagePreference:
+          Wrapped<String?>.value((normalizedLanguage?.isEmpty ?? true) ? null : normalizedLanguage),
     );
     final newUserConfiguration = await api.updateUserConfiguration(updated);
     if (newUserConfiguration != null) {
@@ -128,37 +131,39 @@ class User extends _$User {
     return api.setCustomConfig(settings);
   }
 
-  Future<Response> refreshMetaData(
+  Future<ApiResult> refreshMetaData(
     String itemId, {
     MetadataRefresh? metadataRefreshMode,
     bool? replaceAllMetadata,
     bool? replaceTrickplayImages,
   }) async {
-    return api.itemsItemIdRefreshPost(
-      itemId: itemId,
-      metadataRefreshMode: switch (metadataRefreshMode) {
-        MetadataRefresh.defaultRefresh => MetadataRefresh.defaultRefresh,
-        _ => MetadataRefresh.fullRefresh,
-      },
-      imageRefreshMode: switch (metadataRefreshMode) {
-        MetadataRefresh.defaultRefresh => MetadataRefresh.defaultRefresh,
-        _ => MetadataRefresh.fullRefresh,
-      },
-      replaceAllMetadata: switch (metadataRefreshMode) {
-        MetadataRefresh.fullRefresh => true,
-        _ => false,
-      },
-      replaceAllImages: switch (metadataRefreshMode) {
-        MetadataRefresh.fullRefresh => replaceAllMetadata,
-        MetadataRefresh.validation => replaceAllMetadata,
-        _ => false,
-      },
-      replaceTrickplayImages: switch (metadataRefreshMode) {
-        MetadataRefresh.fullRefresh => replaceTrickplayImages,
-        MetadataRefresh.validation => replaceTrickplayImages,
-        _ => false,
-      },
-    );
+    return api
+        .itemsItemIdRefreshPost(
+          itemId: itemId,
+          metadataRefreshMode: switch (metadataRefreshMode) {
+            MetadataRefresh.defaultRefresh => MetadataRefresh.defaultRefresh,
+            _ => MetadataRefresh.fullRefresh,
+          },
+          imageRefreshMode: switch (metadataRefreshMode) {
+            MetadataRefresh.defaultRefresh => MetadataRefresh.defaultRefresh,
+            _ => MetadataRefresh.fullRefresh,
+          },
+          replaceAllMetadata: switch (metadataRefreshMode) {
+            MetadataRefresh.fullRefresh => true,
+            _ => false,
+          },
+          replaceAllImages: switch (metadataRefreshMode) {
+            MetadataRefresh.fullRefresh => replaceAllMetadata,
+            MetadataRefresh.validation => replaceAllMetadata,
+            _ => false,
+          },
+          replaceTrickplayImages: switch (metadataRefreshMode) {
+            MetadataRefresh.fullRefresh => replaceTrickplayImages,
+            MetadataRefresh.validation => replaceTrickplayImages,
+            _ => false,
+          },
+        )
+        .apiResult;
   }
 
   Future<Response<UserData>?> setAsFavorite(bool favorite, String itemId) async {
@@ -225,6 +230,24 @@ class User extends _$User {
     if (user == null) return;
     final updated = (user.seerrCredentials ?? const SeerrCredentialsModel()).copyWith(
       sessionCookie: value?.trim() ?? "",
+    );
+    userState = user.copyWith(seerrCredentials: updated);
+  }
+
+  void setSeerrCustomHeaders(Map<String, String> headers) {
+    final user = state;
+    if (user == null) return;
+    final updated = (user.seerrCredentials ?? const SeerrCredentialsModel()).copyWith(
+      customHeaders: headers,
+    );
+    userState = user.copyWith(seerrCredentials: updated);
+  }
+
+  void clearSeerrCustomHeaders() {
+    final user = state;
+    if (user == null) return;
+    final updated = (user.seerrCredentials ?? const SeerrCredentialsModel()).copyWith(
+      customHeaders: {},
     );
     userState = user.copyWith(seerrCredentials: updated);
   }

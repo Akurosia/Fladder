@@ -77,7 +77,7 @@ class EpisodeDetailsList extends ConsumerWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 SelectableText(
-                                  episode.seasonEpisodeLabel(context),
+                                  episode.seasonEpisodeLabel(context.localized),
                                   style: textStyle,
                                 ),
                                 if (episode.overview.runTime != null)
@@ -133,7 +133,7 @@ class EpisodeDetailsList extends ConsumerWidget {
             padding: padding,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: size.toInt(),
+                crossAxisCount: size.toInt().clamp(1, double.maxFinite).toInt(),
                 mainAxisSpacing: (8 * decimals) + 8,
                 crossAxisSpacing: (8 * decimals) + 8,
                 childAspectRatio: 1.67),

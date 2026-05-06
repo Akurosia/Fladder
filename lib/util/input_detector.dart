@@ -78,6 +78,9 @@ class _InputDetectorState extends State<InputDetector> {
 
   void _updateInputDevice(InputDevice device) {
     if (_currentInput != device) {
+      if (device != InputDevice.dPad) {
+        FocusManager.instance.primaryFocus?.unfocus();
+      }
       setState(() {
         _currentInput = device;
       });
@@ -89,8 +92,11 @@ class _InputDetectorState extends State<InputDetector> {
     return Listener(
       onPointerDown: _handlePointerEvent,
       behavior: HitTestBehavior.translucent,
-      child: Builder(
-        builder: (context) => widget.child(_currentInput),
+      child: IgnorePointer(
+        ignoring: _currentInput == InputDevice.dPad,
+        child: Builder(
+          builder: (context) => widget.child(_currentInput),
+        ),
       ),
     );
   }

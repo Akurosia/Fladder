@@ -319,7 +319,7 @@ class LibraryViews extends ConsumerWidget {
       case GroupBy.dateAdded:
         return groupBy(
             items,
-            (poster) => DateFormat.yMMMMd().format(DateTime(
+            (poster) => DateFormat.yMMMMd(context.localized.localeName).format(DateTime(
                 poster.overview.dateAdded!.year, poster.overview.dateAdded!.month, poster.overview.dateAdded!.day)));
       case GroupBy.releaseDate:
         return groupBy(list, (poster) => poster.overview.yearAired?.toString() ?? context.localized.unknown);
@@ -332,7 +332,7 @@ class LibraryViews extends ConsumerWidget {
       case GroupBy.name:
         return groupBy(list, (poster) => poster.name[0].capitalize());
       case GroupBy.type:
-        return groupBy(list, (poster) => poster.type.label(context));
+        return groupBy(list, (poster) => poster.type.label(context.localized));
       case GroupBy.none:
         return {};
     }

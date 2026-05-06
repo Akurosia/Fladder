@@ -1,4 +1,9 @@
+import 'package:flutter/material.dart';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
+
 import 'package:fladder/models/account_model.dart';
 import 'package:fladder/models/login_screen_model.dart';
 import 'package:fladder/providers/auth_provider.dart';
@@ -7,103 +12,121 @@ import 'package:fladder/screens/login/login_screen_credentials.dart';
 import 'package:fladder/screens/login/login_user_grid.dart';
 import 'package:fladder/screens/shared/animated_fade_size.dart';
 import 'package:fladder/screens/shared/fladder_logo.dart';
+import 'package:fladder/screens/shared/fladder_notification_overlay.dart';
 import 'package:fladder/util/adaptive_layout/adaptive_layout.dart';
+import 'package:fladder/util/deep_link_helper.dart';
 import 'package:fladder/widgets/keyboard/slide_in_keyboard.dart';
 import 'package:fladder/widgets/navigation_scaffold/components/adaptive_fab.dart';
 import 'package:fladder/widgets/navigation_scaffold/components/fladder_app_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:iconsax_plus/iconsax_plus.dart';
 
 @RoutePage()
 class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({super.key});
+  final String? authLink;
+  const LoginScreen({
+    @QueryParam() this.authLink,
+    super.key,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends ConsumerState<LoginScreen> {
-  late final TextEditingController serverTextController =
-      TextEditingController(text: '');
+  late final TextEditingController serverTextController = TextEditingController(text: '');
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   final FocusNode focusNode = FocusNode();
   bool editUsersMode = false;
+  bool loggingIn = false;
+
+  AuthLinkData? parsedAuthLink;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(authProvider.notifier).initModel(context);
+      ref.read(authProvider.notifier).initModel();
+      if (widget.authLink != null) {
+        final data = AuthLinkData.parse(widget.authLink!);
+        if (data != null) {
+          initLink(data);
+        } else {
+          FladderSnack.show("Invalid auth link");
+        }
+      }
     });
+  }
+
+  Future<void> initLink(AuthLinkData value) async {
+    parsedAuthLink = value;
+    ref.read(authProvider.notifier).addNewUser();
   }
 
   @override
   Widget build(BuildContext context) {
     final screen = ref.watch(authProvider.select((value) => value.screen));
     final accounts = ref.watch(authProvider.select((value) => value.accounts));
-    return CustomKeyboardWrapper(
-      child: Scaffold(
-        appBar: const FladderAppBar(),
-        extendBody: true,
-        extendBodyBehindAppBar: true,
-        floatingActionButton: switch (screen) {
-          LoginScreenType.users => Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              spacing: 16,
-              children: [
-                if (AdaptiveLayout.of(context).isDesktop)
+    return NotificationManagerInitializer(
+      child: CustomKeyboardWrapper(
+        child: Scaffold(
+          appBar: FladderAppBar(
+            isDesktop: AdaptiveLayout.of(context).isDesktop,
+          ),
+          extendBody: true,
+          extendBodyBehindAppBar: true,
+          floatingActionButton: switch (screen) {
+            LoginScreenType.users => Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                spacing: 16,
+                children: [
                   AdaptiveFab(
                     context: context,
-                    key: const Key("edit_user_button"),
-                    heroTag: "edit_user_button",
-                    backgroundColor: editUsersMode
-                        ? Theme.of(context).colorScheme.errorContainer
-                        : null,
-                    child: const Icon(IconsaxPlusLinear.edit_2),
-                    onPressed: () =>
-                        setState(() => editUsersMode = !editUsersMode),
+                    key: const Key("new_user_button"),
+                    heroTag: "new_user_button",
+                    child: const Icon(IconsaxPlusLinear.add_square),
+                    onPressed: () => ref.read(authProvider.notifier).addNewUser(),
                   ).normal,
-                AdaptiveFab(
-                  context: context,
-                  key: const Key("new_user_button"),
-                  heroTag: "new_user_button",
-                  child: const Icon(IconsaxPlusLinear.add_square),
-                  onPressed: () => ref.read(authProvider.notifier).addNewUser(),
-                ).normal,
-              ],
-            ),
-          _ => null,
-        },
-        body: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: 1000,
-            ),
-            child: ListView(
-              shrinkWrap: true,
-              padding: MediaQuery.paddingOf(context)
-                  .add(const EdgeInsetsGeometry.all(16)),
-              children: [
-                const FladderLogo(),
-                const SizedBox(height: 24),
-                AnimatedFadeSize(
-                  child: switch (screen) {
-                    LoginScreenType.login ||
-                    LoginScreenType.code =>
-                      const LoginScreenCredentials(),
-                    _ => LoginUserGrid(
-                        users: accounts,
-                        editMode: editUsersMode,
-                        onPressed: (user) =>
-                            tapLoggedInAccount(context, user, ref),
-                        onLongPress: (user) =>
-                            openUserEditDialogue(context, user),
-                      ),
-                  },
-                )
-              ],
+                  if (accounts.isNotEmpty)
+                    AdaptiveFab(
+                      context: context,
+                      key: const Key("edit_user_button"),
+                      heroTag: "edit_user_button",
+                      backgroundColor: editUsersMode ? Theme.of(context).colorScheme.errorContainer : null,
+                      child: const Icon(IconsaxPlusLinear.edit_2),
+                      onPressed: () => setState(() => editUsersMode = !editUsersMode),
+                    ).normal,
+                ],
+              ),
+            _ => null,
+          },
+          body: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 1000,
+              ),
+              child: loggingIn
+                  ? const CircularProgressIndicator()
+                  : ListView(
+                      shrinkWrap: true,
+                      padding: MediaQuery.paddingOf(context).add(const EdgeInsetsGeometry.all(16)),
+                      children: [
+                        const FladderLogo(),
+                        const SizedBox(height: 24),
+                        AnimatedFadeSize(
+                          child: switch (screen) {
+                            LoginScreenType.login || LoginScreenType.code => LoginScreenCredentials(
+                                authLinkData: parsedAuthLink,
+                              ),
+                            _ => LoginUserGrid(
+                                users: accounts,
+                                editMode: editUsersMode,
+                                onPressed: (user) => tapLoggedInAccount(context, user, ref),
+                                onLongPress: (user) => openUserEditDialogue(context, user),
+                              ),
+                          },
+                        )
+                      ],
+                    ),
             ),
           ),
         ),

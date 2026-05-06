@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:fladder/jellyfin/jellyfin_open_api.swagger.dart';
+import 'package:fladder/l10n/generated/app_localizations.dart';
 import 'package:fladder/models/item_base_model.dart';
 import 'package:fladder/models/items/images_models.dart';
 import 'package:fladder/models/items/item_shared_models.dart';
 import 'package:fladder/models/items/overview_model.dart';
-import 'package:fladder/util/localization_helper.dart';
+import 'package:fladder/models/items/watched_state.dart';
 
 class BookModel extends ItemBaseModel {
   final String? parentName;
@@ -32,7 +31,7 @@ class BookModel extends ItemBaseModel {
   String? get subText => parentName;
 
   @override
-  String? detailedName(BuildContext context) => "$name ${parentName != null ? "\n ($parentName)" : ""} ";
+  String? detailedName(AppLocalizations l10n) => "$name ${parentName != null ? "\n ($parentName)" : ""} ";
 
   @override
   ItemBaseModel get parentBaseModel => copyWith(id: parentId);
@@ -43,22 +42,26 @@ class BookModel extends ItemBaseModel {
   int get currentPage => userData.playbackPositionTicks ~/ 10000;
 
   @override
-  String playText(BuildContext context) => context.localized.read(name);
+  String playText(AppLocalizations l10n) => l10n.read(name);
 
   @override
   double get progress => userData.progress != 0 ? 100 : 0;
 
   @override
-  String? unplayedLabel(BuildContext context) => userData.progress != 0 ? context.localized.page(currentPage) : null;
+  WatchedState watchedState(AppLocalizations l10n) => userData.played == true
+      ? const Played()
+      : userData.progress != 0
+          ? PartiallyPlayed(l10n.page(currentPage))
+          : const Unplayed();
 
   @override
-  String playButtonLabel(BuildContext context) => progress != 0
-      ? context.localized.continuePage(currentPage)
+  String playButtonLabel(AppLocalizations l10n) => progress != 0
+      ? l10n.continuePage(currentPage)
       : userData.played == true
-          ? "${context.localized.restart} $name"
-          : context.localized.read(name);
+          ? "${l10n.restart} $name"
+          : l10n.read(name);
 
-  factory BookModel.fromBaseDto(BaseItemDto item, Ref ref) {
+  factory BookModel.fromBaseDto(BaseItemDto item, Ref? ref) {
     return BookModel(
       name: item.name ?? "",
       id: item.id ?? "",
@@ -68,7 +71,7 @@ class BookModel extends ItemBaseModel {
       userData: UserData.fromDto(item.userData),
       parentId: item.parentId,
       playlistId: item.playlistItemId,
-      images: ImagesData.fromBaseItem(item, ref),
+      images: ref != null ? ImagesData.fromBaseItem(item, ref) : null,
       canDelete: item.canDelete,
       canDownload: item.canDownload,
       primaryRatio: item.primaryImageAspectRatio,

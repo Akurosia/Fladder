@@ -16,7 +16,7 @@ import 'package:fladder/screens/settings/settings_list_tile.dart';
 import 'package:fladder/screens/settings/settings_scaffold.dart';
 import 'package:fladder/screens/shared/default_alert_dialog.dart';
 import 'package:fladder/screens/shared/fladder_icon.dart';
-import 'package:fladder/screens/shared/fladder_snackbar.dart';
+import 'package:fladder/screens/shared/fladder_notification_overlay.dart';
 import 'package:fladder/util/adaptive_layout/adaptive_layout.dart';
 import 'package:fladder/util/localization_helper.dart';
 import 'package:fladder/util/theme_extensions.dart';
@@ -50,7 +50,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               ? Card(
                   elevation: 0,
                   child: Stack(
-                    children: [_leftPane(context), content],
+                    children: [
+                      _leftPane(context),
+                      content,
+                    ],
                   ),
                 )
               : Row(
@@ -60,7 +63,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     Expanded(flex: 2, child: _leftPane(context)),
                     Expanded(
                       flex: 3,
-                      child: content,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.paddingOf(context).left,
+                        ),
+                        child: content,
+                      ),
                     ),
                   ],
                 ),
@@ -111,13 +119,13 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     final isAdmin = ref.watch(userProvider.select((value) => value?.policy?.isAdministrator ?? false));
 
     return Padding(
-      padding: EdgeInsets.only(left: AdaptiveLayout.of(context).sideBarWidth),
+      padding: EdgeInsetsDirectional.only(start: AdaptiveLayout.of(context).sideBarWidth),
       child: Container(
         color: context.colors.surface,
         child: SettingsScaffold(
           label: context.localized.settings,
           scrollController: scrollController,
-          showBackButtonNested: true,
+          showBackButtonNested: AdaptiveLayout.inputDeviceOf(context) != InputDevice.dPad,
           showUserIcon: true,
           items: [
             if (hasNewUpdate && newRelease != null) ...[
@@ -200,7 +208,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         if (await manager.isClosable()) {
                           manager.close();
                         } else {
-                          fladderSnackbar(context, title: context.localized.somethingWentWrong);
+                          FladderSnack.show(context.localized.somethingWentWrong, context: context);
                         }
                       } else {
                         SystemNavigator.pop();
@@ -218,7 +226,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               contentColor: Colors.greenAccent,
               onTap: () async {
                 await ref.read(userProvider.notifier).logoutUser();
-                context.router.replaceAll([const LoginRoute()]);
+                context.router.replaceAll([LoginRoute()]);
               },
             ),
             SettingsListTile(
@@ -249,7 +257,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                         onPressed: () async {
                           await ref.read(authProvider.notifier).logOutUser();
                           if (context.mounted) {
-                            context.router.replaceAll([const LoginRoute()]);
+                            context.router.replaceAll([LoginRoute()]);
                           }
                         },
                         child: Text(context.localized.logout),

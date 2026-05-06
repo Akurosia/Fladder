@@ -71,8 +71,6 @@ class _InputHandlerState<T> extends ConsumerState<InputHandler<T>> {
     super.initState();
     if (widget.listenRawKeyboard) {
       _registerHardwareKeyboard();
-    } else if (widget.autoFocus) {
-      focusNode.requestFocus();
     }
   }
 
@@ -94,11 +92,20 @@ class _InputHandlerState<T> extends ConsumerState<InputHandler<T>> {
         skipTraversal: true,
         onFocusChange: (value) {
           final inputFieldFocus = isEditableTextFocused();
-          if (!focusNode.hasFocus && widget.autoFocus && !inputFieldFocus) {
+          final isCurrent = ModalRoute.of(context)?.isCurrent ?? true;
+          if (!focusNode.hasFocus && widget.autoFocus && !inputFieldFocus && isCurrent) {
             focusNode.requestFocus();
           }
         },
-        onKeyEvent: widget.onKeyEvent ?? (node, event) => _onKey(event),
+        onKeyEvent: (node, event) {
+          if (widget.onKeyEvent != null) {
+            final result = widget.onKeyEvent!(node, event);
+            if (result != KeyEventResult.ignored) {
+              return result;
+            }
+          }
+          return _onKey(event);
+        },
         child: widget.child,
       );
     }
@@ -142,11 +149,11 @@ class _InputHandlerState<T> extends ConsumerState<InputHandler<T>> {
         final keyCombination = entry.value;
 
         bool isMainKeyPressed = logicalKey == keyCombination.key;
-        bool isModifierKeyPressed = pressedModifier == keyCombination.modifier;
+        bool isModifierKeyPressed = KeyCombination.modifierMatches(pressedModifier, keyCombination.modifier);
 
         bool isAltKeyPressed = logicalKey == keyCombination.altKey;
 
-        bool isAltModifierKeyPressed = pressedModifier == keyCombination.altModifier;
+        bool isAltModifierKeyPressed = KeyCombination.modifierMatches(pressedModifier, keyCombination.altModifier);
 
         if ((isMainKeyPressed && isModifierKeyPressed) || isAltKeyPressed && isAltModifierKeyPressed) {
           if (widget.keyMapResult?.call(hotKey) ?? false) {

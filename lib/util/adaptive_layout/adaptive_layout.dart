@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -98,15 +100,19 @@ class AdaptiveLayout extends InheritedWidget {
     return result?.data.isDesktop ?? false;
   }
 
-  static EdgeInsets adaptivePadding(BuildContext context, {double horizontalPadding = 16}) {
+  static EdgeInsets adaptivePadding(BuildContext context, {double horizontalPadding = 12}) {
     final viewPadding = MediaQuery.paddingOf(context);
-    final padding = viewPadding.copyWith(
-      left: AdaptiveLayout.of(context).sideBarWidth + horizontalPadding + viewPadding.left,
-      top: 0,
-      bottom: 0,
-      right: viewPadding.right + horizontalPadding,
+    final textDirection = Directionality.of(context);
+    final directionalPadding = EdgeInsetsDirectional.only(
+      start: AdaptiveLayout.of(context).sideBarWidth + horizontalPadding,
+      end: horizontalPadding,
+    ).resolve(textDirection);
+
+    // Keep system safe-area insets physical; only app layout spacing should be directional.
+    return EdgeInsets.only(
+      left: viewPadding.left + directionalPadding.left,
+      right: viewPadding.right + directionalPadding.right,
     );
-    return padding;
   }
 
   static LayoutMode layoutModeOf(BuildContext context) => maybeOf(context)!.data.layoutMode;
@@ -137,7 +143,8 @@ class _AdaptiveLayoutBuilderState extends ConsumerState<AdaptiveLayoutBuilder> {
   List<LayoutPoints> layoutPoints = [
     LayoutPoints(start: 0, end: 599, type: ViewSize.phone),
     LayoutPoints(start: 600, end: 1919, type: ViewSize.tablet),
-    LayoutPoints(start: 1920, end: 3180, type: ViewSize.desktop),
+    LayoutPoints(start: 1920, end: 2560, type: ViewSize.desktop),
+    LayoutPoints(start: 2561, end: double.infinity, type: ViewSize.television),
   ];
   late ViewSize viewSize = ViewSize.tablet;
   late LayoutMode layoutMode = LayoutMode.single;
@@ -206,6 +213,7 @@ class _AdaptiveLayoutBuilderState extends ConsumerState<AdaptiveLayoutBuilder> {
           platform: currentPlatform,
           isDesktop: isDesktop,
           sideBarWidth: 0,
+          topBarHeight: 0,
           controller: scrollControllers,
           posterDefaults: posterDefaults,
         );
@@ -224,10 +232,12 @@ class _AdaptiveLayoutBuilderState extends ConsumerState<AdaptiveLayoutBuilder> {
             data: mediaQuery.copyWith(
               navigationMode: input == InputDevice.dPad ? NavigationMode.directional : NavigationMode.traditional,
               padding: (useAdditionalPadding
-                  ? EdgeInsets.only(top: isAndroidTV ? 16 : defaultTitleBarHeight, bottom: 16)
-                  : mediaQuery.padding),
+                  ? EdgeInsets.only(top: isAndroidTV ? 12 : defaultTitleBarHeight, bottom: 16)
+                  : mediaQuery.padding.copyWith(
+                      top: defaultTargetPlatform == TargetPlatform.iOS ? math.max(24, mediaQuery.padding.top) : null,
+                    )),
               viewPadding: useAdditionalPadding
-                  ? EdgeInsets.only(top: isAndroidTV ? 16 : defaultTitleBarHeight, bottom: 16)
+                  ? EdgeInsets.only(top: isAndroidTV ? 12 : defaultTitleBarHeight, bottom: 16)
                   : null,
             ),
             child: AdaptiveLayout(
@@ -257,11 +267,4 @@ class _AdaptiveLayoutBuilderState extends ConsumerState<AdaptiveLayoutBuilder> {
       },
     );
   }
-}
-
-double? get topPadding {
-  return switch (defaultTargetPlatform) {
-    TargetPlatform.linux || TargetPlatform.windows || TargetPlatform.macOS => 35,
-    _ => null
-  };
 }

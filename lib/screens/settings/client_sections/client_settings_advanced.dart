@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 
 import 'package:fladder/providers/settings/client_settings_provider.dart';
 import 'package:fladder/providers/settings/home_settings_provider.dart';
@@ -41,10 +42,21 @@ List<Widget> buildClientSettingsAdvanced(BuildContext context, WidgetRef ref) {
           elevation: 0,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(ref
-                .watch(homeSettingsProvider.select((value) => value.layoutStates.toList()))
-                .map((e) => e.label(context))
-                .join(', ')),
+            child: Column(
+              spacing: 4,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: ViewSize.values.map((e) {
+                final isCurrent = AdaptiveLayout.viewSizeOf(context) == e;
+                return Row(
+                  spacing: 4,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(e.label(context)),
+                    if (isCurrent) const Icon(IconsaxPlusLinear.tick_circle, size: 16),
+                  ],
+                );
+              }).toList(),
+            ),
           ),
         ),
       ),
@@ -73,10 +85,21 @@ List<Widget> buildClientSettingsAdvanced(BuildContext context, WidgetRef ref) {
           elevation: 0,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(ref
-                .watch(homeSettingsProvider.select((value) => value.screenLayouts.toList()))
-                .map((e) => e.label(context))
-                .join(', ')),
+            child: Column(
+              spacing: 4,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: LayoutMode.values.map((e) {
+                final isCurrent = AdaptiveLayout.layoutModeOf(context) == e;
+                return Row(
+                  spacing: 4,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(e.label(context)),
+                    if (isCurrent) const Icon(IconsaxPlusLinear.tick_circle, size: 16),
+                  ],
+                );
+              }).toList(),
+            ),
           ),
         ),
       ),

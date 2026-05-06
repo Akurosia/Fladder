@@ -16,7 +16,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 0.9.0+1
+version: 0.10.3+1
 
 environment:
   sdk: ">=3.1.3 <4.0.0"
@@ -70,6 +70,7 @@ dependencies:
   media_kit_video: ^2.0.0 # For video rendering.
   media_kit_libs_video: ^1.0.7 # Native video dependencies.
   audio_service: ^0.18.18
+  audio_service_mpris: ^0.2.0
   fvp: ^0.35.0
   video_player: ^2.10.0
 
@@ -112,11 +113,15 @@ dependencies:
   package_info_plus: ^9.0.0
   wakelock_plus: ^1.3.2
   screen_brightness: ^2.1.7
+  volume_controller: 3.4.1
   window_manager: ^0.5.1
   smtc_windows: ^1.1.0
   background_downloader: ^9.2.3
   screen_retriever: ^0.2.0
   desktop_multi_window: ^0.3.0
+  workmanager: ^0.9.0+3
+  flutter_local_notifications: ^20.1.0
+  permission_handler: ^12.0.1
 
   # Data
   drift: ^2.28.1
@@ -131,10 +136,14 @@ dependencies:
   flexible_scrollbar: ^0.1.3
   flutter_typeahead: ^5.2.0
   share_plus: ^12.0.0
+  pretty_qr_code: ^3.0.1
   archive: ^4.0.7
   dart_mappable: ^4.6.0
   flutter_native_splash: ^2.4.7
   macos_window_utils: ^1.9.0
+
+  # Fix cjk font rendering issue on Windows
+  chinese_font_library: ^1.2.0
 
 dependency_overrides:
   media_kit:

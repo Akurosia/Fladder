@@ -77,7 +77,7 @@ Open a terminal and `cd` to the directory where you extracted Fladder to. Run `.
 ## Android
 
 > [!IMPORTANT]
-> This app is currently not compatible with Android TV, however contributions to add support are always appreciated.
+> Alpha support added in v0.8.0 and contributions to add further support are always appreciated.
 ### Play Store
 
 This is the recommended way to install Fladder on Android.
@@ -141,10 +141,33 @@ Run `docker-compose up -d` to start the container. It will be available on `http
 > [!TIP]
 > We recommend changing the `BASE_URL` environment variable to the URL you use to access Jellyfin, as this will skip entering it when you load the web UI.
 
+You can also preconfigure Seerr with this environment variable:
+
+- `SEERR_BASE_URL`: String URL for your Seerr/Jellyseerr instance.
+
+Example:
+
+```env
+BASE_URL=https://jellyfin.example.com
+SEERR_BASE_URL=https://seerr.example.com
+```
+
 ## Web
 
 You can also manually copy the web .zip build to any static file server such as Nginx, Caddy, or Apache
 
 > [!TIP]
 > You can preconfigure Fladder by placing a config file in [assets/config/config.json](https://github.com/DonutWare/Fladder/blob/develop/config/config.json)
+
+`config.json` options:
+
+```json
+{
+	"baseUrl": "https://jellyfin.example.com",
+	"seerrBaseUrl": "https://seerr.example.com"
+}
+```
+
+- `baseUrl`: String. Presets Jellyfin URL on login.
+- `seerrBaseUrl`: String. Presets Seerr URL in personal settings.
 

@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'package:fladder/models/api_result.dart';
 import 'package:fladder/models/seerr/seerr_dashboard_model.dart';
 import 'package:fladder/providers/seerr_api_provider.dart';
 import 'package:fladder/providers/seerr_user_provider.dart';
@@ -193,39 +194,44 @@ class SeerrRequest extends _$SeerrRequest {
     }
   }
 
-  Future<void> submitRequest() async {
+  Future<ApiResult<SeerrMediaRequest?>?> submitRequest() async {
     final poster = state.poster;
-    if (poster == null) return;
+    if (poster == null) return null;
 
-    final canOverrideUser = state.currentUser?.canManageRequests ?? false;
+    final canOverrideUser = state.currentUser?.canManageUsers ?? false;
     final userId = canOverrideUser ? state.selectedUser?.id ?? state.currentUser?.id : null;
     final tags = state.selectedTags.map((t) => t.id).whereType<int>().toList();
-    final profileId = state.selectedProfile?.id;
-    final rootFolder = state.selectedRootFolder;
 
     final isTv = poster.type == SeerrMediaType.tvshow;
+    final selectedServer = isTv ? state.selectedSonarrServer : state.selectedRadarrServer;
+
+    final serverId = selectedServer?.id;
+    final profileId = state.selectedProfile?.id;
+    final rootFolder = state.selectedRootFolder ?? state.defaultRootFolder;
 
     if (isTv) {
-      await api.requestSeries(
+      return (await api.requestSeries(
         tmdbId: poster.tmdbId,
-        is4k: state.selectedSonarrServer?.is4k,
+        is4k: selectedServer?.is4k ?? false,
         userId: userId,
-        serverId: state.selectedSonarrServer?.id,
+        serverId: serverId,
         profileId: profileId,
         rootFolder: rootFolder,
         tags: tags,
         seasons: state.selectedSeasonNumbers,
-      );
+      ))
+          .apiResult;
     } else {
-      await api.requestMovie(
+      return (await api.requestMovie(
         tmdbId: poster.tmdbId,
-        is4k: state.selectedRadarrServer?.is4k,
+        is4k: selectedServer?.is4k ?? false,
         userId: userId,
-        serverId: state.selectedRadarrServer?.id,
+        serverId: serverId,
         profileId: profileId,
         rootFolder: rootFolder,
         tags: tags,
-      );
+      ))
+          .apiResult;
     }
   }
 

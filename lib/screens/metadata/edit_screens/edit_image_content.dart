@@ -226,11 +226,11 @@ class _EditImageContentState extends ConsumerState<EditImageContent> {
                     mainAxisSpacing: (8 * decimal) + 8,
                     crossAxisSpacing: (8 * decimal) + 8,
                     childAspectRatio: 1.0,
-                    crossAxisCount: posterSize.toInt(),
+                    crossAxisCount: posterSize.toInt().clamp(1, double.maxFinite).toInt(),
                   ),
                   children: allImageCards,
                 ),
-                if (loading) const Center(child: CircularProgressIndicator.adaptive(strokeCap: StrokeCap.round)),
+                if (loading) const Center(child: CircularProgressIndicator(strokeCap: StrokeCap.round)),
                 if (!loading && allImageCards.isEmpty) Center(child: Text("No ${widget.type.value}s found"))
               ],
             ),

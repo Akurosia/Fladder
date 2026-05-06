@@ -277,7 +277,7 @@ class _VideoOptionsMobileState extends ConsumerState<VideoOptions> {
       shrinkWrap: true,
       controller: widget.controller,
       children: [
-        navTitle(currentItem?.title, currentItem?.subTextShort(context)),
+        navTitle(currentItem?.title, currentItem?.subTextShort(context.localized)),
         if (currentItem != null) ...{
           if (currentItem.type == FladderItemType.episode)
             ListTile(
@@ -395,7 +395,7 @@ Future<void> showSubSelection(BuildContext context) {
               children: [
                 Text(context.localized.subtitle),
                 const Spacer(),
-                if (player.backend == PlayerOptions.libMPV)
+                if (player.backend == PlayerOptions.libMPV || player.backend == PlayerOptions.libMDK)
                   IconButton.outlined(
                       onPressed: () {
                         Navigator.pop(context);

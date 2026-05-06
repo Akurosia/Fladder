@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:fladder/util/adaptive_layout/adaptive_layout.dart';
 
-class DefautlSliverBottomPadding extends StatelessWidget {
-  const DefautlSliverBottomPadding({super.key});
+class DefaultSliverBottomPadding extends StatelessWidget {
+  const DefaultSliverBottomPadding({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +20,8 @@ class DefaultSliverTopBadding extends StatelessWidget {
   Widget build(BuildContext context) {
     return (AdaptiveLayout.viewSizeOf(context) == ViewSize.phone)
         ? const SliverToBoxAdapter()
-        : SliverPadding(padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top));
+        : SliverPadding(
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).padding.top + AdaptiveLayout.of(context).topBarHeight));
   }
 }

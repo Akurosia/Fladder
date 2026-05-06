@@ -10,6 +10,9 @@ jobs:
   linting:
     name: Linting & Formatting
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.1.1
@@ -36,7 +39,9 @@ jobs:
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
 
-      - name: Analyze Dart
-        uses: invertase/github-action-dart-analyzer@v3
+      - name: Analyze Flutter
+        uses: ValentinVignal/action-dart-analyze@v2.0
         with:
-          custom-lint: true
+          emojis: false
+          fail-on: info
+          line-length: 120
